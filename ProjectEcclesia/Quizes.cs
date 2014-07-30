@@ -92,8 +92,8 @@ namespace Quizes {
 					"30 seconds per question" +
 					"\n\n" +
 					"The faster you answer a question, the more points you get.\n\n" +
-					"If you run out of time, the quiz will be paused and you will be given the option to quit." +
-					"\n\nIf you quit, you can pick up where you left off later.\n\n\n", Quizes.QuizMenu.getTotalQuestions()),
+					"If you get a question wrong, you can ask a rep for partial points.\n\n" +
+					"If you quit, you can pick up where you left off later.\n\n", Quizes.QuizMenu.getTotalQuestions()),
 			};
 
 			Label readyLabel = new Label () {
@@ -343,16 +343,6 @@ namespace Quizes {
 						int optionChosen = 1;
 						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionAButton, labelA, questionNum, optionChosen);
-//						if (isCorrect (questionNum, optionChosen)) {
-//							optionAButton.Text = " O ";
-//							optionAButton.BackgroundColor = Color.Green;
-//							labelA.TextColor = Color.Green;
-//						} else {
-//							optionAButton.Text = " X ";
-//							optionAButton.BackgroundColor = Color.Red;
-//							labelA.TextColor = Color.Red;
-//						}
-//						ToNextQuestion (optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
 						}
@@ -363,15 +353,6 @@ namespace Quizes {
 						int optionChosen = 2;
 						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionBButton, labelB, questionNum, optionChosen);
-//						if (isCorrect (questionNum, optionChosen)) {
-//							optionBButton.Text = " O ";
-//							optionBButton.BackgroundColor = Color.Green;
-//							labelB.TextColor = Color.Green;
-//						} else {
-//							optionBButton.Text = " X ";
-//							optionBButton.BackgroundColor = Color.Red;
-//							labelB.TextColor = Color.Red;
-//						}
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
 						}
@@ -382,16 +363,6 @@ namespace Quizes {
 						int optionChosen = 3;
 						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionCButton, labelC, questionNum, optionChosen);
-//						if (isCorrect (questionNum, optionChosen)) {
-//							optionCButton.Text = " O ";
-//							optionCButton.BackgroundColor = Color.Green;
-//							labelC.TextColor = Color.Green;
-//						} else {
-//							optionCButton.Text = " X ";
-//							optionCButton.BackgroundColor = Color.Red;
-//							labelC.TextColor = Color.Red;
-//						}
-//						ToNextQuestion (optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
 						}
@@ -402,7 +373,6 @@ namespace Quizes {
 						int optionChosen = 4;
 						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionDButton, labelD, questionNum, optionChosen);
-//						ToNextQuestion (optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
 						}
@@ -411,7 +381,7 @@ namespace Quizes {
 
 					exitButton.Clicked += async (sender, e) => {
 						await GetNextQuestionObject(questionNum);
-						await ProjectEcclesia.App.NavPage.Navigation.PopToRootAsync();
+						timer.Stop();
 						await ProjectEcclesia.App.NavPage.Navigation.PushAsync(new ProjectEcclesia.MainMenuPage());
 					};
 
@@ -446,16 +416,14 @@ namespace Quizes {
 		private async Task CodeWordCheck (Button currentButton, Label letterLabel, long questionNum, int optionChosen) {
 			if (isCorrect (questionNum, optionChosen)) {
 				timer.Stop ();
-				currentButton.Text = "  O  ";
 				currentButton.BackgroundColor = Color.Green;
 				letterLabel.TextColor = Color.Green;
 				await DisplayAlert("Correct!", string.Format("+{0}", secondsLeft), "Continue", null);
 			} else {
 				timer.Stop ();
-				currentButton.Text = "  X  ";
 				currentButton.BackgroundColor = Color.Red;
 				letterLabel.TextColor = Color.Red;
-				bool alert = await DisplayAlert("Wrong!", "Would you like to ask a rep for the solution (and codeword) so you can try again for partial credit?" , "Yes", "No");
+				bool alert = await DisplayAlert("Incorrect!", "Would you like to ask a rep for the solution (and codeword) so you can try again for partial credit?" , "Yes", "No");
 				Console.WriteLine ("bool alert: " + alert);
 				if (alert) {
 					secondsLeft = secondsLeft / 2;
@@ -463,8 +431,6 @@ namespace Quizes {
 					await this.Navigation.PushModalAsync(new EnterCodewordPage(questionNum, question));
 				} else {
 					ToNextQuestion (optionChosen);
-//					await ProjectEcclesia.App.NavPage.PopToRootAsync();
-//					await ProjectEcclesia.App.NavPage.PushAsync(new ProjectEcclesia.MainMenuPage());
 				}
 			}
 		}
@@ -652,36 +618,23 @@ namespace Quizes {
 				TextColor = Color.White,
 			};
 
-			Button exitQuiz = new Button () {
+			Button exitButton= new Button () {
 				Text = "Exit Quiz",
 			};
 
 			submitButton.Clicked += async (sender, e) => {
 				string correctCodeWord = SetCorrectCodeWord();
 				if (correctCodeWord.Equals(codewordEntry.Text)) {
-					bool canProceed = await DisplayAlert("Correct!", "The codeword you entered was correct.", "Continue", "Main Menu");
-					if (canProceed) {
-						await this.Navigation.PopModalAsync();
-					} else {
-						await this.Navigation.PopModalAsync();
-						await ProjectEcclesia.App.NavPage.PopToRootAsync();
-						await ProjectEcclesia.App.NavPage.PushAsync(new ProjectEcclesia.MainMenuPage());
-					}
+					await DisplayAlert("Correct!", "The codeword you entered was correct.", "Continue", null);
+					await this.Navigation.PopModalAsync();
 				} else {
-					bool willTryAgain = await DisplayAlert("Incorrect", "The codeword you entered was incorrect.", "Retry", "Main Menu");
-					if (willTryAgain) {
-						codewordEntry.Text = "";
-					} else {
-						await this.Navigation.PopModalAsync();
-						await ProjectEcclesia.App.NavPage.PopToRootAsync();
-						await ProjectEcclesia.App.NavPage.PushAsync(new ProjectEcclesia.MainMenuPage());
-					}
+					await DisplayAlert("Incorrect", "The codeword you entered was incorrect.", "Retry", null);
+					codewordEntry.Text = "";
 				}
 			};
 
-			exitQuiz.Clicked += async (sender, e) => {
+			exitButton.Clicked += async (sender, e) => {
 				await this.Navigation.PopModalAsync ();
-				await ProjectEcclesia.App.NavPage.PopToRootAsync ();
 				await ProjectEcclesia.App.NavPage.PushAsync (new ProjectEcclesia.MainMenuPage ());
 			};
 
@@ -689,7 +642,7 @@ namespace Quizes {
 			sl.Children.Add (questionLabel);
 			sl.Children.Add (codewordEntry);
 			sl.Children.Add (submitButton);
-			sl.Children.Add (exitQuiz);
+			sl.Children.Add (exitButton);
 			Content = sl;
 		}
 
