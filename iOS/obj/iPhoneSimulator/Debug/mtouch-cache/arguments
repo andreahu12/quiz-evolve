@@ -1,14 +1,14 @@
 # Version: 7.2.5.5 (87026b6)
-# [first argument, ignore] # /Users/andreahu/projects/Ecclesia/ProjectEcclesia/iOS/bin/iPhoneSimulator/Debug/mtouch.exe
+# [first argument, ignore] # /Users/andreahu/projects/ecclesia-evolve/iOS/bin/iPhoneSimulator/Debug/mtouch.exe
 /Developer/MonoTouch/usr/bin/mtouch \
 	-sdkroot \
 	/Applications/Xcode.app/Contents/Developer \
 	--cache \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
+	/Users/andreahu/Projects/ecclesia-evolve/iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--nomanifest \
 	--nosign \
 	-sim \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/iOS/bin/iPhoneSimulator/Debug/ProjectEcclesiaiOS.app \
+	/Users/andreahu/Projects/ecclesia-evolve/iOS/bin/iPhoneSimulator/Debug/ProjectEcclesiaiOS.app \
 	-r \
 	/Developer/MonoTouch/usr/lib/mono/2.1/System.dll \
 	-r \
@@ -18,15 +18,15 @@
 	-r \
 	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
 	-r \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Platform.iOS.dll \
+	/Users/andreahu/Projects/ecclesia-evolve/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Platform.iOS.dll \
 	-r \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Core.dll \
+	/Users/andreahu/Projects/ecclesia-evolve/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Core.dll \
 	-r \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Xaml.dll \
+	/Users/andreahu/Projects/ecclesia-evolve/packages/Xamarin.Forms.1.0.6186/lib/MonoTouch10/Xamarin.Forms.Xaml.dll \
 	-r \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/Components/parse-1.2.14/lib/ios/Parse.iOS.dll \
+	/Users/andreahu/Projects/ecclesia-evolve/Components/parse-1.2.14/lib/ios/Parse.iOS.dll \
 	-r \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/Components/sqlite-net-1.0.8/lib/ios/SQLite.dll \
+	/Users/andreahu/Projects/ecclesia-evolve/Components/sqlite-net-1.0.8/lib/ios/SQLite.dll \
 	-debug \
 	-nolink \
 	-sdk \
@@ -34,4 +34,4 @@
 	-targetver \
 	7.0 \
 	--abi=i386 \
-	/Users/andreahu/Projects/Ecclesia/ProjectEcclesia/iOS/bin/iPhoneSimulator/Debug/ProjectEcclesiaiOS.exe \
+	/Users/andreahu/Projects/ecclesia-evolve/iOS/bin/iPhoneSimulator/Debug/ProjectEcclesiaiOS.exe \
