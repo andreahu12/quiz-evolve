@@ -312,25 +312,21 @@ namespace Quizes {
 					Label labelA = new Label() {
 						Text = optionA,
 						TextColor = Color.Black,
-//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelB = new Label() {
 						Text = optionB,
 						TextColor = Color.Black,
-//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelC = new Label() {
 						Text = optionC,
 						TextColor = Color.Black,
-//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelD = new Label() {
 						Text = optionD,
 						TextColor = Color.Black,
-//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					rowA.Children.Add(optionAButton);
@@ -427,12 +423,12 @@ namespace Quizes {
 				timer.Stop ();
 				currentButton.BackgroundColor = Color.Red;
 				letterLabel.TextColor = Color.Red;
-				bool alert = await DisplayAlert("Incorrect!", "Would you like to ask a rep for the solution (and codeword) so you can try again for partial credit?" , "Yes", "No");
+				bool alert = await DisplayAlert("Incorrect!", "Would you like to ask a rep for the solution (and codeword) so you can try again for potential partial credit?" , "Yes", "No");
 				Console.WriteLine ("bool alert: " + alert);
 				if (alert) {
 					secondsLeft = secondsLeft / 2;
-					string question = generateQuestion (questionNum);
-					await this.Navigation.PushModalAsync(new EnterCodewordPage(questionNum, question));
+//					string question = generateQuestion (questionNum);
+					await this.Navigation.PushModalAsync(new EnterCodewordPage(currentObj));
 				} else {
 					ToNextQuestion (optionChosen);
 				}
@@ -598,17 +594,26 @@ namespace Quizes {
 	}
 
 	public class EnterCodewordPage : ContentPage {
-		public EnterCodewordPage(long questionNum, string question) {
+		//public EnterCodewordPage(long questionNum, string question) {
+		public EnterCodewordPage(ParseObject currentObject) {
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			Label instructionsLabel = new Label () {
-				Text = "Please ask a representative for the correct answer and the codeword. \n\n",
+				Text = "Please ask a representative for the correct answer and the codeword.\n",
 				TextColor = Color.FromHex("#b455b6"),
 				Font = Font.SystemFontOfSize(NamedSize.Large),
 			};
 
+			string questionNum = currentObject ["Number"].ToString();
+			string question = currentObject ["Question"].ToString ();
+			string a = "[A] " + currentObject ["A"].ToString ();
+			string b = "[B] " + currentObject ["B"].ToString ();
+			string c = "[C] " + currentObject ["C"].ToString ();
+			string d = "[D] " + currentObject ["D"].ToString ();
+
 			Label questionLabel = new Label () {
-				Text = string.Format ("{0}. {1}", questionNum, question),
+				Font = Font.SystemFontOfSize(NamedSize.Micro),
+				Text = string.Format ("{0}. {1}\n{2}\n{3}\n{4}\n{5}\n", questionNum, question, a, b, c, d),
 			};
 
 			Entry codewordEntry = new Entry () {
@@ -805,5 +810,3 @@ namespace Quizes {
 		}
 	}
 }
-
-
