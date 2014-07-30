@@ -278,30 +278,30 @@ namespace Quizes {
 
 					Button optionAButton = new Button () {
 						BackgroundColor = Color.FromHex("#2c3e50"),
-						Text = "  A  ",
+						Text = " A ",
 						TextColor = Color.FromHex ("#ecf0f1"),
-						Font = Font.SystemFontOfSize(NamedSize.Large),
+						Font = Font.SystemFontOfSize(50),
 					};
 
 					Button optionBButton = new Button () {
 						BackgroundColor = Color.FromHex("#2c3e50"),
-						Text = "  B  ",
+						Text = " B ",
 						TextColor = Color.FromHex ("#ecf0f1"),
-						Font = Font.SystemFontOfSize(NamedSize.Large),
+						Font = Font.SystemFontOfSize(50),
 					};
 						
 					Button optionCButton = new Button () {
 						BackgroundColor = Color.FromHex("#2c3e50"),
-						Text = "  C  ",
+						Text = " C ",
 						TextColor = Color.FromHex ("#ecf0f1"),
-						Font = Font.SystemFontOfSize(NamedSize.Large),
+						Font = Font.SystemFontOfSize(50),
 					};
 
 					Button optionDButton = new Button () {
 						BackgroundColor = Color.FromHex("#2c3e50"),
-						Text = "  D  ",
+						Text = " D ",
 						TextColor = Color.FromHex ("#ecf0f1"),
-						Font = Font.SystemFontOfSize(NamedSize.Large),
+						Font = Font.SystemFontOfSize(50),
 					};
 
 					Button exitButton = new Button() {
@@ -311,22 +311,26 @@ namespace Quizes {
 
 					Label labelA = new Label() {
 						Text = optionA,
-						TextColor = Color.FromHex("#2c3e50"),
+						TextColor = Color.Black,
+//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelB = new Label() {
 						Text = optionB,
-						TextColor = Color.FromHex("#2c3e50"),
+						TextColor = Color.Black,
+//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelC = new Label() {
 						Text = optionC,
-						TextColor = Color.FromHex("#2c3e50"),
+						TextColor = Color.Black,
+//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					Label labelD = new Label() {
 						Text = optionD,
-						TextColor = Color.FromHex("#2c3e50"),
+						TextColor = Color.Black,
+//						TextColor = Color.FromHex("#2c3e50"),
 					};
 
 					rowA.Children.Add(optionAButton);
@@ -392,8 +396,8 @@ namespace Quizes {
 
 					timer.Elapsed += untilTimeIsUp;
 
-					sl.Children.Add (countdownBar);
 					sl.Children.Add (exitButton);
+					sl.Children.Add (countdownBar);
 
 					if (HasImage(obj))
 						sl.Children.Add(photo);
