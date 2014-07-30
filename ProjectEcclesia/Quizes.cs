@@ -597,7 +597,7 @@ namespace Quizes {
 		//public EnterCodewordPage(long questionNum, string question) {
 		public EnterCodewordPage(ParseObject currentObject) {
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
-			BackgroundColor = Color.FromHex ("#ecf0f1");
+			BackgroundColor = Color.FromHex ("#2c3e50");
 			Label instructionsLabel = new Label () {
 				Text = "Please ask a representative for the correct answer and the codeword.\n",
 				TextColor = Color.FromHex("#b455b6"),
@@ -612,7 +612,8 @@ namespace Quizes {
 			string d = "[D] " + currentObject ["D"].ToString ();
 
 			Label questionLabel = new Label () {
-				Font = Font.SystemFontOfSize(NamedSize.Micro),
+				Font = Font.SystemFontOfSize(NamedSize.Small),
+				TextColor = Color.White,
 				Text = string.Format ("{0}. {1}\n{2}\n{3}\n{4}\n{5}\n", questionNum, question, a, b, c, d),
 			};
 
@@ -629,15 +630,16 @@ namespace Quizes {
 
 			Button exitButton= new Button () {
 				Text = "Exit Quiz",
+				TextColor = Color.Silver,
 			};
 
 			submitButton.Clicked += async (sender, e) => {
 				string correctCodeWord = SetCorrectCodeWord();
 				if (correctCodeWord.Equals(codewordEntry.Text)) {
-					await DisplayAlert("Correct!", "The codeword you entered was correct.", "Continue", null);
+					await DisplayAlert("Correct!", "You may return to the question.", "Continue", null);
 					await this.Navigation.PopModalAsync();
 				} else {
-					await DisplayAlert("Incorrect", "The codeword you entered was incorrect.", "Retry", null);
+					await DisplayAlert("Incorrect", "Please try again.", "Retry", null);
 					codewordEntry.Text = "";
 				}
 			};
