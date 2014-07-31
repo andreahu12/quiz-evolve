@@ -12,6 +12,7 @@ namespace Leaderboards {
 		static string whichBoard = "";
 
 		public LeaderboardOptionsPage () {
+			NavigationPage.SetHasNavigationBar (this, false);
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 
@@ -39,6 +40,10 @@ namespace Leaderboards {
 				BackgroundColor = Color.FromHex("#3498db"),
 			};
 
+			Button toMainMenu = new Button () {
+				Text = "Main Menu",
+			};
+
 			toOverallLeaders.Clicked += async (sender, e) => {
 				whichBoard = "OverallPoints";
 				var topUsers = await GetTopUsers(whichBoard);
@@ -57,10 +62,15 @@ namespace Leaderboards {
 				await this.Navigation.PushAsync(new Top10Page(whichBoard, topUsers));
 			};
 
+			toMainMenu.Clicked += async (sender, e) => {
+				await this.Navigation.PopAsync();
+			};
+
 			sl.Children.Add (pageLabel);
 			sl.Children.Add (toOverallLeaders);
 			sl.Children.Add (toSalesLeaders);
 			sl.Children.Add (toTriviaLeaders);
+			sl.Children.Add (toMainMenu);
 
 			Content = sl;
 		}
@@ -120,17 +130,14 @@ namespace Leaderboards {
 					Label rankLabel = new Label();
 					rankLabel.SetBinding(Label.TextProperty, "Rank");
 					rankLabel.TextColor = Color.Black;
-//					rankLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					Label nameLabel = new Label();
 					nameLabel.SetBinding(Label.TextProperty, "Name");
 					nameLabel.TextColor = Color.FromHex("#b455b6");
-//					nameLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					Label pointsLabel = new Label();
 					pointsLabel.SetBinding(Label.TextProperty, "Points");
 					pointsLabel.TextColor = Color.Navy;
-//					pointsLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					return new ViewCell () {
 						View = new StackLayout () {
@@ -141,7 +148,6 @@ namespace Leaderboards {
 								nameLabel,
 								pointsLabel,
 							},
-//							BackgroundColor = Color.FromHex("#ecf0f1"),
 						}
 					};
 				})
