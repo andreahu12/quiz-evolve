@@ -92,7 +92,7 @@ namespace Quizes {
 					"30 seconds per question" +
 					"\n\n" +
 					"The faster you answer a question, the more points you get.\n\n" +
-					"If you get a question wrong, you can ask a rep for partial points.\n\n" +
+					"If you get a question wrong, you can ask a rep for partial credit.\n\n" +
 					"If you quit, you can pick up where you left off later.\n\n", Quizes.QuizMenu.getTotalQuestions()),
 			};
 
@@ -594,7 +594,7 @@ namespace Quizes {
 	}
 
 	public class EnterCodewordPage : ContentPage {
-		//public EnterCodewordPage(long questionNum, string question) {
+
 		public EnterCodewordPage(ParseObject currentObject) {
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 			BackgroundColor = Color.FromHex ("#2c3e50");
@@ -608,13 +608,20 @@ namespace Quizes {
 			string question = currentObject ["Question"].ToString ();
 			string a = "[A] " + currentObject ["A"].ToString ();
 			string b = "[B] " + currentObject ["B"].ToString ();
-			string c = "[C] " + currentObject ["C"].ToString ();
-			string d = "[D] " + currentObject ["D"].ToString ();
+			string c, d, questionLabelText;
+			try {
+				c = "[C] " + currentObject ["C"].ToString ();
+				d = "[D] " + currentObject ["D"].ToString ();
+				questionLabelText = string.Format ("{0}. {1}\n{2}\n{3}\n{4}\n{5}\n", questionNum, question, a, b, c, d);
+			} catch (KeyNotFoundException k) {
+				Console.WriteLine (k.Message);
+				questionLabelText = string.Format ("{0}. {1}\n{2}\n{3}\n", questionNum, question, a, b);
+			}
 
 			Label questionLabel = new Label () {
 				Font = Font.SystemFontOfSize(NamedSize.Small),
 				TextColor = Color.White,
-				Text = string.Format ("{0}. {1}\n{2}\n{3}\n{4}\n{5}\n", questionNum, question, a, b, c, d),
+				Text = questionLabelText,
 			};
 
 			Entry codewordEntry = new Entry () {

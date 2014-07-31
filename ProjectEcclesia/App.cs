@@ -15,39 +15,114 @@ namespace ProjectEcclesia
 		public static Page GetMainPage () {    
 			NavPage = new NavigationPage ();
 			NavPage.PushAsync (new LoginPage ());
-//			NavPage.PushAsync (new CheckLoggedInPage ());
 			return NavPage;
 		}
 	}
 
-	public class CheckLoggedInPage : ContentPage {
-		public CheckLoggedInPage() {
-			BackgroundColor = Color.FromHex ("#ecf0f1");
+	public class SignUpPage : ContentPage {
+		public SignUpPage() {
+			BackgroundColor = Color.FromHex ("#2c3e50");
 			NavigationPage.SetHasNavigationBar (this, false);
 
-			if (ParseUser.CurrentUser != null) {
-				Console.WriteLine ("Current User Not Null" + ParseUser.CurrentUser.ToString ());
-				this.Navigation.PushAsync (new MainMenuPage ());
-			} else {
-				Console.WriteLine ("Current User Null");
-				this.Navigation.PushAsync (new LoginPage ());
-			}
+			StackLayout vl = HelperMethods.createVertSL ();
+
+			Label pageTitle = new Label () {
+				Text = "Sign Up",
+				TextColor = Color.FromHex("#b455b6"),
+				Font = Font.SystemFontOfSize (NamedSize.Large),
+			};
+
+			Entry firstNameEntry = new Entry () {
+				Placeholder = "First",
+				TextColor = Color.FromHex("#4e5758"),
+			};
+
+			Entry lastNameEntry = new Entry () {
+				Placeholder = "Last",
+				TextColor = Color.FromHex("#4e5758"),
+			};
+
+			Entry emailEntry = new Entry () {
+				Placeholder = "Email",
+				TextColor = Color.FromHex("#4e5758"),
+			};
+
+			Entry passwordEntry = new Entry () {
+				Placeholder = "Password",
+				TextColor = Color.FromHex("#4e5758"),
+				IsPassword = true,
+			};
+
+			Button createAccountButton = new Button () {
+				Text = "Create Account",
+				BackgroundColor = Color.FromHex("#3498db"),
+				TextColor = Color.White,
+			};
+
+			Button backToLoginScreenButton = new Button () {
+				Text = "Return to Login Screen"
+			};
+					
+			createAccountButton.Clicked += async (sender, e) => {
+				try {
+					ParseUser user = new ParseUser() {
+						Username = emailEntry.Text,
+						Email = emailEntry.Text,
+						Password = passwordEntry.Text,
+					};
+
+					user["Name"] = string.Format("{0} {1}", firstNameEntry.Text, lastNameEntry.Text);
+					user["CurrentSales"] = 1;
+					user["CurrentTrivia"] = 1;
+					user["SalesPoints"] = 0;
+					user["TriviaPoints"] = 0;
+					user["OverallPoints"] = 0;
+
+					await user.SignUpAsync();
+					await this.Navigation.PopModalAsync();
+
+				} catch (InvalidOperationException i) {
+					var alert = DisplayAlert ("Invalid Operation", "Please check your entry fields.", "Continue", null);
+					Console.WriteLine(alert + i.Message);
+				} catch (ParseException p) {
+					var alert = DisplayAlert("Account Taken", "There is an existing account with these credentials.", "Okay", null);
+					Console.WriteLine (alert + p.Message);
+				} catch (Exception a) {
+					var alert = DisplayAlert("Error", "An error has occurred. Please try again.", "Continue", null);
+					Console.WriteLine (alert + a.Message);
+				}
+			};
+
+
+			backToLoginScreenButton.Clicked += async (sender, e) => {
+				await this.Navigation.PopModalAsync();
+			};
+
+			vl.Children.Add (pageTitle);
+			vl.Children.Add (firstNameEntry);
+			vl.Children.Add (lastNameEntry);
+			vl.Children.Add (emailEntry);
+			vl.Children.Add (passwordEntry);
+			vl.Children.Add (createAccountButton);
+			vl.Children.Add (backToLoginScreenButton);
+
+			Content = vl;
 		}
 	}
 
 	public class LoginPage : ContentPage {
-//		public static ParseUser user;
+
 		ParseUser user;
+
 		public LoginPage () {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			NavigationPage.SetHasNavigationBar (this, false);
+
 			if (ParseUser.CurrentUser != null) {
 				Console.WriteLine ("Current User Not Null " + ParseUser.CurrentUser.Username.ToString ());
 				this.Navigation.PushAsync (new MainMenuPage ());
 			} else {
 				Console.WriteLine ("Current User Null");
-//				this.Navigation.PushAsync (new LoginPage ());
-//			}
 				NavigationPage.SetHasNavigationBar (this, false);
 				StackLayout sl = HelperMethods.createVertSL ();
 
@@ -74,6 +149,10 @@ namespace ProjectEcclesia
 					Text = "Submit",
 				};
 
+				Button signUpButton = new Button () {
+					Text = "Sign Up",
+				};
+
 				Image monkeyImage = new Image { Aspect = Aspect.AspectFit };
 				monkeyImage.Source = ImageSource.FromUri (new Uri ("http://blog.xamarin.com/wp-content/uploads/2014/04/monkey.png"));
 
@@ -84,17 +163,21 @@ namespace ProjectEcclesia
 
 					} catch {
 						var alert = DisplayAlert ("Invalid Login", "Your login information did not match our records. Please try again.", "Okay", null);
-						Console.WriteLine (alert);
 					} finally {
 						passwordEntry.Text = "";
 						emailEntry.Text = "";
 					}
 				};
 
+				signUpButton.Clicked += async (sender, e) => {
+					await this.Navigation.PushModalAsync(new SignUpPage());
+				};
+
 				sl.Children.Add (welcomeLabel);
 				sl.Children.Add (emailEntry);
 				sl.Children.Add (passwordEntry);
 				sl.Children.Add (loginButton);
+				sl.Children.Add (signUpButton);
 				sl.Children.Add (monkeyImage);
 				Content = sl;
 			}
@@ -131,6 +214,10 @@ namespace ProjectEcclesia
 				BackgroundColor = Color.FromHex("#3498db"),
 			};
 
+			Button logOutButton = new Button () {
+				Text = "Log Out",
+			};
+
 			toLBMenu.Clicked += (sender, e) => {
 				this.Navigation.PushAsync(new Leaderboards.LeaderboardOptionsPage());
 			};
@@ -139,9 +226,16 @@ namespace ProjectEcclesia
 				this.Navigation.PushAsync(new Quizes.QuizMenu());
 			};
 
+			logOutButton.Clicked += async (sender, e) => {
+				ParseUser.LogOut();
+				await ProjectEcclesia.App.NavPage.PopToRootAsync();
+				await ProjectEcclesia.App.NavPage.PushAsync(new LoginPage());
+			};
+
 			sl.Children.Add (pageTitle);
 			sl.Children.Add (toQuizMenu);
 			sl.Children.Add (toLBMenu);
+			sl.Children.Add (logOutButton);
 
 			Content = sl;
 		}
