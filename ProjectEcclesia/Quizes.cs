@@ -113,8 +113,11 @@ namespace Quizes {
 			SetValues ();
 
 			startButton.Clicked += async (sender, e) => {
-				obj = await GetFirstQuestionObject(questionNum);
-
+				try {
+					obj = await GetFirstQuestionObject(questionNum);
+				} catch (ParseException p) {
+					Console.WriteLine(p.Message);
+				}
 				Quizes.QuestionPage.SetEnviron();
 				await this.Navigation.PushAsync(new Countdown(obj));
 			};
