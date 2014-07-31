@@ -6,8 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Parse;
 
+/**
+ * This namespace contains the NavPage, SignUpPage, LoginPage, MainMenuPage.
+ * It also has a class with helper methods to speed up the process of creating horizontal/vertical layouts.
+ * */
 namespace ProjectEcclesia
 {
+	/**
+	 * Contains the NavPage for popping to root
+	 * */
 	public class App
 	{
 		public static NavigationPage NavPage;
@@ -19,6 +26,9 @@ namespace ProjectEcclesia
 		}
 	}
 
+	/**
+	 * A SignUpPage to be pushed/popped modally from the SignUpPage.
+	 * */
 	public class SignUpPage : ContentPage {
 		public SignUpPage() {
 			BackgroundColor = Color.FromHex ("#2c3e50");
@@ -60,7 +70,8 @@ namespace ProjectEcclesia
 			};
 
 			Button backToLoginScreenButton = new Button () {
-				Text = "Return to Login Screen"
+				Text = "Return to Login Screen",
+				TextColor = Color.FromHex("#ecf0f1"),
 			};
 					
 			createAccountButton.Clicked += async (sender, e) => {
@@ -110,6 +121,10 @@ namespace ProjectEcclesia
 		}
 	}
 
+	/**
+	 * A LoginPage for users to log in.
+	 * If the user is already logged in, it pushes a new MainMenuPage.
+	 * */
 	public class LoginPage : ContentPage {
 
 		ParseUser user;
@@ -162,7 +177,8 @@ namespace ProjectEcclesia
 						await this.Navigation.PushAsync (new MainMenuPage ());
 
 					} catch {
-						var alert = DisplayAlert ("Invalid Login", "Your login information did not match our records. Please try again.", "Okay", null);
+						DisplayAlert ("Invalid Login", "Your login information did not match our records. Please try again.", "Okay", null);
+					
 					} finally {
 						passwordEntry.Text = "";
 						emailEntry.Text = "";
@@ -188,7 +204,9 @@ namespace ProjectEcclesia
 		}
 	}
 
-
+	/**
+	 * A MainMenuPage that allows the user to go to QuizMenu, LeaderboardMenu, and Log Out.
+	 * */
 	public class MainMenuPage : ContentPage {
 		public MainMenuPage() {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
@@ -241,6 +259,9 @@ namespace ProjectEcclesia
 		}
 	}
 
+	/**
+	 * Contains methods to simplify creating vertical and horizontal stacklayouts.
+	 * */
 	public class HelperMethods {
 		public static StackLayout createVertSL () {
 			StackLayout sl = new StackLayout () {

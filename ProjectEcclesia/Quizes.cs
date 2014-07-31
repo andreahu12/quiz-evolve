@@ -9,13 +9,21 @@ using Parse;
 
 namespace Quizes {
 	public class QuizMenu : ContentPage {
+
 		static int totalQuestions;
 		static string quizName;
 
 		public QuizMenu () {
+			NavigationPage.SetHasNavigationBar (this, false);
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			Title = "Quizes";
+
+			Label pageTitle = new Label () {
+				Text = "Quiz Menu",
+				TextColor = Color.FromHex("#4e5758"),
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+			};
 
 			Button toSalesQuiz = new Button () {
 				Text = "Sales Playbook Quiz",
@@ -27,6 +35,10 @@ namespace Quizes {
 				Text = "Xamarin Trivia Quiz",
 				TextColor = Color.White,
 				BackgroundColor = Color.FromHex("#3498db"),
+			};
+
+			Button toMainMenu = new Button () {
+				Text = "Main Menu",
 			};
 
 			toSalesQuiz.Clicked += async (sender, e) => {
@@ -41,8 +53,14 @@ namespace Quizes {
 				await this.Navigation.PushAsync(new QuizInstructions());
 			};
 
+			toMainMenu.Clicked += async (sender, e) => {
+				await this.Navigation.PopAsync();
+			};
+
+			sl.Children.Add (pageTitle);
 			sl.Children.Add (toSalesQuiz);
 			sl.Children.Add (toTrivaQuiz);
+			sl.Children.Add (toMainMenu);
 			Content = sl;
 		}
 
@@ -80,10 +98,18 @@ namespace Quizes {
 		long questionNum;
 
 		public QuizInstructions () {
+			NavigationPage.SetHasNavigationBar (this, false);
+
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			Title = "Instructions";
 
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
+
+			Label pageTitle = new Label () {
+				Text = "Instructions",
+				TextColor = Color.FromHex("#4e5758"),
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+			};
 
 			Label instructions = new Label () {
 				TextColor = Color.FromHex("#b455b6"),
@@ -110,6 +136,10 @@ namespace Quizes {
 				BackgroundColor = Color.FromHex("#3498db"),
 			};
 
+			Button toQuizMenu = new Button () {
+				Text = "Quiz Menu",
+			};
+
 			SetValues ();
 
 			startButton.Clicked += async (sender, e) => {
@@ -122,9 +152,15 @@ namespace Quizes {
 				await this.Navigation.PushAsync(new Countdown(obj));
 			};
 
+			toQuizMenu.Clicked += async (sender, e) => {
+				await this.Navigation.PopAsync();
+			};
+
+			sl.Children.Add (pageTitle);
 			sl.Children.Add (instructions);
 			sl.Children.Add (readyLabel);
 			sl.Children.Add (startButton);
+			sl.Children.Add (toQuizMenu);
 
 			Content = sl;
 		}
@@ -264,7 +300,6 @@ namespace Quizes {
 
 				Image photo = new Image();
 
-
 				Xamarin.Forms.Device.BeginInvokeOnMainThread (() => {
 					SetCounters(countdownBar);
 
@@ -359,7 +394,6 @@ namespace Quizes {
 						if (questionNum < QuizMenu.getTotalQuestions()) {
 							await GetNextQuestionObject(questionNum);
 						}
-//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionBButton, labelB, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -372,7 +406,6 @@ namespace Quizes {
 						if (questionNum < QuizMenu.getTotalQuestions()) {
 							await GetNextQuestionObject(questionNum);
 						}
-//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionCButton, labelC, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -385,7 +418,6 @@ namespace Quizes {
 						if (questionNum < QuizMenu.getTotalQuestions()) {
 							await GetNextQuestionObject(questionNum);
 						}
-//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionDButton, labelD, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -395,6 +427,7 @@ namespace Quizes {
 
 					exitButton.Clicked += async (sender, e) => {
 						await GetNextQuestionObject(questionNum);
+						SaveEnviron();
 						timer.Stop();
 						await ProjectEcclesia.App.NavPage.Navigation.PushAsync(new ProjectEcclesia.MainMenuPage());
 					};
@@ -609,14 +642,19 @@ namespace Quizes {
 
 	public class EnterCodewordPage : ContentPage {
 
+		string repPicURL;
+
 		public EnterCodewordPage(ParseObject currentObject) {
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 			BackgroundColor = Color.FromHex ("#2c3e50");
 			Label instructionsLabel = new Label () {
-				Text = "Please ask a representative for the correct answer and the codeword.\n",
+				Text = string.Format("Please talk to {0}.\n", SetRepName()),
 				TextColor = Color.FromHex("#b455b6"),
 				Font = Font.SystemFontOfSize(NamedSize.Large),
 			};
+
+			Image repPic = new Image { Aspect = Aspect.AspectFit };
+			repPic.Source = ImageSource.FromUri (new Uri (repPicURL));
 
 			string questionNum = currentObject ["Number"].ToString();
 			string question = currentObject ["Question"].ToString ();
@@ -670,6 +708,7 @@ namespace Quizes {
 			};
 
 			sl.Children.Add (instructionsLabel);
+			sl.Children.Add (repPic);
 			sl.Children.Add (questionLabel);
 			sl.Children.Add (codewordEntry);
 			sl.Children.Add (submitButton);
@@ -684,6 +723,41 @@ namespace Quizes {
 			} else if (quizName.Equals ("Trivia")) {
 				return "peach";
 			} return "";
+		}
+
+		private string SetRepName() {
+			string quizName = QuizMenu.getQuizName ();
+			if (quizName.Equals ("Sales")) {
+				return RandomSalesRep ();
+			} else if (quizName.Equals ("Trivia")) {
+				return RandomTriviaRep();
+			} return "";
+		}
+
+		private string RandomSalesRep() {
+			Random generator = new Random ();
+			int num = generator.Next (3);
+			Console.WriteLine ("random num " + num);
+			if (num == 0) {
+				repPicURL = "http://m.c.lnkd.licdn.com/mpr/pub/image-d62u-1_SRDbowCIEheYodL43P96kDRAECVN1dcXwPMfRarg4d621CzISPj-uYEDxglxn/arwa-kaddoura.jpg";
+				return "Arwa Kaddoura";
+			} else {
+				repPicURL = "http://m.c.lnkd.licdn.com/mpr/pub/image-PyyhxnbTQg9OGHcVvo_7PCqcar2ozszVXyywPvsTa0dxQ7CxPyywXRVTapEyQ5sucfzR/kai-mak.jpg";
+				return "Kai Mak";
+			}
+		}
+
+		private string RandomTriviaRep() {
+			Random generator = new Random ();
+			int num = generator.Next (3);
+			Console.WriteLine ("random num " + num);
+			if (num == 0) {
+				repPicURL = "https://www.linkedin.com/mpr/pub/image-4fabukm7F22P9oSCrP3AMrdnABkeJJph_tAlKkNsAfkpJsnh4fal9NK7APQyJ6Rr0oiN/laura-quest.jpg";
+				return "Laura Quest";
+			} else {
+				repPicURL = "http://xamarin.com/images/about/robross.jpg";
+				return "Rob Ross";
+			}
 		}
 
 	}
@@ -720,6 +794,7 @@ namespace Quizes {
 
 			toRootButton.Clicked += (sender, e) => {
 				Device.BeginInvokeOnMainThread(async () => {
+					Quizes.QuestionPage.SaveEnviron();
 					await ProjectEcclesia.App.NavPage.PopToRootAsync();
 					await ProjectEcclesia.App.NavPage.PushAsync(new ProjectEcclesia.MainMenuPage());
 				});
@@ -749,7 +824,7 @@ namespace Quizes {
 
 			Label pageTitle = new Label () {
 				Text = "Quiz Paused",
-				TextColor = Color.White,
+				TextColor = Color.FromHex("#b455b6"),
 				Font = Font.SystemFontOfSize(NamedSize.Large),
 			};
 
@@ -772,6 +847,7 @@ namespace Quizes {
 			};
 
 			continueButton.Clicked += (sender, e) => {
+				Quizes.QuestionPage.SaveEnviron();
 				Console.WriteLine("Continue > questionNum " + QuestionPage.questionNum);
 				if (QuestionPage.questionNum <= QuizMenu.getTotalQuestions()) {
 					Device.BeginInvokeOnMainThread (async () => {
