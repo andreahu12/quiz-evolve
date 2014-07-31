@@ -30,6 +30,10 @@ namespace ProjectEcclesia
 	 * A SignUpPage to be pushed/popped modally from the SignUpPage.
 	 * */
 	public class SignUpPage : ContentPage {
+
+		/**
+		 * Constructor for SignUpPage
+		 * */
 		public SignUpPage() {
 			BackgroundColor = Color.FromHex ("#2c3e50");
 			NavigationPage.SetHasNavigationBar (this, false);
@@ -129,6 +133,9 @@ namespace ProjectEcclesia
 
 		ParseUser user;
 
+		/**
+		 * Constructor for a LoginPage
+		 * */
 		public LoginPage () {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			NavigationPage.SetHasNavigationBar (this, false);
@@ -198,16 +205,16 @@ namespace ProjectEcclesia
 				Content = sl;
 			}
 		}
-
-		private void SetPoints() {
-			Quizes.QuestionPage.salesPoints = (int) user ["SalesPoints"];
-		}
 	}
 
 	/**
 	 * A MainMenuPage that allows the user to go to QuizMenu, LeaderboardMenu, and Log Out.
 	 * */
 	public class MainMenuPage : ContentPage {
+
+		/**
+		 * Constructor for the Main Menu
+		 * */
 		public MainMenuPage() {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			NavigationPage.SetHasNavigationBar (this, false);
@@ -263,6 +270,14 @@ namespace ProjectEcclesia
 	 * Contains methods to simplify creating vertical and horizontal stacklayouts.
 	 * */
 	public class HelperMethods {
+
+		/**
+		 * <summary>
+		 * Returns a Vertical StackLayout with varying padding based on platform.
+		 * </summary>
+		 * @param none
+		 * @return StackLayout
+		 * */
 		public static StackLayout createVertSL () {
 			StackLayout sl = new StackLayout () {
 				Orientation = StackOrientation.Vertical,
@@ -271,6 +286,13 @@ namespace ProjectEcclesia
 			return sl;
 		}
 
+		/**
+		 * <summary>
+		 * Returns a Horizontal StackLayout with varying padding based on platform.
+		 * </summary>
+		 * @param none
+		 * @return StackLayout
+		 * */
 		public static StackLayout createHorizSL() {
 			StackLayout sl = new StackLayout () {
 				Orientation = StackOrientation.Horizontal,

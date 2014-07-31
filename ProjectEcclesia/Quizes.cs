@@ -22,6 +22,10 @@ namespace Quizes {
 		static int totalQuestions;
 		static string quizName;
 
+		/**
+		 * Constructor for the Quiz Menu
+		 * Can choose from Trivia and Sales
+		 * */
 		public QuizMenu () {
 			NavigationPage.SetHasNavigationBar (this, false);
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
@@ -73,6 +77,13 @@ namespace Quizes {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Queries for the number of questions in the particular question database
+		 * </summary>
+		 * @param string parseDBName
+		 * @return Task<int>
+		 * */
 		private async Task<int> GetNumQuestions(string parseDBName) {
 			var query = from questions  in ParseObject.GetQuery (parseDBName)
 						where (long) questions["Number"] > 0
@@ -81,13 +92,30 @@ namespace Quizes {
 			return count;
 		}
 
+		/**
+		 * <summary>
+		 * Retrieves the total number of questions for the question database.
+		 * </summary>
+		 * */
 		public static int getTotalQuestions() {
 			return totalQuestions;
 		}
 
+		/**
+		 * <summary>
+		 * Retrieves the name of the quiz.
+		 * </summary>
+		 * */
+
 		public static string getQuizName() {
 			return quizName;
 		}
+
+		/**
+		 * <summary>
+		 * Converts the quizName to the name of the question database.
+		 * </summary>
+		 * */
 
 		public static string GetQuestionList() {
 			if (quizName.Equals ("Sales")) {
@@ -112,6 +140,9 @@ namespace Quizes {
 		string quizname;
 		long questionNum;
 
+		/**
+		 * Constructor for the Instructions page
+		 * */
 		public QuizInstructions () {
 			NavigationPage.SetHasNavigationBar (this, false);
 
@@ -180,6 +211,12 @@ namespace Quizes {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Retrieves the number of the question the user left off at.
+		 * </summary>
+		 * */
+
 		private void SetValues() {
 			quizname = QuizMenu.getQuizName();
 			if (quizname.Equals("Trivia")) {
@@ -189,6 +226,13 @@ namespace Quizes {
 			}
 		}
 
+		/**
+		 * <summary>
+		 * Queries for the first question object when entering the quiz.
+		 * </summary>
+		 * @param long questionNum
+		 * @return Task<ParseObject>
+		 * */
 		private async Task<ParseObject> GetFirstQuestionObject (long questionNum) {
 			string questionDB = QuizMenu.GetQuestionList ();
 			var query = from question in ParseObject.GetQuery (questionDB)
@@ -212,6 +256,11 @@ namespace Quizes {
 		System.Timers.Timer timer;
 		ParseObject obj;
 
+		/**
+		 * Constructor for Countdown page for quiz.
+		 * Passes down the calculated question object (obj) that was queried for
+		 * in the instructions page.
+		 * */
 		public Countdown (ParseObject obj) {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			this.obj = obj;
@@ -235,6 +284,11 @@ namespace Quizes {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Displays countdown on a label.
+		 * </summary>
+		 * */
 		private void OnTimedEvent (object o, System.EventArgs e) {
 			Console.WriteLine ("OnTimedEvent called");
 			if (secondsLeft == 1) {
@@ -486,6 +540,12 @@ namespace Quizes {
 			}
 		}
 
+		/**
+		 * <summary>
+		 * Marks the option chosen as right or wrong and pushes the
+		 * EnterCodewordPage if they choose to ask a rep.
+		 * </summary>
+		 * */
 		private async Task CodeWordCheck (Button currentButton, Label letterLabel, long questionNum, int optionChosen) {
 			if (isCorrect (questionNum, optionChosen)) {
 				timer.Stop ();
@@ -507,7 +567,12 @@ namespace Quizes {
 				}
 			}
 		}
-			
+
+		/**
+		 * <summary>
+		 * Keeps track of questionNum, points, and the name of the question database.
+		 * </summary>
+		 * */
 		public static void DetermineQuiz() {
 			string quizName = QuizMenu.getQuizName ();
 
@@ -522,6 +587,12 @@ namespace Quizes {
 			}
 		}
 
+		/**
+		 * <summary>
+		 * Sets counters counting down from 30 at the top of question page.
+		 * </summary>
+		 * */
+
 		private void SetCounters(Label countdownBar) {
 			string markers = "";
 			for (int i = 0; i < secondsLeft; i ++) {
@@ -533,6 +604,11 @@ namespace Quizes {
 			});
 		}
 
+		/**
+		 * <summary>
+		 * Saves progress, calculates points, stops timer, and pushes next QuestionPage.
+		 * </summary>
+		 * */
 		private void ToNextQuestion (int optionChosen) {
 			string quizName = QuizMenu.getQuizName ();
 			SaveEnviron ();
@@ -556,18 +632,27 @@ namespace Quizes {
 			}
 
 			timer.Stop ();
-			timer = null;
+			timer = null; 
 			this.Navigation.PushAsync (new QuestionPage (obj));
 		}
 
+		/**
+		 * <summary>
+		 * Checks if the user got the question right.
+		 * </summary>
+		 * */
 		private bool isCorrect (long questionNum, double optionChosen) {
 			double solution = (double) currentObj ["SolutionNum"];
 			Console.WriteLine ("Solution " + solution.ToString ());
 			Console.WriteLine (solution == optionChosen);
-//			Console.WriteLine ("Number " + obj ["Number"]);
 			return (solution == optionChosen);	
 		}
 
+		/**
+		 * <summary>
+		 * Queries for the next question object from database to pass on to next QuestionPage
+		 * </summary>
+		 * */
 		private async Task<ParseObject> GetNextQuestionObject (long questionNum) {
 			string questionDB = QuizMenu.GetQuestionList ();
 			var query = from question in ParseObject.GetQuery (questionDB)
@@ -578,10 +663,21 @@ namespace Quizes {
 			return obj;
 		}
 
+		/**
+		 * <summary>
+		 * Gets question from current question object.
+		 * </summary>
+		 * */
 		private string generateQuestion (long questionNum) {
 			string question = (string) currentObj ["Question"];
 			return question;
 		}
+
+		/**
+		 * <summary>
+		 * Decrements number of counters until time is up on the QuestionPage.
+		 * </summary>
+		 * */
 
 		private void untilTimeIsUp (object o, System.EventArgs e) {
 			Console.WriteLine (secondsLeft);
@@ -599,15 +695,33 @@ namespace Quizes {
 			}
 		}
 
+		/**
+		 * <summary>
+		 * Generates option A from current question object.
+		 * </summary>
+		 * */
+
 		private string generateA (long questionNum) {
 			string a = (string) currentObj ["A"];
 			return a;
 		}
 
+		/**
+		 * <summary>
+		 * Generates option B from current question object.
+		 * </summary>
+		 * */
+
 		private string generateB (long questionNum) {
 			string b = (string) currentObj ["B"];
 			return b;
 		}
+
+		/**
+		 * <summary>
+		 * Generates option C from current question object.
+		 * </summary>
+		 * */
 
 		private string generateC (long questionNum) {
 			string c = "defaultString";
@@ -623,6 +737,12 @@ namespace Quizes {
 			return c;
 		}
 
+		/**
+		 * <summary>
+		 * Generates option D from current question object.
+		 * </summary>
+		 * */
+
 		private string generateD (long questionNum) {
 			string d = "defaultString";
 			try {
@@ -637,6 +757,13 @@ namespace Quizes {
 			return d;
 		}
 
+		/**
+		 * <summary>
+		 * Saves totalPoints, salesPoints, triviaPoints, and the current Sales and Trivia question
+		 * the user is on to Parse.
+		 * </summary>
+		 * */
+
 		public static void SaveEnviron() {
 			var user = ParseUser.CurrentUser;
 			user ["OverallPoints"] = totalPoints;
@@ -647,6 +774,13 @@ namespace Quizes {
 			user.SaveAsync ();
 		}
 
+		/**
+		 * <summary>
+		 * Gets totalPoints, salesPoints, triviaPoints, and the current Sales and Trivia question
+		 * the user is on from Parse.
+		 * </summary>
+		 * */
+
 		public static void SetEnviron() {
 			var user = ParseUser.CurrentUser;
 			Quizes.QuestionPage.totalPoints =  (long) user ["OverallPoints"];
@@ -655,6 +789,12 @@ namespace Quizes {
 			Quizes.QuestionPage.salesNum = (long) user ["CurrentSales"];
 			Quizes.QuestionPage.triviaNum = (long) user ["CurrentTrivia"];
 		}
+
+		/**
+		 * <summary>
+		 * Checks if the current question object has an image and returns the URI for it if it does.
+		 * </summary>
+		 * */
 
 		private bool HasImage (ParseObject currentObj) {
 			try {
@@ -676,6 +816,9 @@ namespace Quizes {
 
 		string repPicURL;
 
+		/**
+		 * Constructor to create an EnterCodewordPage
+		 * */
 		public EnterCodewordPage(ParseObject currentObject) {
 			StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 			BackgroundColor = Color.FromHex ("#2c3e50");
@@ -748,6 +891,11 @@ namespace Quizes {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Sets the correct codeword based on which quiz the user is taking.
+		 * </summary>
+		 * */
 		private string SetCorrectCodeWord() {
 			string quizName = QuizMenu.getQuizName ();
 			if (quizName.Equals ("Sales")) {
@@ -757,6 +905,11 @@ namespace Quizes {
 			} return "";
 		}
 
+		/**
+		 * <summary>
+		 * Sets the representative to talk to.
+		 * </summary>
+		 * */
 		private string SetRepName() {
 			string quizName = QuizMenu.getQuizName ();
 			if (quizName.Equals ("Sales")) {
@@ -766,6 +919,11 @@ namespace Quizes {
 			} return "";
 		}
 
+		/**
+		 * <summary>
+		 * Generates a random sales rep.
+		 * </summary>
+		 * */
 		private string RandomSalesRep() {
 			Random generator = new Random ();
 			int num = generator.Next (3);
@@ -779,6 +937,11 @@ namespace Quizes {
 			}
 		}
 
+		/**
+		 * <summary>
+		 * Generates a random trivia rep.
+		 * </summary>
+		 * */
 		private string RandomTriviaRep() {
 			Random generator = new Random ();
 			int num = generator.Next (3);
@@ -797,6 +960,10 @@ namespace Quizes {
 	 * Contains constructor to display results to the user.
 	 * */
 	public class ResultSummary : ContentPage {
+
+		/**
+		 * Constructor for result page.
+		 * */
 		public ResultSummary() {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			NavigationPage.SetHasNavigationBar (this, false);
@@ -855,6 +1022,10 @@ namespace Quizes {
 	 * */
 	public class TimesUpPage : ContentPage {
 		ParseObject obj;
+
+		/**
+		 * Constructor for then time is up.
+		 * */
 		public TimesUpPage(ParseObject obj) {
 
 			BackgroundColor = Color.FromHex("#2c3e50");
@@ -924,6 +1095,11 @@ namespace Quizes {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Queries for next question object if user decides to continue.
+		 * </summary>
+		 * */
 		private async Task<ParseObject> GetNextQuestionObject (long questionNum) {
 			string questionDB = QuizMenu.GetQuestionList ();
 

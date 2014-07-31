@@ -20,6 +20,10 @@ namespace Leaderboards {
 
 		static string whichBoard = "";
 
+		/**
+		 * Constructor for LeaderboardOptionsPage
+		 * Allows user to choose from overall, sales, and triva
+		 * */
 		public LeaderboardOptionsPage () {
 			NavigationPage.SetHasNavigationBar (this, false);
 			BackgroundColor = Color.FromHex ("#ecf0f1");
@@ -84,6 +88,13 @@ namespace Leaderboards {
 			Content = sl;
 		}
 
+		/**
+		 * <summary>
+		 * Queries for the top 10 users based on score for their category
+		 * </summary>
+		 * @param string whichBoard
+		 * @return Task <IEnumerable<ParseObject>>
+		 * */
 		private async Task <IEnumerable <ParseObject>> GetTopUsers (string whichBoard) {
 			var query = from user in ParseUser.Query
 				.Limit (10)
@@ -104,7 +115,17 @@ namespace Leaderboards {
 
 		string boardName;
 
+		/**
+		 * Private inner Person class.
+		 * */
 		class Person {
+
+			/**
+			 * <summary>
+			 * Constructor for a person.
+			 * </summary>
+			 * @param int rank, string name, long points
+			 * */
 			public Person(int rank,  string name, long points) {
 				this.Rank = rank.ToString() + ".";
 				this.Name = name;
@@ -115,6 +136,11 @@ namespace Leaderboards {
 			public string Name { private set; get; }
 			public string Points { private set; get; }
 		}
+
+		/**
+		 * Constructor to create a leaderboard based on the IEnumerable of previously calculated topUsers 
+		 * for the indicated board.
+		 * */
 
 		public Top10Page(string whichBoard, IEnumerable<ParseObject> topUsers) {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
@@ -176,6 +202,11 @@ namespace Leaderboards {
 			};
 		}
 
+		/**
+		 * <summary>
+		 * Sets the name of the leaderboard based on which board was selected.
+		 * </summary>
+		 * */
 		private void SetBoardName(string whichBoard) {
 			if (whichBoard.Equals ("OverallPoints")) {
 				boardName = "Overall";
