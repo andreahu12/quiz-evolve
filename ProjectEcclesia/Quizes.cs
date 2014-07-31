@@ -226,7 +226,7 @@ namespace Quizes {
 			DetermineQuiz ();
 			Console.WriteLine ("questionNum " + Quizes.QuestionPage.questionNum);
 
-			if (questionNum >= Quizes.QuizMenu.getTotalQuestions ()) {
+			if (questionNum > Quizes.QuizMenu.getTotalQuestions ()) {
 
 				StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
 
@@ -341,7 +341,9 @@ namespace Quizes {
 
 					optionAButton.Clicked += async (sender, e) => {
 						int optionChosen = 1;
-						await GetNextQuestionObject(questionNum);
+						if (questionNum < QuizMenu.getTotalQuestions()) {
+							await GetNextQuestionObject(questionNum);
+						}
 						await CodeWordCheck(optionAButton, labelA, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -351,7 +353,10 @@ namespace Quizes {
 
 					optionBButton.Clicked += async (sender, e) => {
 						int optionChosen = 2;
-						await GetNextQuestionObject(questionNum);
+						if (questionNum < QuizMenu.getTotalQuestions()) {
+							await GetNextQuestionObject(questionNum);
+						}
+//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionBButton, labelB, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -361,7 +366,10 @@ namespace Quizes {
 
 					optionCButton.Clicked += async (sender, e) => {
 						int optionChosen = 3;
-						await GetNextQuestionObject(questionNum);
+						if (questionNum < QuizMenu.getTotalQuestions()) {
+							await GetNextQuestionObject(questionNum);
+						}
+//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionCButton, labelC, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -371,7 +379,10 @@ namespace Quizes {
 
 					optionDButton.Clicked += async (sender, e) => {
 						int optionChosen = 4;
-						await GetNextQuestionObject(questionNum);
+						if (questionNum < QuizMenu.getTotalQuestions()) {
+							await GetNextQuestionObject(questionNum);
+						}
+//						await GetNextQuestionObject(questionNum);
 						await CodeWordCheck(optionDButton, labelD, questionNum, optionChosen);
 						if (isCorrect(questionNum, optionChosen)) {
 							ToNextQuestion (optionChosen);
@@ -491,7 +502,7 @@ namespace Quizes {
 			double solution = (double) currentObj ["SolutionNum"];
 			Console.WriteLine ("Solution " + solution.ToString ());
 			Console.WriteLine (solution == optionChosen);
-			Console.WriteLine ("Number " + obj ["Number"]);
+//			Console.WriteLine ("Number " + obj ["Number"]);
 			return (solution == optionChosen);	
 		}
 
