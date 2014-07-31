@@ -657,7 +657,6 @@ namespace Quizes {
 			submitButton.Clicked += async (sender, e) => {
 				string correctCodeWord = SetCorrectCodeWord();
 				if (correctCodeWord.Equals(codewordEntry.Text)) {
-					await DisplayAlert("Correct!", "You may return to the question.", "Continue", null);
 					await this.Navigation.PopModalAsync();
 				} else {
 					await DisplayAlert("Incorrect", "Please try again.", "Retry", null);
