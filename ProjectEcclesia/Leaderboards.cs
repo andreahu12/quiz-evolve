@@ -6,8 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Parse;
 
-
+/**
+ * Leaderboards namespace contains constructors and methods for all pages relating to Leaderboards
+ * eg. LeaderboardOptionsPage and Top10Page
+ * */
 namespace Leaderboards {
+
+	/**
+	 * Contains constructor to create the leaderboard menu.
+	 * User can choose to see the top 10 overall, sales, or trivia.
+	 * */
 	public class LeaderboardOptionsPage : ContentPage {
 
 		static string whichBoard = "";
@@ -85,6 +93,12 @@ namespace Leaderboards {
 			return topUsers;
 		}
 	}
+
+	/**
+	 * Contains private inner Person class, defining each person for the leaderboard.
+	 * Also gets the top 10 users in each category and displays their name, rank, and points
+	 * in a listview.
+	 * */
 
 	public class Top10Page : ContentPage {
 

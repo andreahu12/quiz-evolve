@@ -7,7 +7,16 @@ using System.Threading.Tasks;
 using System.Timers;
 using Parse;
 
+/**
+ * Quizes namespace contains all pages related to quizes.
+ * eg. Quiz Menu, QuizInstructions, QuestionPage, ResultsPage, and TimesUpPage
+ * */
 namespace Quizes {
+
+	/**
+	 * Contains constructor and helper methods to create a menu displaying quiz options (sales + trivia).
+	 * Also allows for retrieval of the total number of questions for that quiz and which quiz is being played.
+	 * */
 	public class QuizMenu : ContentPage {
 
 		static int totalQuestions;
@@ -91,6 +100,12 @@ namespace Quizes {
 		}
 	}
 
+	/**
+	 * Contains constructor that creates a page with the instructions for how
+	 * to play the quiz app.
+	 * Also initiates values to pick up where user left off and gets the first question object
+	 * and passes it down to the next page.
+	 * */
 	public class QuizInstructions : ContentPage {
 		ParseObject obj;
 		ParseUser user = ParseUser.CurrentUser;
@@ -184,6 +199,12 @@ namespace Quizes {
 		}
 	}
 
+	/**
+	 * Contains constructor for a countdown page
+	 * that counts down from 3 seconds to when the timed quiz starts.
+	 * Also passes down question obj to the next question page.
+	 * */
+
 	public class Countdown : ContentPage {
 
 		Label countdownLabel = new Label ();
@@ -239,6 +260,11 @@ namespace Quizes {
 			}
 		}
 	}
+
+	/**
+	 * Contains constructor to create a question page.
+	 * Leads to various different pages depending on what the user does here.
+	 * */
 
 	public class QuestionPage : ContentPage {
 		public static long triviaNum = 1;
@@ -640,6 +666,12 @@ namespace Quizes {
 		}
 	}
 
+
+	/**
+	 * Contains constructor to create the modally pushed EnterCodewordPage.
+	 * This page gets a random but relevant representative and displays their name and picture.
+	 * Also contains the question the user missed, and an entry to enter the codeword.
+	 * */
 	public class EnterCodewordPage : ContentPage {
 
 		string repPicURL;
@@ -759,9 +791,11 @@ namespace Quizes {
 				return "Rob Ross";
 			}
 		}
-
 	}
 
+	/**
+	 * Contains constructor to display results to the user.
+	 * */
 	public class ResultSummary : ContentPage {
 		public ResultSummary() {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
@@ -815,6 +849,10 @@ namespace Quizes {
 		}
 	}
 
+	/**
+	 * Contains the constructor for a modally pushed page that gives the user 
+	 * options to continue, exit, or log out when they run out of time.
+	 * */
 	public class TimesUpPage : ContentPage {
 		ParseObject obj;
 		public TimesUpPage(ParseObject obj) {

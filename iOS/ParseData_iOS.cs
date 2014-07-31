@@ -4,6 +4,10 @@ using Xamarin.Forms;
 using Parse;
 using ProjectEcclesia.iOS;
 
+/**
+ * Allows for use of parse in iOS.
+ * */
+
 [assembly: Dependency (typeof (ParseData_iOS))]
 
 public class ParseData_iOS : ParseData {
