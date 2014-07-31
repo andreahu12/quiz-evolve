@@ -113,20 +113,24 @@ namespace Leaderboards {
 			}
 
 			ListView listView = new ListView {
+				BackgroundColor = Color.FromHex("#ecf0f1"),
 				ItemsSource = top10,
 
 				ItemTemplate = new DataTemplate(() => {
 					Label rankLabel = new Label();
 					rankLabel.SetBinding(Label.TextProperty, "Rank");
 					rankLabel.TextColor = Color.Black;
+//					rankLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					Label nameLabel = new Label();
 					nameLabel.SetBinding(Label.TextProperty, "Name");
-					nameLabel.TextColor = Color.Gray;
+					nameLabel.TextColor = Color.FromHex("#b455b6");
+//					nameLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					Label pointsLabel = new Label();
 					pointsLabel.SetBinding(Label.TextProperty, "Points");
-					pointsLabel.TextColor = Color.Silver;
+					pointsLabel.TextColor = Color.Navy;
+//					pointsLabel.BackgroundColor = Color.FromHex("#ecf0f1");
 
 					return new ViewCell () {
 						View = new StackLayout () {
@@ -137,6 +141,7 @@ namespace Leaderboards {
 								nameLabel,
 								pointsLabel,
 							},
+//							BackgroundColor = Color.FromHex("#ecf0f1"),
 						}
 					};
 				})
