@@ -551,16 +551,25 @@ namespace Quizes {
 				timer.Stop ();
 				currentButton.BackgroundColor = Color.Green;
 				letterLabel.TextColor = Color.Green;
+				//secondsLeft = points earned for this question
 				await DisplayAlert("Correct!", string.Format("+{0}", secondsLeft), "Continue", null);
 			} else {
 				timer.Stop ();
 				currentButton.BackgroundColor = Color.Red;
 				letterLabel.TextColor = Color.Red;
-				bool alert = await DisplayAlert("Incorrect!", "Would you like to ask a rep for the solution (and codeword) so you can try again for potential partial credit?" , "Yes", "No");
+				bool alert = await DisplayAlert("Incorrect!", "Would you like to ask a rep for the solution (and codeword) so you can try again for partial credit?" , "Yes", "No");
 				Console.WriteLine ("bool alert: " + alert);
 				if (alert) {
 					secondsLeft = secondsLeft / 2;
-//					string question = generateQuestion (questionNum);
+					string quizName = QuizMenu.getQuizName ();
+					if (quizName.Equals("Trivia")) {
+						triviaPoints += secondsLeft;
+						points = triviaPoints;
+					} else if (quizName.Equals ("Sales")) {
+						salesPoints += secondsLeft;
+						points = salesPoints;
+					}
+					totalPoints = salesPoints + triviaPoints;
 					await this.Navigation.PushModalAsync(new EnterCodewordPage(currentObj));
 				} else {
 					ToNextQuestion (optionChosen);
