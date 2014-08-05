@@ -53,6 +53,12 @@ namespace Leaderboards {
 				BackgroundColor = Color.FromHex("#3498db"),
 			};
 
+			Button toPeopleLeaders = new Button () {
+				Text = "People",
+				TextColor = Color.White,
+				BackgroundColor = Color.FromHex("#3498db"),
+			};
+
 			Button toMainMenu = new Button () {
 				Text = "Main Menu",
 			};
@@ -75,6 +81,12 @@ namespace Leaderboards {
 				await this.Navigation.PushAsync(new Top10Page(whichBoard, topUsers));
 			};
 
+			toPeopleLeaders.Clicked += async (sender, e) => {
+				whichBoard = "PeoplePoints";
+				var topUsers = await GetTopUsers(whichBoard);
+				await this.Navigation.PushAsync(new Top10Page(whichBoard, topUsers));
+			};
+
 			toMainMenu.Clicked += async (sender, e) => {
 				await this.Navigation.PopAsync();
 			};
@@ -83,6 +95,7 @@ namespace Leaderboards {
 			sl.Children.Add (toOverallLeaders);
 			sl.Children.Add (toSalesLeaders);
 			sl.Children.Add (toTriviaLeaders);
+			sl.Children.Add (toPeopleLeaders);
 			sl.Children.Add (toMainMenu);
 
 			Content = sl;
@@ -214,6 +227,8 @@ namespace Leaderboards {
 				boardName = "Sales";
 			} else if (whichBoard.Equals ("TriviaPoints")) {
 				boardName = "Trivia";
+			} else if (whichBoard.Equals ("PeoplePoints")) {
+				boardName = "People";
 			}
 		}
 	}

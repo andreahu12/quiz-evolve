@@ -89,9 +89,11 @@ namespace ProjectEcclesia
 					user["Name"] = string.Format("{0} {1}", firstNameEntry.Text, lastNameEntry.Text);
 					user["CurrentSales"] = 1;
 					user["CurrentTrivia"] = 1;
+					user["CurrentPeople"] = 1;
 					user["SalesPoints"] = 0;
 					user["TriviaPoints"] = 0;
 					user["OverallPoints"] = 0;
+					user["PeoplePoints"] = 0;
 
 					await user.SignUpAsync();
 					await this.Navigation.PopModalAsync();

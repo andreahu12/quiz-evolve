@@ -50,6 +50,12 @@ namespace Quizes {
 				BackgroundColor = Color.FromHex("#3498db"),
 			};
 
+			Button toPeopleQuiz = new Button () {
+				Text = "People Quiz",
+				TextColor = Color.White,
+				BackgroundColor = Color.FromHex("#3498db"),
+			};
+
 			Button toMainMenu = new Button () {
 				Text = "Main Menu",
 			};
@@ -66,6 +72,12 @@ namespace Quizes {
 				await this.Navigation.PushAsync(new QuizInstructions());
 			};
 
+			toPeopleQuiz.Clicked += async (sender, e) => {
+				totalQuestions = await GetNumQuestions("PeopleQuestions");
+				quizName = "People";
+				await this.Navigation.PushAsync(new QuizInstructions());
+			};
+
 			toMainMenu.Clicked += async (sender, e) => {
 				await this.Navigation.PopAsync();
 			};
@@ -73,6 +85,7 @@ namespace Quizes {
 			sl.Children.Add (pageTitle);
 			sl.Children.Add (toSalesQuiz);
 			sl.Children.Add (toTrivaQuiz);
+			sl.Children.Add (toPeopleQuiz);
 			sl.Children.Add (toMainMenu);
 			Content = sl;
 		}
@@ -122,6 +135,8 @@ namespace Quizes {
 				return "SalesQuestions";
 			} else if (quizName.Equals ("Trivia")) {
 				return "TriviaQuestions";
+			} else if (quizName.Equals ("People")) {
+				return "PeopleQuestions";
 			} else {
 				return "";
 			}
@@ -219,10 +234,12 @@ namespace Quizes {
 
 		private void SetValues() {
 			quizname = QuizMenu.getQuizName();
-			if (quizname.Equals("Trivia")) {
-				questionNum = (long) user["CurrentTrivia"];
-			} else if (quizname.Equals("Sales")) {
-				questionNum = (long) user["CurrentSales"];
+			if (quizname.Equals ("Trivia")) {
+				questionNum = (long)user ["CurrentTrivia"];
+			} else if (quizname.Equals ("Sales")) {
+				questionNum = (long)user ["CurrentSales"];
+			} else if (quizname.Equals ("People")) {
+				questionNum = (long)user ["CurrentPeople"];
 			}
 		}
 
@@ -323,10 +340,12 @@ namespace Quizes {
 	public class QuestionPage : ContentPage {
 		public static long triviaNum = 1;
 		public static long salesNum = 1;
+		public static long peopleNum = 1;
 		public static long questionNum;
 		public static long points;
 		public static long triviaPoints = 0;
 		public static long salesPoints = 0;
+		public static long peoplePoints = 0;
 		public static long totalPoints = 0;
 		int secondsLeft = 30;
 		Timer timer;
@@ -562,14 +581,17 @@ namespace Quizes {
 				if (alert) {
 					secondsLeft = secondsLeft / 2;
 					string quizName = QuizMenu.getQuizName ();
-					if (quizName.Equals("Trivia")) {
+					if (quizName.Equals ("Trivia")) {
 						triviaPoints += secondsLeft;
 						points = triviaPoints;
 					} else if (quizName.Equals ("Sales")) {
 						salesPoints += secondsLeft;
 						points = salesPoints;
+					} else if (quizName.Equals ("People")) {
+						peoplePoints += secondsLeft;
+						points = peoplePoints;
 					}
-					totalPoints = salesPoints + triviaPoints;
+					totalPoints = salesPoints + triviaPoints + peoplePoints;
 					await this.Navigation.PushModalAsync(new EnterCodewordPage(currentObj));
 				} else {
 					ToNextQuestion (optionChosen);
@@ -585,7 +607,7 @@ namespace Quizes {
 		public static void DetermineQuiz() {
 			string quizName = QuizMenu.getQuizName ();
 
-			if (quizName.Equals("Trivia")) {
+			if (quizName.Equals ("Trivia")) {
 				questionNum = triviaNum;
 				points = triviaPoints;
 				questionList = "TriviaQuestions";
@@ -593,6 +615,10 @@ namespace Quizes {
 				questionNum = salesNum;
 				points = salesPoints;
 				questionList = "SalesQuestions";
+			} else if (quizName.Equals ("People")) {
+				questionNum = peopleNum;
+				points = peoplePoints;
+				questionList = "PeopleQuestions";
 			}
 		}
 
@@ -622,22 +648,28 @@ namespace Quizes {
 			string quizName = QuizMenu.getQuizName ();
 			SaveEnviron ();
 			if (isCorrect (questionNum, optionChosen)) {
-				if (quizName.Equals("Trivia")) {
+				if (quizName.Equals ("Trivia")) {
 					triviaPoints += secondsLeft;
 					points = triviaPoints;
 				} else if (quizName.Equals ("Sales")) {
 					salesPoints += secondsLeft;
 					points = salesPoints;
+				} else if (quizName.Equals ("People")) {
+					peoplePoints += secondsLeft;
+					points = peoplePoints;
 				}
-				totalPoints = salesPoints + triviaPoints;
+				totalPoints = salesPoints + triviaPoints + peoplePoints;
 			}
 
-			if (quizName.Equals("Trivia")) {
+			if (quizName.Equals ("Trivia")) {
 				triviaNum++;
 				questionNum = triviaNum;
 			} else if (quizName.Equals ("Sales")) {
 				salesNum++;
 				questionNum = salesNum;
+			} else if (quizName.Equals ("People")) {
+				peopleNum++;
+				questionNum = peopleNum;
 			}
 
 			timer.Stop ();
@@ -777,9 +809,11 @@ namespace Quizes {
 			var user = ParseUser.CurrentUser;
 			user ["OverallPoints"] = totalPoints;
 			user ["SalesPoints"] = salesPoints;
+			user ["PeoplePoints"] = peoplePoints;
 			user ["TriviaPoints"] = triviaPoints;
 			user ["CurrentSales"] = salesNum;
 			user ["CurrentTrivia"] = triviaNum;
+			user ["CurrentPeople"] = peopleNum;
 			user.SaveAsync ();
 		}
 
@@ -795,8 +829,10 @@ namespace Quizes {
 			Quizes.QuestionPage.totalPoints =  (long) user ["OverallPoints"];
 			Quizes.QuestionPage.salesPoints = (long) user ["SalesPoints"];
 			Quizes.QuestionPage.triviaPoints = (long) user ["TriviaPoints"];
+			Quizes.QuestionPage.peoplePoints = (long)user ["PeoplePoints"];
 			Quizes.QuestionPage.salesNum = (long) user ["CurrentSales"];
 			Quizes.QuestionPage.triviaNum = (long) user ["CurrentTrivia"];
+			Quizes.QuestionPage.triviaNum = (long)user ["CurrentPeople"];
 		}
 
 		/**
@@ -911,6 +947,8 @@ namespace Quizes {
 				return "grapple";
 			} else if (quizName.Equals ("Trivia")) {
 				return "peach";
+			} else if (quizName.Equals ("People")) {
+				return "pear";
 			} return "";
 		}
 
@@ -924,7 +962,9 @@ namespace Quizes {
 			if (quizName.Equals ("Sales")) {
 				return RandomSalesRep ();
 			} else if (quizName.Equals ("Trivia")) {
-				return RandomTriviaRep();
+				return RandomTriviaRep ();
+			} else if (quizName.Equals ("People")) {
+				return RandomPeopleRep ();
 			} return "";
 		}
 
@@ -961,6 +1001,25 @@ namespace Quizes {
 			} else {
 				repPicURL = "http://xamarin.com/images/about/robross.jpg";
 				return "Rob Ross";
+			}
+		}
+
+		/**
+		 * <summary>
+		 * Generates a random sales rep.
+		 * </summary>
+		 * */
+
+		private string RandomPeopleRep() {
+			Random generator = new Random ();
+			int num = generator.Next (3);
+			Console.WriteLine ("random num " + num);
+			if (num == 0) {
+				repPicURL = "http://m.c.lnkd.licdn.com/mpr/pub/image-bAlKSzAAfoJrzk4J2aNvbwImZlBBl2XKqA2B3zgQZzteAnJxbAlB3Y4AZwPLI2pdkH4A/victoria-englund-phr.jpg";
+				return "Victoria Grothey";
+			} else {
+				repPicURL = "http://m.c.lnkd.licdn.com/mpr/pub/image-wo8k5a4FvXAGYdUPDyw9ZA_q_n6YDUpPFa86voWF_UHh7pFRwo86v-AF_8t2w0qci7k_/mallory-smith.jpg";
+				return "Mallory Smith";
 			}
 		}
 	}
@@ -1114,12 +1173,15 @@ namespace Quizes {
 
 			string quizName = QuizMenu.getQuizName ();
 
-			if (quizName.Equals("Trivia")) {
+			if (quizName.Equals ("Trivia")) {
 				QuestionPage.triviaNum++;
 				QuestionPage.questionNum = QuestionPage.triviaNum;
 			} else if (quizName.Equals ("Sales")) {
 				QuestionPage.salesNum++;
 				QuestionPage.questionNum = QuestionPage.salesNum;
+			} else if (quizName.Equals ("People")) {
+				QuestionPage.peopleNum++;
+				QuestionPage.questionNum = QuestionPage.peopleNum;
 			}
 
 			var query = from question in ParseObject.GetQuery (questionDB)

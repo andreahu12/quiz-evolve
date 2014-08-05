@@ -54,5 +54,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = iOS\ProjectEcclesia.iOS.csproj
+		version = 2.0
 	EndGlobalSection
 EndGlobal

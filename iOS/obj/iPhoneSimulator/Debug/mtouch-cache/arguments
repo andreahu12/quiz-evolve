@@ -1,5 +1,5 @@
 # Version: 7.2.5.5 (87026b6)
-# [first argument, ignore] # /Users/andreahu/projects/ecclesia-evolve/iOS/bin/iPhoneSimulator/Debug/mtouch.exe
+# [first argument, ignore] # /Users/andreahu/Projects/ecclesia-evolve/iOS/bin/iPhoneSimulator/Debug/mtouch.exe
 /Developer/MonoTouch/usr/bin/mtouch \
 	-sdkroot \
 	/Applications/Xcode.app/Contents/Developer \
