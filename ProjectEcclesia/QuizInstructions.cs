@@ -100,13 +100,14 @@ namespace Quizes {
 
 		private void SetValues() {
 			quizname = QuizMenu.getQuizName();
-			if (quizname.Equals ("Trivia")) {
-				questionNum = (long)user ["CurrentTrivia"];
-			} else if (quizname.Equals ("Sales")) {
-				questionNum = (long)user ["CurrentSales"];
-			} else if (quizname.Equals ("People")) {
-				questionNum = (long)user ["CurrentPeople"];
-			}
+			questionNum = Quizes.QuestionListPage.GetGoToQuestionNumber ();
+//			if (quizname.Equals ("Trivia")) {
+//				questionNum = (long)user ["CurrentTrivia"];
+//			} else if (quizname.Equals ("Sales")) {
+//				questionNum = (long)user ["CurrentSales"];
+//			} else if (quizname.Equals ("People")) {
+//				questionNum = (long)user ["CurrentPeople"];
+//			}
 		}
 
 		/**

@@ -20,5 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)EnterCodewordPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResultSummary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimesUpPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionListPage.cs" />
   </ItemGroup>
 </Project>

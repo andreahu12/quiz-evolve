@@ -34,6 +34,11 @@ namespace Quizes {
 		public static string questionList;
 		ParseObject currentObj;
 
+
+
+
+
+
 		public QuestionPage (ParseObject obj) {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			this.currentObj = obj;
@@ -82,7 +87,8 @@ namespace Quizes {
 					SetCounters(countdownBar);
 
 					Label questionLabel = new Label () {
-						Text = string.Format ("\n{0}. {1}\n\n", questionNum, question),
+//						Text = string.Format ("\n{0}. {1}\n\n", questionNum, question),
+						Text = question,
 						TextColor = Color.Black,
 						XAlign = TextAlignment.Start,
 					};
@@ -458,7 +464,7 @@ namespace Quizes {
 			 * </summary>
 			 * */
 		private string generateQuestion (long questionNum) {
-			string question = (string) currentObj ["Question"];
+			string question = (string) currentObj["Number"].ToString() + ". " + (string) currentObj ["Question"];
 			return question;
 		}
 
