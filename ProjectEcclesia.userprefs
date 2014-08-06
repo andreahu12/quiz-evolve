@@ -1,15 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Ad-Hoc|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ProjectEcclesia/Quizes.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina4.7.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Android/Display_Android.cs">
     <Files>
-      <File FileName="ProjectEcclesia/App.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia/Leaderboards.cs" Line="1" Column="1" />
+      <File FileName="ProjectEcclesia/App.cs" Line="96" Column="18" />
+      <File FileName="ProjectEcclesia/Leaderboards.cs" Line="98" Column="38" />
       <File FileName="ProjectEcclesia/ParseData.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia/Quizes.cs" Line="552" Column="35" />
+      <File FileName="ProjectEcclesia/Quizes.cs" Line="93" Column="1" />
       <File FileName="iOS/ParseData_iOS.cs" Line="1" Column="1" />
       <File FileName="Android/ParseData_Android.cs" Line="1" Column="1" />
       <File FileName="iOS/AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="iOS/Main.cs" Line="1" Column="1" />
+      <File FileName="iOS/Main.cs" Line="17" Column="1" />
       <File FileName="Android/MainActivity.cs" Line="1" Column="1" />
       <File FileName="Android/packages.config" Line="1" Column="1" />
       <File FileName="../../../../Developer/MonoTouch/Source/mono/mcs/class/corlib/System.Runtime.CompilerServices/AsyncVoidMethodBuilder.cs" Line="1" Column="1" />
@@ -18,6 +18,16 @@
       <File FileName="../../../../Developer/MonoTouch/Source/mono/mcs/class/corlib/System.Runtime.CompilerServices/TaskAwaiter_T.cs" Line="1" Column="1" />
       <File FileName="../../../../Developer/MonoTouch/Source/mono/mcs/class/corlib/System.Collections.Generic/Dictionary.cs" Line="1" Column="1" />
       <File FileName="iOS/packages.config" Line="1" Column="1" />
+      <File FileName="ProjectEcclesia/QuizMenu.cs" Line="88" Column="4" />
+      <File FileName="ProjectEcclesia/QuizInstructions.cs" Line="9" Column="14" />
+      <File FileName="ProjectEcclesia/Countdown.cs" Line="9" Column="1" />
+      <File FileName="ProjectEcclesia/QuestionPage.cs" Line="193" Column="28" />
+      <File FileName="ProjectEcclesia/EnterCodewordPage.cs" Line="9" Column="14" />
+      <File FileName="ProjectEcclesia/ResultSummary.cs" Line="9" Column="14" />
+      <File FileName="ProjectEcclesia/TimesUpPage.cs" Line="9" Column="14" />
+      <File FileName="ProjectEcclesia/IDisplay.cs" Line="15" Column="17" />
+      <File FileName="iOS/Display_iOS.cs" Line="1" Column="1" />
+      <File FileName="Android/Display_Android.cs" Line="10" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

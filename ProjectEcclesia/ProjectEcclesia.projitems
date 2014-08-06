@@ -13,5 +13,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Leaderboards.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ParseData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Quizes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuizMenu.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuizInstructions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Countdown.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnterCodewordPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResultSummary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TimesUpPage.cs" />
   </ItemGroup>
 </Project>
