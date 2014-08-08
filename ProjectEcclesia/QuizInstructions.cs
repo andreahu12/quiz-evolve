@@ -46,7 +46,7 @@ namespace Quizes {
 					"\n\n" +
 					"The faster you answer a question, the more points you get.\n\n" +
 					"If you get a question wrong, you can ask a rep for partial credit.\n\n" +
-					"If you quit, you can pick up where you left off later.\n\n", Quizes.QuizMenu.getTotalQuestions()),
+					"If you quit, you can pick up where you left off later.\n\n", QuizMenu.getTotalQuestions()),
 			};
 
 			Label readyLabel = new Label () {
@@ -75,7 +75,7 @@ namespace Quizes {
 				} catch (ParseException p) {
 					Console.WriteLine(p.Message);
 				}
-				Quizes.QuestionPage.SetEnviron();
+				QuestionPage.SetEnviron();
 				await this.Navigation.PushAsync(new Countdown(obj));
 			};
 
@@ -89,7 +89,9 @@ namespace Quizes {
 			sl.Children.Add (startButton);
 			sl.Children.Add (toQuizMenu);
 
-			Content = sl;
+			Content = new ScrollView () {
+				Content = sl,
+			};
 		}
 
 		/**
@@ -100,14 +102,14 @@ namespace Quizes {
 
 		private void SetValues() {
 			quizname = QuizMenu.getQuizName();
-			questionNum = Quizes.QuestionListPage.GetGoToQuestionNumber ();
-//			if (quizname.Equals ("Trivia")) {
-//				questionNum = (long)user ["CurrentTrivia"];
-//			} else if (quizname.Equals ("Sales")) {
-//				questionNum = (long)user ["CurrentSales"];
-//			} else if (quizname.Equals ("People")) {
-//				questionNum = (long)user ["CurrentPeople"];
-//			}
+//			questionNum = QuestionListPage.GetGoToQuestionNumber ();
+			if (quizname.Equals ("Trivia")) {
+				questionNum = (long)user ["CurrentTrivia"];
+			} else if (quizname.Equals ("Sales")) {
+				questionNum = (long)user ["CurrentSales"];
+			} else if (quizname.Equals ("People")) {
+				questionNum = (long)user ["CurrentPeople"];
+			}
 		}
 
 		/**

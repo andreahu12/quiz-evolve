@@ -62,7 +62,10 @@ namespace Quizes {
 				};
 
 				sl.Children.Add (toResultsButton);
-				Content = sl;
+
+				Content = new ScrollView () {
+					Content = sl,
+				};
 
 			} else {
 				StackLayout sl = ProjectEcclesia.HelperMethods.createVertSL ();
@@ -149,6 +152,8 @@ namespace Quizes {
 						Console.WriteLine(u.Message);
 					} catch (KeyNotFoundException k) {
 						Console.WriteLine(k.Message);
+					} catch (Exception e) {
+						Console.WriteLine(e.Message);
 					}
 
 					Label labelB = new Label() {
@@ -167,6 +172,8 @@ namespace Quizes {
 						Console.WriteLine(u.Message);
 					} catch (KeyNotFoundException k) {
 						Console.WriteLine(k.Message);
+					} catch (Exception e) {
+						Console.WriteLine(e.Message);
 					}
 
 					Label labelC = new Label() {
@@ -185,6 +192,8 @@ namespace Quizes {
 						Console.WriteLine(u.Message);
 					} catch (KeyNotFoundException k) {
 						Console.WriteLine(k.Message);
+					} catch (Exception e) {
+						Console.WriteLine(e.Message);
 					}
 
 					Label labelD = new Label() {
@@ -203,6 +212,8 @@ namespace Quizes {
 						Console.WriteLine(u.Message);
 					} catch (KeyNotFoundException k) {
 						Console.WriteLine(k.Message);
+					} catch (Exception e) {
+						Console.WriteLine(e.Message);
 					}
 
 					rowA.Children.Add(optionAButton);
@@ -308,7 +319,9 @@ namespace Quizes {
 					if (!optionD.Equals(""))
 						sl.Children.Add (rowD);
 
-					Content = sl;
+					Content = new ScrollView () {
+						Content = sl,
+					};
 				});
 			}
 		}

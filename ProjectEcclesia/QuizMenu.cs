@@ -60,22 +60,22 @@ namespace Quizes {
 			toSalesQuiz.Clicked += async (sender, e) => {
 				totalQuestions = await GetNumQuestions("SalesQuestions");
 				quizName = "Sales";
-				await this.Navigation.PushAsync(new QuestionListPage());
-//				await this.Navigation.PushAsync(new QuizInstructions());
+//				await this.Navigation.PushAsync(new QuestionListPage());
+				await this.Navigation.PushAsync(new QuizInstructions());
 			};
 
 			toTrivaQuiz.Clicked += async (sender, e) => {
 				totalQuestions = await GetNumQuestions("TriviaQuestions");
 				quizName = "Trivia";
-				await this.Navigation.PushAsync(new QuestionListPage());
-//				await this.Navigation.PushAsync(new QuizInstructions());
+//				await this.Navigation.PushAsync(new QuestionListPage());
+				await this.Navigation.PushAsync(new QuizInstructions());
 			};
 
 			toPeopleQuiz.Clicked += async (sender, e) => {
 				totalQuestions = await GetNumQuestions("PeopleQuestions");
 				quizName = "People";
-				await this.Navigation.PushAsync(new QuestionListPage());
-//				await this.Navigation.PushAsync(new QuizInstructions());
+//				await this.Navigation.PushAsync(new QuestionListPage());
+				await this.Navigation.PushAsync(new QuizInstructions());
 			};
 
 			toMainMenu.Clicked += async (sender, e) => {
@@ -87,7 +87,10 @@ namespace Quizes {
 			sl.Children.Add (toTrivaQuiz);
 			sl.Children.Add (toPeopleQuiz);
 			sl.Children.Add (toMainMenu);
-			Content = sl;
+
+			Content = new ScrollView () {
+				Content = sl,
+			};
 		}
 		/**
 		 * <summary>

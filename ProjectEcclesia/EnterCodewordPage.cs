@@ -90,7 +90,10 @@ namespace Quizes {
 			sl.Children.Add (codewordEntry);
 			sl.Children.Add (submitButton);
 			sl.Children.Add (exitButton);
-			Content = sl;
+
+			Content = new ScrollView () {
+				Content = sl,
+			};
 		}
 
 		/**

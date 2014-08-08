@@ -85,7 +85,10 @@ namespace Quizes {
 			sl.Children.Add (continueButton);
 			sl.Children.Add (mainButton);
 			sl.Children.Add (logOutButton);
-			Content = sl;
+
+			Content = new ScrollView () {
+				Content = sl,
+			};
 		}
 
 		/**

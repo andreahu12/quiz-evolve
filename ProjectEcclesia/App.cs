@@ -59,6 +59,7 @@ namespace ProjectEcclesia
 			Entry emailEntry = new Entry () {
 				Placeholder = "Email",
 				TextColor = Color.FromHex("#4e5758"),
+				Keyboard = Keyboard.Email,
 			};
 
 			Entry passwordEntry = new Entry () {
@@ -123,7 +124,9 @@ namespace ProjectEcclesia
 			vl.Children.Add (createAccountButton);
 			vl.Children.Add (backToLoginScreenButton);
 
-			Content = vl;
+			Content = new ScrollView () {
+				Content = vl,
+			};
 		}
 	}
 
@@ -159,6 +162,7 @@ namespace ProjectEcclesia
 				Entry emailEntry = new Entry () {
 					Placeholder = "Email",
 					TextColor = Color.FromHex("#3498db"),
+					Keyboard = Keyboard.Email,
 				};
 
 				Entry passwordEntry = new Entry () {
@@ -204,7 +208,10 @@ namespace ProjectEcclesia
 				sl.Children.Add (loginButton);
 				sl.Children.Add (signUpButton);
 				sl.Children.Add (monkeyImage);
-				Content = sl;
+
+				Content = new ScrollView () {
+					Content = sl,
+				};
 			}
 		}
 	}
@@ -217,6 +224,7 @@ namespace ProjectEcclesia
 		/**
 		 * Constructor for the Main Menu
 		 * */
+
 		public MainMenuPage() {
 			BackgroundColor = Color.FromHex ("#ecf0f1");
 			NavigationPage.SetHasNavigationBar (this, false);
@@ -259,12 +267,19 @@ namespace ProjectEcclesia
 				await ProjectEcclesia.App.NavPage.PushAsync(new LoginPage());
 			};
 
+			Label versionLabel = new Label () {
+				Text = "Version 1.3",
+			};
+
 			sl.Children.Add (pageTitle);
 			sl.Children.Add (toQuizMenu);
 			sl.Children.Add (toLBMenu);
 			sl.Children.Add (logOutButton);
+			sl.Children.Add (versionLabel);
 
-			Content = sl;
+			Content = new ScrollView () {
+				Content = sl,
+			};
 		}
 	}
 
