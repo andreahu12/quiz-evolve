@@ -17,7 +17,7 @@ namespace Xamarin.Ecclesia.Settings
         #region Fields
         static ISettingsContainer _localSettings;
 
-        public static Color PageBackgroundColor = Color.Black;
+        public static Color PageBackgroundColor = Color.Transparent;
         #endregion
 
         #region Properties

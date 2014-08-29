@@ -58,6 +58,8 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
+                if (Parent == null)
+                    return 0;
                 return ((QuizViewModel)Parent).Children.IndexOf(this);
             }
         }
@@ -66,6 +68,8 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
+                if (Parent == null)
+                    return false;
                 return Index < ((QuizViewModel)Parent).Children.Count-1;
             }
         }
@@ -74,6 +78,8 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
+                if (Parent == null)
+                    return null;
                 return ((QuizViewModel)Parent).Children[Index + 1] as QuestionViewModel;
             }
         }

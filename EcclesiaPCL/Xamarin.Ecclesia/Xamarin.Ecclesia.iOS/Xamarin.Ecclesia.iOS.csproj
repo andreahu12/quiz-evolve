@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Xamarin.Ecclesia.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Xamarin.Ecclesia</AssemblyName>
+    <AssemblyName>XamarinEcclesia</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
