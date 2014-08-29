@@ -39,7 +39,10 @@
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Settings\ISettingsContainer.cs" />
     <Compile Include="Settings\UserSettings.cs" />
+    <Compile Include="Utils\CommonActions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\AnswerViewModel.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\QuizViewModel.cs" />
     <Compile Include="ViewModels\ParentViewModel.cs" />
     <Compile Include="ViewModels\QuizGroupViewModel.cs" />
@@ -49,6 +52,12 @@
     <Compile Include="ViewModels\EcclesiaViewModel.cs" />
     <Compile Include="ViewModels\ViewModelProvider.cs" />
     <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\QuestionPage.xaml.cs">
+      <DependentUpon>QuestionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuizPage.xaml.cs">
+      <DependentUpon>QuizPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\QuizzesPage.xaml.cs">
       <DependentUpon>QuizzesPage.xaml</DependentUpon>
     </Compile>
@@ -95,6 +104,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\QuizzesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\QuizPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\QuestionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

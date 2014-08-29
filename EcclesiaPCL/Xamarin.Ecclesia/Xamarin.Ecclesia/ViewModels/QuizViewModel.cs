@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 using Xamarin.Ecclesia.Settings;
+using Xamarin.Ecclesia.XML;
 using Xamarin.Forms;
 
 
@@ -30,14 +31,27 @@ namespace Xamarin.Ecclesia.ViewModels
         #region Properties
         public string ID { get; private set; }
         public string Name { get; private set; }
+
         #endregion
 
         #region Methods
-        void LoadQuestions()
+        async public void LoadQuestions()
         {
-            
+            var quizData = await XMLLoader.LoadXML(string.Format("Data/Quizzes/{0}.xml",Name));
+            var quizElements = quizData.Descendants("Question").ToList();
+
+            foreach (var element in quizElements)
+            {
+                AddChild(new QuestionViewModel(element));
+            }
         }
 
+        public override void ClearChildren()
+        {
+            foreach (QuestionViewModel vm in Children)
+                vm.ClearChildren();
+            base.ClearChildren();
+        }
         #endregion
     }
 }

@@ -6,19 +6,19 @@
     CorrectAnswerId="1"
     >
     <Answer
-      ID="0"
+      Id="0"
       Text="Anton"
     />
     <Answer
-      ID="1"
+      Id="1"
       Text="David"
     />
     <Answer
-      ID="2"
+      Id="2"
       Text="Peter"
     />
     <Answer
-      ID="3"
+      Id="3"
       Text="Robert"
     />
   </Question>

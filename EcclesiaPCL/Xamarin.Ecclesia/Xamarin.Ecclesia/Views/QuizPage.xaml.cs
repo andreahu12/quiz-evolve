@@ -9,36 +9,36 @@ using Xamarin.Forms;
 
 namespace Xamarin.Ecclesia.Views
 {
-    public partial class QuizzesPage : BaseView
+    public partial class QuizPage : BaseView
     {
-        public QuizzesPage()
+        public QuizPage()
         {
             //Initialize UI
             InitializeComponent();
-            //Set viewmodel
-            BindingContext = ViewModelProvider.GetViewModel<QuizGroupViewModel>();
+            
         }
 
         #region Navigation
         //Any event handlers attach here before we navigate to thispage
         public override void AttachNavigationEvents()
         {
-            
+            CommonActions.ActiveQuiz.LoadQuestions();
+            BindingContext = CommonActions.ActiveQuiz;
         }
 
         //detach event handlers, on navigating out of the page
         public override void DetachNavigationEvents()
         {
+            BindingContext = null;
         }
         #endregion
 
         #region Controls Handlers
                 
-        async public void ItemTapped(object sender, ItemTappedEventArgs args)
+        public async void ItemTapped(object sender, ItemTappedEventArgs args)
         {
-            var quiz = args.Item as QuizViewModel;
-            CommonActions.ActiveQuiz = quiz;
-            await Navigation.PushAsync(new QuizPage());
+            CommonActions.ActiveQuestion = args.Item as QuestionViewModel;
+            await Navigation.PushAsync(new QuestionPage());
         }
         #endregion
     }

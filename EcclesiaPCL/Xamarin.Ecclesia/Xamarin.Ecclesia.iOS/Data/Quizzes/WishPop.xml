@@ -6,21 +6,89 @@
     CorrectAnswerId="1"
     >
     <Answer
-      ID="0"
+      Id="0"
       Text="Anton"
     />
     <Answer
-      ID="1"
+      Id="1"
       Text="David"
     />
     <Answer
-      ID="2"
+      Id="2"
       Text="Peter"
     />
     <Answer
-      ID="3"
+      Id="3"
       Text="Robert"
     />
   </Question>
   
+  <Question
+    Id="1"
+    Text="What is your age?"
+    CorrectAnswerId="1"
+    >
+    <Answer
+      Id="0"
+      Text="12"
+    />
+    <Answer
+      Id="1"
+      Text="15"
+    />
+    <Answer
+      Id="2"
+      Text="32"
+    />
+    <Answer
+      Id="3"
+      Text="48"
+    />
+  </Question>
+  
+  <Question
+    Id="2"
+    Text="Where are you from"
+    CorrectAnswerId="1"
+    >
+    <Answer
+      Id="0"
+      Text="Minsk"
+    />
+    <Answer
+      Id="1"
+      Text="New York"
+    />
+    <Answer
+      Id="2"
+      Text="Tokio"
+    />
+    <Answer
+      Id="3"
+      Text="Berlin"
+    />
+  </Question>
+  
+  <Question
+    Id="3"
+    Text="What is your name?"
+    CorrectAnswerId="1"
+    >
+    <Answer
+      Id="0"
+      Text="Anton"
+    />
+    <Answer
+      Id="1"
+      Text="David"
+    />
+    <Answer
+      Id="2"
+      Text="Peter"
+    />
+    <Answer
+      Id="3"
+      Text="Robert"
+    />
+  </Question>
 </Questions>

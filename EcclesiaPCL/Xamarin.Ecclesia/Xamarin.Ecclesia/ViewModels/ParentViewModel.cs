@@ -22,7 +22,8 @@ namespace Xamarin.Ecclesia.ViewModels
 
         #region Fields
         ObservableCollection<EcclesiaViewModel> _children;
-               
+
+        EcclesiaViewModel _selectedChild;
         #endregion
 
         #region Properties
@@ -38,6 +39,22 @@ namespace Xamarin.Ecclesia.ViewModels
                 if (_children != value)
                 {
                     _children = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public EcclesiaViewModel SelectedChild
+        {
+            get
+            {
+                return _selectedChild;
+            }
+            set
+            {
+                if (_selectedChild == value)
+                {
+                    _selectedChild = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -78,6 +95,16 @@ namespace Xamarin.Ecclesia.ViewModels
                 child = null; 
                 NotifyPropertyChanged("Children");
             }
+        }
+
+        public virtual void ClearChildren()
+        {
+            var temp = new List<EcclesiaViewModel>();
+            temp.AddRange(_children);
+            foreach (var vm in temp)
+                RemoveChild(vm);
+            temp.Clear();
+            temp = null;
         }
         #endregion
     }
