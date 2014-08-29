@@ -15,7 +15,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #region Constructor
         public MainMenuViewModel()
         {
-            Title = "MainMenu";
+            Title = "Main Menu";
             BackgroundColor = AppSettings.PageBackgroundColor;
         }
         #endregion

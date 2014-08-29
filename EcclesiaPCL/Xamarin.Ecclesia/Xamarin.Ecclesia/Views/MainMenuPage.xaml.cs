@@ -15,7 +15,7 @@ namespace Xamarin.Ecclesia.Views
             //Initialize UI
             InitializeComponent();
             //Set viewmodel
-            BindingContext = ViewModelProvider.GetViewModel<LoginViewModel>();
+            BindingContext = ViewModelProvider.GetViewModel<MainMenuViewModel>();
 
         }
 
