@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<QuizGroups>
+  <QuizGroup
+    Id="0"
+    Name="Xamarin"
+    />
+  <QuizGroup
+    Id="0"
+    Name="WishPop"
+    />
+</QuizGroups>

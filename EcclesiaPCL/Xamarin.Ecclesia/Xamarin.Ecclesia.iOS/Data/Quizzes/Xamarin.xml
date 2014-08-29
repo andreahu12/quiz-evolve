@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Questions>
+  <Question
+    Id="0"
+    Text="What is your name?"
+    CorrectAnswerId="1"
+    >
+    <Answer
+      ID="0"
+      Text="Anton"
+    />
+    <Answer
+      ID="1"
+      Text="David"
+    />
+    <Answer
+      ID="2"
+      Text="Peter"
+    />
+    <Answer
+      ID="3"
+      Text="Robert"
+    />
+  </Question>
+  
+</Questions>

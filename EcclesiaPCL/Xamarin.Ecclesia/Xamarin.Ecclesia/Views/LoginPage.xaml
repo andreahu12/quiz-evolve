@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BaseView 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Xamarin.Ecclesia.Views.LoginPage"
+    BackgroundColor="{Binding BackgroundColor}"
+    Title="{Binding Title}">
+
+
+    <StackLayout>
+        <Label Text="{Binding Title}" 
+           VerticalOptions="Start" 
+           HorizontalOptions="Center" />
+
+        <Button Text="Start quiz"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand"
+            Clicked="OnButtonClicked" />
+    </StackLayout>
+
+</BaseView>
