@@ -42,7 +42,7 @@ namespace Xamarin.Ecclesia.iOS
             _oAuth = new OAuthCommunicator();
             AuthHelper.OAuthCommunicator = _oAuth;
             _oAuth.AuthUIRequest += _oAuth_AuthUIRequest;
-
+			_oAuth.AuthFinished +=	_oAuth_AuthFinished;
             return true;
         }
 
@@ -55,5 +55,14 @@ namespace Xamarin.Ecclesia.iOS
 
             UIApplication.SharedApplication.Windows[0] = window;
         }
+
+		void _oAuth_AuthFinished()
+		{
+
+			window.RootViewController = _vc;
+			window.MakeKeyAndVisible();
+
+			UIApplication.SharedApplication.Windows[0] = window;
+		}
     }
 }

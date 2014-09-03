@@ -19,7 +19,7 @@ namespace Xamarin.Ecclesia.Auth
         
         #region Events
         public event Action AuthUIRequest;
-        //public event Action AuthCompleted;
+        public event Action AuthFinished;
         //public event Action AuthFailed;
         #endregion
 
@@ -60,15 +60,18 @@ namespace Xamarin.Ecclesia.Auth
                 // TODO: complited should be only on success following with succesfull API communication
                 FBAuthenticator.Completed += (s, ee) =>
                 {
-                    //if (AuthCompleted != null)
-                    //    AuthCompleted();
+                    if (AuthFinished != null)
+                        AuthFinished();
+
                     if (!ee.IsAuthenticated)
                     {
-                        return;
+						tcs.SetResult(false);
                     }
-                    FBAccount = ee.Account;
-
-                    tcs.SetResult(true);
+					else
+					{
+                    	FBAccount = ee.Account;
+						tcs.SetResult(true);
+					}
                 };
 
                 FBAuthenticator.Error += (sender, e) =>

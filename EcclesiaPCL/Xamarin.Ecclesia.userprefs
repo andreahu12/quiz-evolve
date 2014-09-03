@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Ad-Hoc|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Ecclesia/Xamarin.Ecclesia.iOS/AppDelegate.cs">
+    <Files>
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Xamarin.Ecclesia.csproj" Line="33" Column="33" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/packages.config" Line="1" Column="1" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia.iOS/Models/OAuth/OAuthCommunicator.cs" Line="45" Column="45" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia.iOS/Main.cs" Line="1" Column="1" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia.iOS/AppDelegate.cs" Line="29" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
