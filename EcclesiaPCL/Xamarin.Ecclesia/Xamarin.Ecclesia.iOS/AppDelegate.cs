@@ -7,6 +7,8 @@ using MonoTouch.UIKit;
 
 using Xamarin.Forms;
 using Xamarin.Ecclesia.Models.Utils;
+using Xamarin.Ecclesia.XML;
+using Xamarin.Ecclesia.Auth;
 
 namespace Xamarin.Ecclesia.iOS
 {
@@ -18,7 +20,8 @@ namespace Xamarin.Ecclesia.iOS
     {
         // class-level declarations
         UIWindow window;
-
+        UIViewController _vc;
+        OAuthCommunicator _oAuth;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -29,14 +32,28 @@ namespace Xamarin.Ecclesia.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Xamarin.Forms.Forms.Init();
-            XMLProvider.Init();
+            XMLHelper.XMLLoader =new XMLLoader();
             window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            window.RootViewController = App.GetMainPage().CreateViewController();
+            _vc=App.GetMainPage().CreateViewController();
+            window.RootViewController = _vc;
 
             window.MakeKeyAndVisible();
 
+            _oAuth = new OAuthCommunicator();
+            AuthHelper.OAuthCommunicator = _oAuth;
+            _oAuth.AuthUIRequest += _oAuth_AuthUIRequest;
+
             return true;
+        }
+
+        void _oAuth_AuthUIRequest()
+        {
+            UIViewController vc = OAuthCommunicator.FBAuthenticator.GetUI();
+                        
+            window.RootViewController = vc;
+            window.MakeKeyAndVisible();
+
+            UIApplication.SharedApplication.Windows[0] = window;
         }
     }
 }

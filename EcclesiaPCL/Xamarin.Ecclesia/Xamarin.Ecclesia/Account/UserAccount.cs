@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xamarin.Ecclesia.Account
+namespace Xamarin.Ecclesia.Accounts
 {
     public class UserAccount
     {

@@ -37,6 +37,10 @@ namespace Xamarin.Ecclesia.Views
         {
             await Navigation.PushAsync(new QuizzesPage());
         }
+        async void OnHelpClicked(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new InstructionsPage());
+        }
         #endregion
     }
 }

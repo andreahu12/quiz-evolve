@@ -8,19 +8,19 @@ using Android.App;
 
 namespace Xamarin.Ecclesia.Models.Utils
 {
-    public static class XMLProvider
+    
+    public class XMLLoader : IXMLLoader
     {
         static Activity _context;
 
-        public static void Init(Activity activity)
+        public XMLLoader(Activity activity)
         {
             _context = activity;
-            XMLLoader.RequestXML += XMLLoader_RequestXML;
         }
 
-        static void XMLLoader_RequestXML(string filename)
+        public XDocument LoadXML(string filename)
         {
-            XMLHelper.SetXML(XDocument.Load(_context.Assets.Open(filename)));
+            return XDocument.Load(_context.Assets.Open(filename));
         }
     }
 }

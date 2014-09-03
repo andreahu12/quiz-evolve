@@ -8,6 +8,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Xamarin.Ecclesia.WinPhone.Resources;
 using Xamarin.Ecclesia.Models.Utils;
+using Xamarin.Ecclesia.XML;
 
 namespace Xamarin.Ecclesia.WinPhone
 {
@@ -62,7 +63,7 @@ namespace Xamarin.Ecclesia.WinPhone
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            XMLProvider.Init();
+            XMLHelper.XMLLoader= new XMLLoader();
         }
 
         // Code to execute when the application is activated (brought to foreground)

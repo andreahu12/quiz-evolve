@@ -35,11 +35,11 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Methods
-        async public void LoadQuestions()
+        public void LoadQuestions()
         {
             if (Children != null && Children.Any())
                 ClearChildren();
-            var quizData = await XMLLoader.LoadXML(string.Format("Data/Quizzes/{0}.xml",Name));
+            var quizData = XMLHelper.LoadXML(string.Format("Data/Quizzes/{0}.xml",Name));
             var quizElements = quizData.Descendants("Question").ToList();
 
             foreach (var element in quizElements)

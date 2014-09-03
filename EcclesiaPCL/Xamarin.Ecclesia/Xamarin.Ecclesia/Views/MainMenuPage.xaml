@@ -25,6 +25,10 @@
             HorizontalOptions="Center"
             VerticalOptions="Center"
              />
+        <Button Text="Help"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Clicked="OnHelpClicked"/>
         </StackLayout>
     </StackLayout>
 

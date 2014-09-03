@@ -7,16 +7,11 @@ using System.Xml.Linq;
 
 namespace Xamarin.Ecclesia.Models.Utils
 {
-    public static class XMLProvider
+    public class XMLLoader : IXMLLoader
     {
-        public static void Init()
+        public XDocument LoadXML(string filename)
         {
-            XMLLoader.RequestXML += XMLLoader_RequestXML;
-        }
-
-        static void XMLLoader_RequestXML(string filename)
-        {
-            XMLHelper.SetXML(XDocument.Load(filename));
+            return XDocument.Load(filename);
         }
     }
 }

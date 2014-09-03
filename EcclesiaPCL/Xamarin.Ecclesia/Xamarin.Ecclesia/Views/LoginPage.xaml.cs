@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Ecclesia.Auth;
 using Xamarin.Ecclesia.ViewModels;
 using Xamarin.Forms;
 
@@ -35,7 +36,8 @@ namespace Xamarin.Ecclesia.Views
         #region Controls Handlers
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new InstructionsPage());
+            if (await AuthHelper.OAuthCommunicator.AuthWithFacebook())
+                await Navigation.PushAsync(new MainMenuPage());
         }
         #endregion
     }

@@ -12,7 +12,7 @@
            VerticalOptions="Start" 
            HorizontalOptions="Center" />
 
-        <Button Text="Start quiz"
+        <Button Text="Login with FB"
             HorizontalOptions="Center"
             VerticalOptions="CenterAndExpand"
             Clicked="OnButtonClicked" />

@@ -9,13 +9,12 @@ namespace Xamarin.Ecclesia.XML
 {
     public static class XMLHelper
     {
-        public static event Action<XDocument> XMLLoaded;
-        public static void SetXML(XDocument xmlDocument)
+        public static IXMLLoader XMLLoader;
+
+        public static XDocument LoadXML(string filename)
         {
-            if (XMLLoaded != null)
-            {
-                XMLLoaded(xmlDocument);
-            }
+            return XMLLoader.LoadXML(filename);
         }
+        
     }
 }
