@@ -39,11 +39,12 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             if (_isChecked)
                 return;
-            if (ID == ((QuestionViewModel)Parent).ID)
+            /*if (ID == ((QuestionViewModel)Parent).ID)
                 UserSettings.Score+=10;
             else
                 UserSettings.Score -= 2;
             _isChecked = true;
+             */
         }
         #endregion
     }

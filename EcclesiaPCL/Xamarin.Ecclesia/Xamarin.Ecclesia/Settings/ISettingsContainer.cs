@@ -13,7 +13,6 @@ namespace Xamarin.Ecclesia.Settings
         
         bool ContainsKey(string key);
                 
-        string CheckKey(string key);
     }
    
 }

@@ -47,6 +47,9 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Parse.Android">
+      <HintPath>..\..\Components\parse-1.2.16\lib\android\Parse.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Json" />
@@ -71,6 +74,12 @@
   <ItemGroup>
     <Compile Include="..\Xamarin.Ecclesia.iOS\Models\OAuth\OAuthCommunicator.cs">
       <Link>Models\OAuth\OAuthCommunicator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Ecclesia.iOS\Models\Parse\ParseData.cs">
+      <Link>Models\Parse\ParseData.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Ecclesia.iOS\Models\Settings\LocalSettings.cs">
+      <Link>Models\Settings\LocalSettings.cs</Link>
     </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\Utils\XMLProvider.cs" />
@@ -106,6 +115,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="parse">
+      <Visible>False</Visible>
+      <Version>1.2.16</Version>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="xamarin.auth">
       <Visible>False</Visible>
       <Version>1.2.2</Version>

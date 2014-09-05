@@ -50,7 +50,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
-                return "My score is " + UserSettings.Score.ToString();
+                return "My score is " /*+ UserSettings.Score.ToString()*/;
             }
         }
 

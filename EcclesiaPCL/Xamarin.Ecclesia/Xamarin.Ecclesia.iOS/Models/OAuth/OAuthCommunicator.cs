@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Auth;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.Auth
 {
@@ -26,16 +27,6 @@ namespace Xamarin.Ecclesia.Auth
         #region Properties
         public Account FBAccount { get; private set; }
         public OAuth2Authenticator FBAuthenticator { get; private set; }
-        public string AccessToken { get; set; }
-        public string KidAccessToken { get; private set; }
-        public bool IsAuthenticated
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(AccessToken);
-            }
-        }
-                
         #endregion
 
         #region Methods
@@ -43,52 +34,61 @@ namespace Xamarin.Ecclesia.Auth
         {
             var tcs = new TaskCompletionSource<bool>();
 
-            if (IsAuthenticated)
-            {
-                //AuthCompleted();
-                tcs.SetResult(true);
-            }
-            else
-            {
-                FBAuthenticator = new OAuth2Authenticator(
-                    clientId: FBAppID,
-                    scope: "",
-                    authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
-                    redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
+            FBAuthenticator = new OAuth2Authenticator(
+                clientId: FBAppID,
+                scope: "",
+                authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
+                redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
 
-                // If authorization succeeds or is canceled, .Completed will be fired.
-                // TODO: complited should be only on success following with succesfull API communication
-                FBAuthenticator.Completed += (s, ee) =>
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            // TODO: complited should be only on success following with succesfull API communication
+            FBAuthenticator.Completed += (s, ee) =>
+            {
+                if (AuthFinished != null)
+                    AuthFinished();
+
+                if (!ee.IsAuthenticated)
                 {
-                    if (AuthFinished != null)
-                        AuthFinished();
+					tcs.SetResult(false);
+                }
+				else
+				{
+                    FBAccount = ee.Account;
+					tcs.SetResult(true);
+				}
+            };
 
-                    if (!ee.IsAuthenticated)
-                    {
-						tcs.SetResult(false);
-                    }
-					else
-					{
-                    	FBAccount = ee.Account;
-						tcs.SetResult(true);
-					}
+            FBAuthenticator.Error += (sender, e) =>
+                {
+                    tcs.SetResult(false);
                 };
 
-                FBAuthenticator.Error += (sender, e) =>
-                    {
-                        tcs.SetResult(false);
-                    };
-
-                if (AuthUIRequest != null)
-                    AuthUIRequest();
-            }
+            if (AuthUIRequest != null)
+                AuthUIRequest();
             return await tcs.Task;
         }
-
-        void FBAuthenticator_Error(object sender, AuthenticatorErrorEventArgs e)
+        public async void GetFBInfoAsync()
         {
-            throw new NotImplementedException();
+            // Now that we're logged in, make a OAuth2 request to get the user's info.
+            var request = new OAuth2Request("GET", new Uri("https://graph.facebook.com/me"), null, FBAccount);
+            try
+            {
+                Response response = await request.GetResponseAsync();
+                var str =  response.GetResponseText();
+                var obj = JsonValue.Parse(str);
+
+                var email = obj["email"].ToString();
+                var name = obj["name"].ToString();
+                var facebookID = obj["id"].ToString();
+                await ParseHelper.ParseData.RegisterAccount(email, facebookID, name, "");
+            }
+            catch (Exception ex)
+            {
+                //LogManager.Log(ClassName, new Exception("Was not able to get facebook name", ex));
+            }
+            
         }
+              
 
         #endregion
     }

@@ -9,6 +9,8 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Ecclesia.Models.Utils;
 using Xamarin.Ecclesia.XML;
 using Xamarin.Ecclesia.Auth;
+using Xamarin.Ecclesia.Settings;
+using Parse;
 
 
 namespace Xamarin.Ecclesia.Droid
@@ -20,10 +22,22 @@ namespace Xamarin.Ecclesia.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            //Initialize Xamarin.Forms
             Xamarin.Forms.Forms.Init(this, bundle);
+
+            //XML loader instance
+            XMLHelper.XMLLoader = new XMLLoader(this);
+
+            //Initialize settings
+            AppSettings.Init(new LocalSettings());
+
+            // Initialize the parse client with your Application ID and .NET Key found on
+            // your Parse dashboard
+            ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
+                "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+
+            //set main page
             SetPage(App.GetMainPage());
-            XMLHelper.XMLLoader =new XMLLoader(this);
 
             _oAuth = new OAuthCommunicator();
             _oAuth.AuthUIRequest += oAuth_AuthUIRequest;

@@ -37,10 +37,11 @@
     <Compile Include="App.cs" />
     <Compile Include="Auth\AuthHelper.cs" />
     <Compile Include="Auth\IOAuthCommunicator.cs" />
+    <Compile Include="Parse\IParseData.cs" />
+    <Compile Include="Parse\ParseHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Settings\ISettingsContainer.cs" />
-    <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Utils\CommonActions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\AnswerViewModel.cs" />

@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using Xamarin.Ecclesia.Models.Utils;
 using Xamarin.Ecclesia.XML;
 using Xamarin.Ecclesia.Auth;
+using Parse;
+using Xamarin.Ecclesia.Settings;
 
 namespace Xamarin.Ecclesia.iOS
 {
@@ -19,50 +21,76 @@ namespace Xamarin.Ecclesia.iOS
     public partial class AppDelegate : UIApplicationDelegate
     {
         // class-level declarations
-        UIWindow window;
+        #region Fields
+        //main app windows
+        UIWindow _window;
+        //app view controller
         UIViewController _vc;
+        //OAuth communicator class for Facebook/LinkedIn
         OAuthCommunicator _oAuth;
-        //
-        // This method is invoked when the application has loaded and is ready to run. In this 
-        // method you should instantiate the window, load the UI into it and then make the window
-        // visible.
-        //
-        // You have 17 seconds to return from this method, or iOS will terminate your application.
-        //
+        #endregion
+
+        
+        /// <summary>
+        /// This method is invoked when the application has loaded and is ready to run. In this 
+        /// method you should instantiate the window, load the UI into it and then make the window
+        /// visible.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            //Initialize Xamarin.Forms
             Xamarin.Forms.Forms.Init();
+            //XML loader instance
             XMLHelper.XMLLoader =new XMLLoader();
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+            //Initialize settings
+            AppSettings.Init(new LocalSettings());
+
+            // Initialize the parse client with your Application ID and .NET Key found on
+            // your Parse dashboard
+            ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
+                "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+
+            //set main window 
+            _window = new UIWindow(UIScreen.MainScreen.Bounds);
             _vc=App.GetMainPage().CreateViewController();
-            window.RootViewController = _vc;
+            _window.RootViewController = _vc;
+            //and show it
+            _window.MakeKeyAndVisible();
 
-            window.MakeKeyAndVisible();
-
+            //OAuth communicator instance
             _oAuth = new OAuthCommunicator();
             AuthHelper.OAuthCommunicator = _oAuth;
+            //register authhandlers
             _oAuth.AuthUIRequest += _oAuth_AuthUIRequest;
 			_oAuth.AuthFinished +=	_oAuth_AuthFinished;
             return true;
         }
 
+        /// <summary>
+        /// Request to show login view 
+        /// </summary>
         void _oAuth_AuthUIRequest()
         {
             UIViewController vc = _oAuth.FBAuthenticator.GetUI();
                         
-            window.RootViewController = vc;
-            window.MakeKeyAndVisible();
+            _window.RootViewController = vc;
+            _window.MakeKeyAndVisible();
 
-            UIApplication.SharedApplication.Windows[0] = window;
+            UIApplication.SharedApplication.Windows[0] = _window;
         }
 
+        /// <summary>
+        /// Login completed, return to main app view
+        /// </summary>
 		void _oAuth_AuthFinished()
 		{
-
-			window.RootViewController = _vc;
-			window.MakeKeyAndVisible();
-
-			UIApplication.SharedApplication.Windows[0] = window;
+			_window.RootViewController = _vc;
+			_window.MakeKeyAndVisible();
+			UIApplication.SharedApplication.Windows[0] = _window;
 		}
     }
 }

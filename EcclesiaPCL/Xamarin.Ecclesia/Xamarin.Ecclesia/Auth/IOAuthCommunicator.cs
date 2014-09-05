@@ -8,8 +8,6 @@ namespace Xamarin.Ecclesia.Auth
 {
     public interface IOAuthCommunicator
     {
-        string AccessToken { get; set; }
-        bool IsAuthenticated{get;}
         Task<bool> AuthWithFacebook();
     }
 }
