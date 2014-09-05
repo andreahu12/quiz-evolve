@@ -11,6 +11,7 @@ using Xamarin.Ecclesia.XML;
 using Xamarin.Ecclesia.Auth;
 using Parse;
 using Xamarin.Ecclesia.Settings;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.iOS
 {
@@ -46,13 +47,14 @@ namespace Xamarin.Ecclesia.iOS
             //XML loader instance
             XMLHelper.XMLLoader =new XMLLoader();
 
-            //Initialize settings
+			//Initialize settings
             AppSettings.Init(new LocalSettings());
 
             // Initialize the parse client with your Application ID and .NET Key found on
             // your Parse dashboard
             ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
                 "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+			ParseHelper.ParseData = new ParseData ();
 
             //set main window 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);

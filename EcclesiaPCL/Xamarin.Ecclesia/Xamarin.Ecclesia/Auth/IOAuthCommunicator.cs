@@ -8,6 +8,6 @@ namespace Xamarin.Ecclesia.Auth
 {
     public interface IOAuthCommunicator
     {
-        Task<bool> AuthWithFacebook();
+        Task<bool> AuthWithFacebookAsync();
     }
 }

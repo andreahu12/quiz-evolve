@@ -30,7 +30,7 @@ namespace Xamarin.Ecclesia.Auth
         #endregion
 
         #region Methods
-        public async Task<bool> AuthWithFacebook()
+        public async Task<bool> AuthWithFacebookAsync()
         {
             var tcs = new TaskCompletionSource<bool>();
 
@@ -42,7 +42,7 @@ namespace Xamarin.Ecclesia.Auth
 
             // If authorization succeeds or is canceled, .Completed will be fired.
             // TODO: complited should be only on success following with succesfull API communication
-            FBAuthenticator.Completed += (s, ee) =>
+            FBAuthenticator.Completed += async(s, ee) =>
             {
                 if (AuthFinished != null)
                     AuthFinished();
@@ -54,6 +54,7 @@ namespace Xamarin.Ecclesia.Auth
 				else
 				{
                     FBAccount = ee.Account;
+					await GetFBInfoAsync();
 					tcs.SetResult(true);
 				}
             };
@@ -67,7 +68,7 @@ namespace Xamarin.Ecclesia.Auth
                 AuthUIRequest();
             return await tcs.Task;
         }
-        public async void GetFBInfoAsync()
+        public async Task GetFBInfoAsync()
         {
             // Now that we're logged in, make a OAuth2 request to get the user's info.
             var request = new OAuth2Request("GET", new Uri("https://graph.facebook.com/me"), null, FBAccount);
@@ -77,10 +78,10 @@ namespace Xamarin.Ecclesia.Auth
                 var str =  response.GetResponseText();
                 var obj = JsonValue.Parse(str);
 
-                var email = obj["email"].ToString();
-                var name = obj["name"].ToString();
-                var facebookID = obj["id"].ToString();
-                await ParseHelper.ParseData.RegisterAccount(email, facebookID, name, "");
+				var email = obj["email"].OfType<string>().First();
+                var name = obj["name"];
+                var facebookID = obj["id"];
+                await ParseHelper.ParseData.RegisterAccountAsync(email, facebookID, name, "");
             }
             catch (Exception ex)
             {

@@ -20,14 +20,14 @@ namespace Xamarin.Ecclesia.Parse
             return null;
         }
 
-        public async Task<UserAccount> SigInAccount(string email, string socialId)
+        public async Task<UserAccount> SigInAccountAsync(string email, string socialId)
         {
             var user = await ParseUser.LogInAsync(email, socialId);
             SaveLocal(email, socialId);
             return AccountFromParseUser(user);
         }
         
-        public async Task<UserAccount> RegisterAccount(string email, string socialId, string firstName, string lastName)
+        public async Task<UserAccount> RegisterAccountAsync(string email, string socialId, string firstName, string lastName)
         {
             bool isRegistered = false;
 
@@ -56,10 +56,11 @@ namespace Xamarin.Ecclesia.Parse
             catch (Exception a)
             {
                 //TODO: Log it
+				var t = a.Message;
             }
             
             if (isRegistered)
-                return await SigInAccount(email, socialId);
+                return await SigInAccountAsync(email, socialId);
             else
                 return AccountFromParseUser(user);
         }

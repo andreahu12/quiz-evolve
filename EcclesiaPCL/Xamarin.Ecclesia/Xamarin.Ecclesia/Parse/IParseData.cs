@@ -10,7 +10,7 @@ namespace Xamarin.Ecclesia.Parse
     public interface IParseData
     {
         UserAccount GetCurrentAccount();
-        Task<UserAccount> RegisterAccount(string email, string socialId, string firstName, string lastName);
-        Task<UserAccount> SigInAccount(string email, string socialId);
+        Task<UserAccount> RegisterAccountAsync(string email, string socialId, string firstName, string lastName);
+        Task<UserAccount> SigInAccountAsync(string email, string socialId);
     }
 }

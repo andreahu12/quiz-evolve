@@ -13,7 +13,7 @@ namespace Xamarin.Ecclesia.Auth
 
         public async static Task<bool> AuthWithFacebook()
         {
-            return await OAuthCommunicator.AuthWithFacebook();
+            return await OAuthCommunicator.AuthWithFacebookAsync();
         }
     }
 }
