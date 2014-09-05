@@ -9,11 +9,16 @@ using Microsoft.Phone.Shell;
 using Xamarin.Ecclesia.WinPhone.Resources;
 using Xamarin.Ecclesia.Models.Utils;
 using Xamarin.Ecclesia.XML;
+using Xamarin.Ecclesia.Settings;
+using Parse;
+using Xamarin.Ecclesia.Parse;
+using Xamarin.Ecclesia.Auth;
 
 namespace Xamarin.Ecclesia.WinPhone
 {
     public partial class App : Application
     {
+       
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -63,9 +68,24 @@ namespace Xamarin.Ecclesia.WinPhone
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            XMLHelper.XMLLoader= new XMLLoader();
+            //Initialize Xamarin.Forms
+            Xamarin.Forms.Forms.Init();
+
+            //XML loader instance
+            XMLHelper.XMLLoader = new XMLLoader();
+
+            //Initialize settings
+            AppSettings.Init(new LocalSettings());
+
+            // Initialize the parse client with your Application ID and .NET Key found on
+            // your Parse dashboard
+            ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
+                "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+            ParseHelper.ParseData = new ParseData();
+
         }
 
+        
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)

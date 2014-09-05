@@ -75,13 +75,19 @@ namespace Xamarin.Ecclesia.Auth
             try
             {
                 Response response = await request.GetResponseAsync();
-                var str =  response.GetResponseText();
+                string str;
+#if WINDOWS_PHONE
+                str = await response.GetResponseTextAsync();
+#else
+                str = response.GetResponseText();
+#endif
                 var obj = JsonValue.Parse(str);
 
-				var email = obj["email"].OfType<string>().First();
-                var name = obj["name"];
+				var email = obj["email"];
+                var firstName = obj["first_name"];
+                var lastName = obj["last_name"];
                 var facebookID = obj["id"];
-                await ParseHelper.ParseData.RegisterAccountAsync(email, facebookID, name, "");
+                await ParseHelper.ParseData.RegisterAccountAsync(email, facebookID, firstName, lastName);
             }
             catch (Exception ex)
             {

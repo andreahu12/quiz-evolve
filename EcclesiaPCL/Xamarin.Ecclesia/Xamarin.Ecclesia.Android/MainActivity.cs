@@ -11,6 +11,7 @@ using Xamarin.Ecclesia.XML;
 using Xamarin.Ecclesia.Auth;
 using Xamarin.Ecclesia.Settings;
 using Parse;
+using Xamarin.Ecclesia.Parse;
 
 
 namespace Xamarin.Ecclesia.Droid
@@ -35,6 +36,7 @@ namespace Xamarin.Ecclesia.Droid
             // your Parse dashboard
             ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
                 "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+            ParseHelper.ParseData = new ParseData();
 
             //set main page
             SetPage(App.GetMainPage());
