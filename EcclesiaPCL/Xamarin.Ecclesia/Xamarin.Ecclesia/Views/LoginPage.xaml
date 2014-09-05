@@ -15,7 +15,11 @@
         <Button Text="Login with FB"
             HorizontalOptions="Center"
             VerticalOptions="CenterAndExpand"
-            Clicked="OnButtonClicked" />
+            Clicked="OnFBClicked" />
+        <Button Text="Login with LdIn"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand"
+            Clicked="OnLdInClicked" />
     </StackLayout>
 
 </BaseView>

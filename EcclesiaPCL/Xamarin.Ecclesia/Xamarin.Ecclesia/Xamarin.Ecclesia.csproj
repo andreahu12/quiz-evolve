@@ -55,6 +55,9 @@
     <Compile Include="ViewModels\EcclesiaViewModel.cs" />
     <Compile Include="ViewModels\ViewModelProvider.cs" />
     <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\LoadingPage.xaml.cs">
+      <DependentUpon>LoadingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\QuestionPage.xaml.cs">
       <DependentUpon>QuestionPage.xaml</DependentUpon>
     </Compile>
@@ -137,5 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LoadingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

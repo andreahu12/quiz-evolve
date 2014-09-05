@@ -42,11 +42,8 @@ namespace Xamarin.Ecclesia.Parse
             user["last_name"] = lastName;
             try
             {
-                
-
                 await user.SignUpAsync();
                 SaveLocal(email, socialId);
-
             }
             catch (ParseException p)
             {

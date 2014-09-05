@@ -32,7 +32,7 @@ namespace Xamarin.Ecclesia.WinPhone
 
         void oAuth_AuthUIRequest()
         {
-            Uri uri = _oAuth.FBAuthenticator.GetUI();
+            Uri uri = _oAuth.Authenticator.GetUI();
             NavigationService.Navigate(uri);
             
         }

@@ -34,9 +34,14 @@ namespace Xamarin.Ecclesia.Views
         #endregion
 
         #region Controls Handlers
-        async void OnButtonClicked(object sender, EventArgs args)
+        async void OnFBClicked(object sender, EventArgs args)
         {
             if (await AuthHelper.OAuthCommunicator.AuthWithFacebookAsync())
+                await Navigation.PushAsync(new MainMenuPage());
+        }
+        async void OnLdInClicked(object sender, EventArgs args)
+        {
+            if (await AuthHelper.OAuthCommunicator.AuthWithLinkedInAsync())
                 await Navigation.PushAsync(new MainMenuPage());
         }
         #endregion

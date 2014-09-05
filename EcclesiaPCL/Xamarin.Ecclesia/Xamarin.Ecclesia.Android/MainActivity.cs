@@ -49,7 +49,7 @@ namespace Xamarin.Ecclesia.Droid
 
         void oAuth_AuthUIRequest()
         {
-            var intent = _oAuth.FBAuthenticator.GetUI(this);
+            var intent = _oAuth.Authenticator.GetUI(this);
             StartActivity(intent);
         }
     }

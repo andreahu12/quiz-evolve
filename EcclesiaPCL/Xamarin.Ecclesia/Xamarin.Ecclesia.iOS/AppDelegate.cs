@@ -77,7 +77,7 @@ namespace Xamarin.Ecclesia.iOS
         /// </summary>
         void _oAuth_AuthUIRequest()
         {
-            UIViewController vc = _oAuth.FBAuthenticator.GetUI();
+            UIViewController vc = _oAuth.Authenticator.GetUI();
                         
             _window.RootViewController = vc;
             _window.MakeKeyAndVisible();

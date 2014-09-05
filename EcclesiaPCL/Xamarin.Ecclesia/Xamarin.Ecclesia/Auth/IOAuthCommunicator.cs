@@ -9,5 +9,6 @@ namespace Xamarin.Ecclesia.Auth
     public interface IOAuthCommunicator
     {
         Task<bool> AuthWithFacebookAsync();
+        Task<bool> AuthWithLinkedInAsync();
     }
 }
