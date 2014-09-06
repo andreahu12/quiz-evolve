@@ -22,7 +22,7 @@ namespace Xamarin.Ecclesia.Views
         //Any event handlers attach here before we navigate to thispage
         public override void AttachNavigationEvents()
         {
-            CommonActions.ActiveQuiz.LoadQuestions();
+            CommonActions.ActiveQuiz.LoadQuestionsFromParse();
             BindingContext = CommonActions.ActiveQuiz;
         }
 

@@ -6,11 +6,14 @@ using Xamarin.Ecclesia.Accounts;
 using Parse;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.Settings;
+using Xamarin.Ecclesia.DataObjects;
 
 namespace Xamarin.Ecclesia.Parse
 {
     public class ParseData:IParseData
     {
+        const string sharedPass = "1@sd%gR43";
+        #region Accounts
         public UserAccount GetCurrentAccount()
         {
             if (ParseUser.CurrentUser != null)
@@ -20,14 +23,14 @@ namespace Xamarin.Ecclesia.Parse
             return null;
         }
 
-        public async Task<UserAccount> SigInAccountAsync(string email, string socialId)
+        public async Task<UserAccount> SigInAccountAsync(string email)
         {
-            var user = await ParseUser.LogInAsync(email, socialId);
-            SaveLocal(email, socialId);
+            var user = await ParseUser.LogInAsync(email,sharedPass);
+            SaveLocal(email);
             return AccountFromParseUser(user);
         }
         
-        public async Task<UserAccount> RegisterAccountAsync(string email, string socialId, string firstName, string lastName)
+        public async Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName)
         {
             bool isRegistered = false;
 
@@ -35,7 +38,7 @@ namespace Xamarin.Ecclesia.Parse
             {
                 Username = email,
                 Email = email,
-                Password = socialId,
+                Password = sharedPass,
             };
 
             user["first_name"] = firstName;
@@ -43,7 +46,7 @@ namespace Xamarin.Ecclesia.Parse
             try
             {
                 await user.SignUpAsync();
-                SaveLocal(email, socialId);
+                SaveLocal(email);
             }
             catch (ParseException p)
             {
@@ -57,7 +60,7 @@ namespace Xamarin.Ecclesia.Parse
             }
             
             if (isRegistered)
-                return await SigInAccountAsync(email, socialId);
+                return await SigInAccountAsync(email);
             else
                 return AccountFromParseUser(user);
         }
@@ -71,10 +74,64 @@ namespace Xamarin.Ecclesia.Parse
             return account;
         }
 
-        void SaveLocal(string email, string socialId)
+        void SaveLocal(string email)
         {
             AppSettings.AccountEmail = email;
-            AppSettings.AccountID = socialId;
+            //AppSettings.AccountID = socialId;
         }
+        #endregion
+        
+        #region Quizzes
+        public async Task<List<Quiz>> GetQuizzesAsync()
+        {
+            var query = ParseObject.GetQuery("Quiz").OrderBy("name");
+            var objects = await query.FindAsync();
+
+            var rv = new List<Quiz>();
+            foreach (var t in objects)
+            {
+                rv.Add(QuizFromParseObject(t));
+            }
+
+            return rv;
+        }
+
+        public async Task<List<QuizQuestion>> GetQuestionsAsync(string quizName)
+        {
+            var query = ParseObject.GetQuery(quizName).OrderBy("Number");
+            var objects = await query.FindAsync();
+
+            var rv = new List<QuizQuestion>();
+            foreach (var t in objects)
+            {
+                rv.Add(QuestionFromParseObject(t));
+            }
+
+            return rv;
+        }
+
+
+        Quiz QuizFromParseObject(ParseObject parseObject)
+        {
+            var quiz = new Quiz();
+            quiz.ID = parseObject.ObjectId;
+            quiz.Name = parseObject["name"].ToString();
+            quiz.Description = parseObject["description"].ToString();
+            return quiz;
+        }
+
+        QuizQuestion QuestionFromParseObject(ParseObject parseObject)
+        {
+            var question = new QuizQuestion();
+            question.ID = parseObject.ObjectId;
+            question.Question = parseObject["Question"].ToString();
+            question.CorrectAnswerID = Convert.ToInt32(parseObject["SolutionNum"]);
+            question.AnswerA = parseObject["A"].ToString();
+            question.AnswerB = parseObject["B"].ToString();
+            question.AnswerC = parseObject["C"].ToString();
+            question.AnswerD = parseObject["D"].ToString();
+            return question;
+        }
+        #endregion
     }
 }

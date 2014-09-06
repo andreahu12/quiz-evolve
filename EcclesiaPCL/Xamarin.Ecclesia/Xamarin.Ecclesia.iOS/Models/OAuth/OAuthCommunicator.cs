@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Json;
 using System.Linq;
 using System.Net;
@@ -7,18 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Auth;
 using Xamarin.Ecclesia.Parse;
+using Xamarin.Ecclesia.Settings;
 
 namespace Xamarin.Ecclesia.Auth
 {
     public class OAuthCommunicator : IOAuthCommunicator
     {
-        #region Constatnts
-        const string FBAppID = "438894422873149";
-
-        const string LIAppID = "75xsd3obqg5pz8";
-        const string LISecret = "LqhSj5h17jwUgSdW";
-        #endregion
-
         #region Fields
         #endregion
         
@@ -38,10 +33,10 @@ namespace Xamarin.Ecclesia.Auth
             var tcs = new TaskCompletionSource<bool>();
 
             Authenticator = new OAuth2Authenticator(
-                clientId: FBAppID,
+                clientId: Constants.FBAppID,
                 scope: "",
-                authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
-                redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
+                authorizeUrl: new Uri(Constants.FBAuthURL),
+                redirectUrl: new Uri(Constants.FBRedirectURL));
 
             Authenticator.AllowCancel = true;
             // If authorization succeeds or is canceled, .Completed will be fired.
@@ -90,8 +85,7 @@ namespace Xamarin.Ecclesia.Auth
 				var email = obj["email"];
                 var firstName = obj["first_name"];
                 var lastName = obj["last_name"];
-                var facebookID = obj["id"];
-                await ParseHelper.ParseData.RegisterAccountAsync(email, facebookID, firstName, lastName);
+                await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
             }
             catch (Exception ex)
             {
@@ -105,13 +99,12 @@ namespace Xamarin.Ecclesia.Auth
             var tcs = new TaskCompletionSource<bool>();
 
             Authenticator = new OAuth2Authenticator(
-                clientId: LIAppID,
-                clientSecret: LISecret,
-                scope: "r_fullprofile r_contactinfo",
-                authorizeUrl: new Uri("https://www.linkedin.com/uas/oauth2/authorization"),
-                redirectUrl: new Uri("https://evolve.xamarin.com/"),
-                accessTokenUrl: new Uri("https://www.linkedin.com/uas/oauth2/accessToken")
-
+                clientId: Constants.LIAppID,
+                clientSecret: Constants.LISecret,
+                scope: "r_fullprofile r_emailaddress",
+                authorizeUrl: new Uri(Constants.LIAuthURL),
+                redirectUrl: new Uri(Constants.LIRedirectURL),
+                accessTokenUrl: new Uri(Constants.LIAccessTokenURL)
             );
 
             // If authorization succeeds or is canceled, .Completed will be fired.
@@ -143,7 +136,7 @@ namespace Xamarin.Ecclesia.Auth
             return await tcs.Task;
         }
 
-        public void GetLIInfoAsync()
+        public async Task GetLIInfoAsync()
         {
             string dd = SocialAccount.Username;
             var values = SocialAccount.Properties;
@@ -151,29 +144,33 @@ namespace Xamarin.Ecclesia.Auth
             try
             {
 
-                //var request = HttpWebRequest.Create(string.Format(@"https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,picture-url,summary,educations,three-current-positions,honors-awards,site-standard-profile-request,location,api-standard-profile-request,phone-numbers)?oauth2_access_token=" + access_token + "&format=json", ""));
-                //request.ContentType = "application/json";
-                //request.Method = "GET";
+                var request = HttpWebRequest.Create(string.Format(@"https://api.linkedin.com/v1/people/~:(id,firstName,lastName,picture-url,email-address)?oauth2_access_token=" + access_token + "&format=json", ""));
+                request.ContentType = "application/json";
+                request.Method = "GET";
 
-                //using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-                //{
-                //    System.Console.Out.WriteLine("Stautus Code is: {0}", response.StatusCode);
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    System.Console.Out.WriteLine("Stautus Code is: {0}", response.StatusCode);
 
-                //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                //    {
-                //        var content = reader.ReadToEnd();
-                //        if (!string.IsNullOrWhiteSpace(content))
-                //        {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        var content = reader.ReadToEnd();
+                        if (!string.IsNullOrWhiteSpace(content))
+                        {
 
-                //            System.Console.Out.WriteLine(content);
-                //        }
-                //        var result = JsonConvert.DeserializeObject<dynamic>(content);
-                //    }
-                //}
+                            System.Console.Out.WriteLine(content);
+                        }
+                        var obj = JsonValue.Parse(content);
+                        var email = obj["email"];
+                        var firstName = obj["firstName"];
+                        var lastName = obj["lastName"];
+                        await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
+                    }
+                }
             }
-            catch (Exception exx)
+            catch (Exception ex)
             {
-                System.Console.WriteLine(exx.ToString());
+                //System.Console.WriteLine(ex.ToString());
             }
         }
         #endregion

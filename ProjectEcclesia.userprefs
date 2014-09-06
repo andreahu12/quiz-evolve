@@ -1,26 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Android\MainActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ProjectEcclesia\QuizMenu.cs">
     <Files>
-      <File FileName="ProjectEcclesia\App.cs" Line="14" Column="14" />
-      <File FileName="ProjectEcclesia\Leaderboards.cs" Line="38" Column="38" />
-      <File FileName="ProjectEcclesia\ParseData.cs" Line="1" Column="1" />
+      <File FileName="ProjectEcclesia\App.cs" Line="6" Column="6" />
+      <File FileName="ProjectEcclesia\QuizInstructions.cs" Line="44" Column="44" />
+      <File FileName="ProjectEcclesia\QuizMenu.cs" Line="59" Column="59" />
       <File FileName="ProjectEcclesia\Quizes.cs" Line="1" Column="1" />
-      <File FileName="iOS\ParseData_iOS.cs" Line="1" Column="1" />
-      <File FileName="Android\ParseData_Android.cs" Line="57" Column="57" />
-      <File FileName="iOS\AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="iOS\Main.cs" Line="1" Column="1" />
-      <File FileName="Android\MainActivity.cs" Line="22" Column="22" />
-      <File FileName="Android\packages.config" Line="1" Column="1" />
-      <File FileName="iOS\packages.config" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\QuizMenu.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\QuizInstructions.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\Countdown.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\QuestionPage.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\EnterCodewordPage.cs" Line="14" Column="14" />
-      <File FileName="ProjectEcclesia\ResultSummary.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\TimesUpPage.cs" Line="1" Column="1" />
-      <File FileName="ProjectEcclesia\QuestionListPage.cs" Line="1" Column="1" />
+      <File FileName="ProjectEcclesia\ParseData.cs" Line="1" Column="1" />
+      <File FileName="ProjectEcclesia\Leaderboards.cs" Line="4" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

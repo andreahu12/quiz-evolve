@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using Xamarin.Ecclesia.Settings;
 using Xamarin.Forms;
 using Xamarin.Ecclesia.XML;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.ViewModels
 {
@@ -18,7 +19,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             Title = "Quizzes";
             BackgroundColor = AppSettings.PageBackgroundColor;
-            LoadQuizzes();
+            LoadQuizzesFromParse();
         }
         #endregion
 
@@ -30,7 +31,10 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Methods
-        void LoadQuizzes()
+        /// <summary>
+        /// Loads quizzes data from local xml file
+        /// </summary>
+        void LoadQuizzesFromXML()
         {
             var quizData = XMLHelper.LoadXML("Data/Quizzes/Quizzes.xml");
             var quizElements = quizData.Descendants("QuizGroup").ToList();
@@ -41,6 +45,17 @@ namespace Xamarin.Ecclesia.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loads quizzes data from parse.com database
+        /// </summary>
+        async void LoadQuizzesFromParse()
+        {
+            var quizzes = await ParseHelper.ParseData.GetQuizzesAsync();
+            foreach (var quiz in quizzes)
+            {
+                AddChild(new QuizViewModel(quiz));
+            }
+        }
         #endregion
     }
 }

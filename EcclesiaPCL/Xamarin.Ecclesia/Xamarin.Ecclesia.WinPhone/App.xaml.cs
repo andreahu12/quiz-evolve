@@ -79,8 +79,7 @@ namespace Xamarin.Ecclesia.WinPhone
 
             // Initialize the parse client with your Application ID and .NET Key found on
             // your Parse dashboard
-            ParseClient.Initialize("gIUH0TDEXpoHLwG924w8c6EPNquLnlz9XIfssnpH",
-                "OaOPeRSlKoQVxLp7Nq9tVdd8d1CeD1aJrJdcIYYw");
+            ParseClient.Initialize(Constants.ParseID, Constants.ParseNETKey);
             ParseHelper.ParseData = new ParseData();
 
         }

@@ -22,6 +22,15 @@ namespace Xamarin.Ecclesia.ViewModels
             ID = data.Attribute("Id").Value;
             Text = data.Attribute("Text").Value;
         }
+
+        public AnswerViewModel(string id, string answer)
+            : base()
+        {
+            Title = "Quiz";
+            BackgroundColor = AppSettings.PageBackgroundColor;
+            ID = id;
+            Text = answer;
+        }
         #endregion
 
         #region Fields
@@ -46,6 +55,8 @@ namespace Xamarin.Ecclesia.ViewModels
             _isChecked = true;
              */
         }
+
+        
         #endregion
     }
 }

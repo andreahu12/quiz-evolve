@@ -71,21 +71,21 @@ namespace Xamarin.Ecclesia.Settings
             }
         }
 
-        public static string AccountID
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_localSettings.GetValue("AccountID")))
-                {
-                    return string.Empty;
-                }
-                return _localSettings.GetValue("AccountID");
-            }
-            set
-            {
-                _localSettings.SetValue("AccountID", value);
-            }
-        }
+        //public static string AccountID
+        //{
+        //    get
+        //    {
+        //        if (string.IsNullOrEmpty(_localSettings.GetValue("AccountID")))
+        //        {
+        //            return string.Empty;
+        //        }
+        //        return _localSettings.GetValue("AccountID");
+        //    }
+        //    set
+        //    {
+        //        _localSettings.SetValue("AccountID", value);
+        //    }
+        //}
         #endregion
 
         #region Methods

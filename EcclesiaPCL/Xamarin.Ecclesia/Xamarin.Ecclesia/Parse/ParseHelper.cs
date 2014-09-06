@@ -10,11 +10,6 @@ namespace Xamarin.Ecclesia.Parse
     public static class ParseHelper
     {
         public static IParseData ParseData;
-
-        public static UserAccount GetCurrentAccount()
-        {
-            return ParseData.GetCurrentAccount();
                 
-        }
     }
 }

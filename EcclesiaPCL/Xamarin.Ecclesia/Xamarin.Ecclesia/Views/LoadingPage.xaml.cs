@@ -25,9 +25,13 @@ namespace Xamarin.Ecclesia.Views
         //Any event handlers attach here before we navigate to thispage
         public async override void AttachNavigationEvents()
         {
+//#if DEBUG
+//            await Navigation.PushAsync(new LoginPage());
+//            return;
+//#endif
             var email = AppSettings.AccountEmail;
-            var id = AppSettings.AccountID;
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(id))
+            //var id = AppSettings.AccountID;
+            if (string.IsNullOrEmpty(email))
             {
                 await Navigation.PushAsync(new LoginPage());
             }
@@ -35,14 +39,14 @@ namespace Xamarin.Ecclesia.Views
             {
                 try
                 {
-                    await ParseHelper.ParseData.SigInAccountAsync(email, id);
+                    await ParseHelper.ParseData.SigInAccountAsync(email);
                     if (ParseHelper.ParseData.GetCurrentAccount() != null)
                         await Navigation.PushAsync(new MainMenuPage());
                 }
                 catch
                 {
                     AppSettings.AccountEmail="";
-                    AppSettings.AccountID = "";
+                    //AppSettings.AccountID = "";
                 }
                 if (string.IsNullOrEmpty(AppSettings.AccountEmail))
                 {

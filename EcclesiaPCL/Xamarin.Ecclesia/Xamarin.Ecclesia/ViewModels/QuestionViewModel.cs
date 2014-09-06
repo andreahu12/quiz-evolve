@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
+using Xamarin.Ecclesia.DataObjects;
 using Xamarin.Ecclesia.Settings;
 using Xamarin.Ecclesia.XML;
 using Xamarin.Forms;
@@ -15,6 +16,11 @@ namespace Xamarin.Ecclesia.ViewModels
     public class QuestionViewModel:ParentViewModel
     {
         #region Constructor
+
+        /// <summary>
+        /// Creates vm from xml Element
+        /// </summary>
+        /// <param name="data"></param>
         public QuestionViewModel(XElement data)
             : base()
         {
@@ -25,6 +31,21 @@ namespace Xamarin.Ecclesia.ViewModels
             CorrectAnswerID = int.Parse(data.Attribute("CorrectAnswerId").Value);
             var quizElements = data.Descendants("Answer").ToList();
             LoadAnswers(quizElements);
+        }
+
+        /// <summary>
+        /// Creates vm from Parse object
+        /// </summary>
+        /// <param name="data"></param>
+        public QuestionViewModel(QuizQuestion question)
+            : base()
+        {
+            Title = "Question";
+            BackgroundColor = AppSettings.PageBackgroundColor;
+            ID = question.ID;
+            Text = question.Question;
+            CorrectAnswerID = question.CorrectAnswerID;
+            LoadAnswers(question);
         }
         #endregion
 
@@ -93,6 +114,15 @@ namespace Xamarin.Ecclesia.ViewModels
             {
                 AddChildRandomly(new AnswerViewModel(element));
             }
+        }
+
+        void LoadAnswers(QuizQuestion question)
+        {
+
+            AddChildRandomly(new AnswerViewModel("1",question.AnswerA));
+            AddChildRandomly(new AnswerViewModel("2", question.AnswerB));
+            AddChildRandomly(new AnswerViewModel("3", question.AnswerC));
+            AddChildRandomly(new AnswerViewModel("4", question.AnswerD));
         }
 
         public override void ClearChildren()
