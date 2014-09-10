@@ -50,7 +50,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Fields
-        
+        Pro
         #endregion
 
         #region Properties

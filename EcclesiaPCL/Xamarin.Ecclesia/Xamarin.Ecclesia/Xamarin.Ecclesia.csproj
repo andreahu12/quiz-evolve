@@ -33,7 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Account\UserAccount.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Auth\AuthHelper.cs" />
     <Compile Include="Auth\IOAuthCommunicator.cs" />
@@ -81,6 +80,8 @@
     </Compile>
     <Compile Include="XML\XMLHelper.cs" />
     <Compile Include="XML\XMLLoader.cs" />
+    <Compile Include="DataObjects\UserAccount.cs" />
+    <Compile Include="DataObjects\Progress.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\InstructionsPage.xaml">
@@ -149,5 +150,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Account\" />
   </ItemGroup>
 </Project>
