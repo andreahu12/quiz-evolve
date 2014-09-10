@@ -34,7 +34,7 @@ namespace Xamarin.Ecclesia.Droid
 
             // Initialize the parse client with your Application ID and .NET Key found on
             // your Parse dashboard
-            ParseClient.Initialize(Constants.ParseID, Constants.ParseNETKey);
+            ParseClient.Initialize(Ecclesia.Settings.Constants.ParseID, Ecclesia.Settings.Constants.ParseNETKey);
             ParseHelper.ParseData = new ParseData();
 
             //set main page

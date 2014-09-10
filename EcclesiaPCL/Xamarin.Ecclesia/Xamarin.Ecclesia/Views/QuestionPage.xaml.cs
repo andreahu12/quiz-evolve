@@ -23,12 +23,14 @@ namespace Xamarin.Ecclesia.Views
         public override void AttachNavigationEvents()
         {
             BindingContext = CommonActions.ActiveQuestion;
+            CommonActions.ActiveQuestion.StartTimer();
         }
 
         //detach event handlers, on navigating out of the page
         public override void DetachNavigationEvents()
         {
             BindingContext = null;
+            CommonActions.ActiveQuestion.StopTimer();
         }
         #endregion
 

@@ -16,6 +16,12 @@ namespace Xamarin.Ecclesia.DataObjects
         public int TimeElapsed { get; set; }
 		public int WrongAnswers { get; set; }
 
+        public int TimeRemaining
+        {
+            get
+            { return MaxTime - TimeElapsed; }
+        }
+
 		public int Score
 		{
 			get

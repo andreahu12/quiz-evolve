@@ -31,6 +31,7 @@ namespace Xamarin.Ecclesia.ViewModels
             CorrectAnswerID = int.Parse(data.Attribute("CorrectAnswerId").Value);
             var quizElements = data.Descendants("Answer").ToList();
             LoadAnswers(quizElements);
+                        
         }
 
         /// <summary>
@@ -46,11 +47,14 @@ namespace Xamarin.Ecclesia.ViewModels
             Text = question.Question;
             CorrectAnswerID = question.CorrectAnswerID;
             LoadAnswers(question);
+
+            _progress = new QuestionProgress();
         }
         #endregion
 
         #region Fields
-        Pro
+        QuestionProgress _progress;
+        bool _stopTimer = false;
         #endregion
 
         #region Properties
@@ -104,6 +108,14 @@ namespace Xamarin.Ecclesia.ViewModels
                 return ((QuizViewModel)Parent).Children[Index + 1] as QuestionViewModel;
             }
         }
+
+        public string TimeRemaining
+        {
+            get
+            {
+                return _progress.TimeRemaining.ToString();
+            }
+        }
         #endregion
 
         #region Methods
@@ -114,6 +126,26 @@ namespace Xamarin.Ecclesia.ViewModels
             {
                 AddChildRandomly(new AnswerViewModel(element));
             }
+        }
+
+        public void StartTimer()
+        {
+            _stopTimer = false;
+            Device.StartTimer(TimeSpan.FromSeconds(1), TimerCallback);
+        }
+
+        public void StopTimer()
+        {
+            _stopTimer = true;
+        }
+
+        bool TimerCallback()
+        {
+            if (_stopTimer)
+                return false;
+            _progress.TimeElapsed++;
+            NotifyPropertyChanged("TimeRemaining");
+            return true;
         }
 
         void LoadAnswers(QuizQuestion question)

@@ -9,7 +9,7 @@
 
     <StackLayout>
         <StackLayout>
-            <Label Text="{Binding Score}" 
+            <Label Text="{Binding TimeRemaining}" 
                VerticalOptions="Start" 
                HorizontalOptions="Start" />
             <Label Text="{Binding Text}" 

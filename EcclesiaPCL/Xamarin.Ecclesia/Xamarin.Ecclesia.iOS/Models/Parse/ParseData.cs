@@ -25,9 +25,18 @@ namespace Xamarin.Ecclesia.Parse
 
         public async Task<UserAccount> SigInAccountAsync(string email)
         {
-            var user = await ParseUser.LogInAsync(email,sharedPass);
-            SaveLocal(email);
-            return AccountFromParseUser(user);
+            try
+            {
+                var user = await ParseUser.LogInAsync(email, sharedPass);
+                SaveLocal(email);
+                return AccountFromParseUser(user);
+            }
+            catch (Exception ex)
+            {
+                var t = ex.Message;
+                SaveLocal("");
+                return null;
+            }
         }
         
         public async Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName)
@@ -43,14 +52,16 @@ namespace Xamarin.Ecclesia.Parse
 
             user["first_name"] = firstName;
             user["last_name"] = lastName;
+            SaveLocal(email);
             try
             {
                 await user.SignUpAsync();
-                SaveLocal(email);
             }
             catch (ParseException p)
             {
                 //TODO: Log it
+                var t = p.Message;
+
                 isRegistered = true;
             }
             catch (Exception a)

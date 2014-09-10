@@ -40,6 +40,7 @@ namespace Xamarin.Ecclesia.ViewModels
             BackgroundColor = AppSettings.PageBackgroundColor;
             ID = quiz.ID;
             Name = quiz.Name;
+            Description = quiz.Description;
         }
         #endregion
 
@@ -50,6 +51,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #region Properties
         public string ID { get; private set; }
         public string Name { get; private set; }
+        public string Description { get; private set; }
 
         #endregion
 
