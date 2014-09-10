@@ -30,7 +30,7 @@ namespace Xamarin.Ecclesia.Views
         public override void DetachNavigationEvents()
         {
             BindingContext = null;
-            CommonActions.ActiveQuestion.StopTimer();
+            //CommonActions.ActiveQuestion.StopTimer();
         }
         #endregion
 

@@ -115,7 +115,9 @@ namespace Xamarin.Ecclesia.Parse
             var rv = new List<QuizQuestion>();
             foreach (var t in objects)
             {
-                rv.Add(QuestionFromParseObject(t));
+                var q = QuestionFromParseObject(t);
+                q.QuizName = quizName;
+                rv.Add(q);
             }
 
             return rv;

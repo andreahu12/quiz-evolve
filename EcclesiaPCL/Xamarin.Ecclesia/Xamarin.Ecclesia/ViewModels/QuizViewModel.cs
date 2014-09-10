@@ -56,19 +56,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Methods
-        public void LoadQuestionsFromXML()
-        {
-            if (Children != null && Children.Any())
-                ClearChildren();
-            var quizData = XMLHelper.LoadXML(string.Format("Data/Quizzes/{0}.xml",Name));
-            var quizElements = quizData.Descendants("Question").ToList();
-
-            foreach (var element in quizElements)
-            {
-                AddChild(new QuestionViewModel(element));
-            }
-        }
-
+        
         public async void LoadQuestionsFromParse()
         {
             if (Children != null && Children.Any())

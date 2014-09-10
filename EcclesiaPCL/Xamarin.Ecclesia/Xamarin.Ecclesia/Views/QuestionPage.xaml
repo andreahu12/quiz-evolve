@@ -12,6 +12,9 @@
             <Label Text="{Binding TimeRemaining}" 
                VerticalOptions="Start" 
                HorizontalOptions="Start" />
+            <Label Text="{Binding Score}" 
+               VerticalOptions="Start" 
+               HorizontalOptions="Start" />
             <Label Text="{Binding Text}" 
                VerticalOptions="Start" 
                HorizontalOptions="Center" />

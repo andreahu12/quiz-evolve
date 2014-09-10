@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Auth;
+using Xamarin.Ecclesia.DataObjects;
 using Xamarin.Ecclesia.Parse;
 using Xamarin.Ecclesia.Settings;
 
@@ -53,8 +54,7 @@ namespace Xamarin.Ecclesia.Auth
 				else
 				{
                     SocialAccount = ee.Account;
-					await GetFBInfoAsync();
-					tcs.SetResult(true);
+					tcs.SetResult(await GetFBInfoAsync());
 				}
             };
 
@@ -67,8 +67,9 @@ namespace Xamarin.Ecclesia.Auth
                 AuthUIRequest();
             return await tcs.Task;
         }
-        public async Task GetFBInfoAsync()
+        public async Task<bool> GetFBInfoAsync()
         {
+            UserAccount user = null;
             // Now that we're logged in, make a OAuth2 request to get the user's info.
             var request = new OAuth2Request("GET", new Uri("https://graph.facebook.com/me"), null, SocialAccount);
             try
@@ -85,13 +86,14 @@ namespace Xamarin.Ecclesia.Auth
 				var email = obj["email"];
                 var firstName = obj["first_name"];
                 var lastName = obj["last_name"];
-                await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
+                user = await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
             }
             catch (Exception ex)
             {
                 //LogManager.Log(ClassName, new Exception("Was not able to get facebook name", ex));
             }
-            
+            AppSettings.CurrentAccount = user;
+            return user != null;
         }
 
         public async Task<bool> AuthWithLinkedInAsync()
@@ -121,8 +123,7 @@ namespace Xamarin.Ecclesia.Auth
 				else
 				{
                     SocialAccount = ee.Account;
-					GetLIInfoAsync();
-					tcs.SetResult(true);
+					tcs.SetResult(await GetLIInfoAsync());
 				}
             };
 
@@ -136,11 +137,12 @@ namespace Xamarin.Ecclesia.Auth
             return await tcs.Task;
         }
 
-        public async Task GetLIInfoAsync()
+        public async Task<bool> GetLIInfoAsync()
         {
             string dd = SocialAccount.Username;
             var values = SocialAccount.Properties;
             var access_token = values["access_token"];
+            UserAccount user=null;
             try
             {
 
@@ -164,7 +166,7 @@ namespace Xamarin.Ecclesia.Auth
                         var email = obj["email"];
                         var firstName = obj["firstName"];
                         var lastName = obj["lastName"];
-                        await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
+                        user =await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
                     }
                 }
             }
@@ -172,6 +174,8 @@ namespace Xamarin.Ecclesia.Auth
             {
                 //System.Console.WriteLine(ex.ToString());
             }
+            AppSettings.CurrentAccount = user;
+            return user!=null;
         }
         #endregion
     }

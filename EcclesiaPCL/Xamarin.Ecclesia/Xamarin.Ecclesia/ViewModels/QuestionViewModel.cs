@@ -18,23 +18,6 @@ namespace Xamarin.Ecclesia.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Creates vm from xml Element
-        /// </summary>
-        /// <param name="data"></param>
-        public QuestionViewModel(XElement data)
-            : base()
-        {
-            Title = "Question";
-            BackgroundColor = AppSettings.PageBackgroundColor;
-            ID = data.Attribute("Id").Value;
-            Text = data.Attribute("Text").Value;
-            CorrectAnswerID = int.Parse(data.Attribute("CorrectAnswerId").Value);
-            var quizElements = data.Descendants("Answer").ToList();
-            LoadAnswers(quizElements);
-                        
-        }
-
-        /// <summary>
         /// Creates vm from Parse object
         /// </summary>
         /// <param name="data"></param>
@@ -43,25 +26,40 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             Title = "Question";
             BackgroundColor = AppSettings.PageBackgroundColor;
-            ID = question.ID;
-            Text = question.Question;
-            CorrectAnswerID = question.CorrectAnswerID;
+            _question = question;
             LoadAnswers(question);
 
-            _progress = new QuestionProgress();
+            _progress = AppSettings.CurrentAccount.GetProgressForQuestion(question);
+
         }
         #endregion
 
         #region Fields
         QuestionProgress _progress;
+        QuizQuestion _question;
         bool _stopTimer = false;
         #endregion
 
         #region Properties
-        public string ID { get; private set; }
-        public string Text { get; private set; }
-
-        public int CorrectAnswerID { get; private set; }
+        public string ID
+        {
+            get
+            { return _question.ID; }
+        }
+        public string Text
+        {
+            get
+            { return _question.Question; }
+        }
+        public string QuizName {
+            get 
+            { return _question.QuizName; }
+        }
+        public int CorrectAnswerID
+        {
+            get
+            { return _question.CorrectAnswerID; }
+        }
 
         public string Name
         {
@@ -75,7 +73,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
-                return "My score is " /*+ UserSettings.Score.ToString()*/;
+                return "My score is " +AppSettings.CurrentAccount.GetQuizScore(QuizName);
             }
         }
 
@@ -119,15 +117,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Methods
-        void LoadAnswers(List<XElement> quizElements)
-        {
-            
-            foreach (var element in quizElements)
-            {
-                AddChildRandomly(new AnswerViewModel(element));
-            }
-        }
-
+        
         public void StartTimer()
         {
             _stopTimer = false;
@@ -148,13 +138,21 @@ namespace Xamarin.Ecclesia.ViewModels
             return true;
         }
 
+        public bool CheckAnswer(int answerId)
+        {
+            var isAnswered= CorrectAnswerID == answerId;
+            _stopTimer = true;
+            _progress.SetAnswer(isAnswered);
+            return isAnswered;
+        }
+
         void LoadAnswers(QuizQuestion question)
         {
 
-            AddChildRandomly(new AnswerViewModel("1",question.AnswerA));
-            AddChildRandomly(new AnswerViewModel("2", question.AnswerB));
-            AddChildRandomly(new AnswerViewModel("3", question.AnswerC));
-            AddChildRandomly(new AnswerViewModel("4", question.AnswerD));
+            AddChildRandomly(new AnswerViewModel(1,question.AnswerA));
+            AddChildRandomly(new AnswerViewModel(2, question.AnswerB));
+            AddChildRandomly(new AnswerViewModel(3, question.AnswerC));
+            AddChildRandomly(new AnswerViewModel(4, question.AnswerD));
         }
 
         public override void ClearChildren()

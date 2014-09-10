@@ -40,7 +40,8 @@ namespace Xamarin.Ecclesia.Views
                 try
                 {
                     await ParseHelper.ParseData.SigInAccountAsync(email);
-                    if (ParseHelper.ParseData.GetCurrentAccount() != null)
+                    AppSettings.CurrentAccount=ParseHelper.ParseData.GetCurrentAccount();
+                    if (AppSettings.CurrentAccount != null)
                         await Navigation.PushAsync(new MainMenuPage());
                 }
                 catch

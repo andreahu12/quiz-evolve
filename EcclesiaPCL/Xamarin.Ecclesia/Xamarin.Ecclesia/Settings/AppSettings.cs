@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Ecclesia.DataObjects;
 using Xamarin.Forms;
 
 namespace Xamarin.Ecclesia.Settings
@@ -86,6 +87,8 @@ namespace Xamarin.Ecclesia.Settings
         //        _localSettings.SetValue("AccountID", value);
         //    }
         //}
+
+        public static UserAccount CurrentAccount { get; set; }
         #endregion
 
         #region Methods

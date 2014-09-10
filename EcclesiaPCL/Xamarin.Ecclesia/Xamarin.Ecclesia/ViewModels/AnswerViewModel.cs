@@ -15,15 +15,8 @@ namespace Xamarin.Ecclesia.ViewModels
     public class AnswerViewModel:ParentViewModel
     {
         #region Constructor
-        public AnswerViewModel(XElement data):base()
-        {
-            Title = "Quiz";
-            BackgroundColor = AppSettings.PageBackgroundColor;
-            ID = data.Attribute("Id").Value;
-            Text = data.Attribute("Text").Value;
-        }
-
-        public AnswerViewModel(string id, string answer)
+        
+        public AnswerViewModel(int id, string answer)
             : base()
         {
             Title = "Quiz";
@@ -38,7 +31,7 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Properties
-        public string ID { get; private set; }
+        public int ID { get; private set; }
         public string Text { get; private set; }
                
         #endregion
@@ -48,12 +41,10 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             if (_isChecked)
                 return;
-            /*if (ID == ((QuestionViewModel)Parent).ID)
-                UserSettings.Score+=10;
-            else
-                UserSettings.Score -= 2;
+            ((QuestionViewModel)Parent).CheckAnswer(ID);
+             
             _isChecked = true;
-             */
+            
         }
 
         

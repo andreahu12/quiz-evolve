@@ -16,5 +16,7 @@ namespace Xamarin.Ecclesia.DataObjects
         public string AnswerD { get; set; }
 
         public int CorrectAnswerID { get; set; }
+
+        public string QuizName { get; set; }
     }
 }
