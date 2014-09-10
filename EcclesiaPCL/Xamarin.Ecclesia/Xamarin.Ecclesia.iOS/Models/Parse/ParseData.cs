@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xamarin.Ecclesia.Accounts;
+using Xamarin.Ecclesia.DataObjects;
 using Parse;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.Settings;

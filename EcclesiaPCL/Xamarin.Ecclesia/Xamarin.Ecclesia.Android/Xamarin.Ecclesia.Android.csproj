@@ -107,7 +107,9 @@
       <Link>Assets\Data\Quizzes\Xamarin.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Ecclesia\Xamarin.Ecclesia.csproj">
