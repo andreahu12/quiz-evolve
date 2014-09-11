@@ -37,8 +37,12 @@ namespace Xamarin.Ecclesia.Views
                 
         public async void ItemTapped(object sender, ItemTappedEventArgs args)
         {
-            CommonActions.ActiveQuestion = args.Item as QuestionViewModel;
-            await Navigation.PushAsync(new QuestionPage());
+			var qvm = args.Item as QuestionViewModel;
+			if (qvm.IsEnabled) {
+				CommonActions.ActiveQuestion = qvm;
+				await Navigation.PushAsync (new QuestionPage ());
+			}
+
         }
         #endregion
     }

@@ -46,6 +46,14 @@ namespace Xamarin.Ecclesia.DataObjects
 
         public bool IsAnswered { get; set; } 
 
+		public bool IsLocked
+		{
+			get
+			{
+				return Answers > 0;
+			}
+		}
+
 		public int Score
 		{
 			get

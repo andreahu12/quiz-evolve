@@ -65,7 +65,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
-                return "Question #" + (Index + 1).ToString();
+                return "Question #" + Index.ToString();
             }
         }
 
@@ -89,7 +89,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
-                return !_progress.IsAnswered;
+                return !_progress.IsLocked;
             }
         }
         
@@ -107,7 +107,7 @@ namespace Xamarin.Ecclesia.ViewModels
             {
                 if (Parent == null)
                     return false;
-                return Index < ((QuizViewModel)Parent).Children.Count-1;
+				return ((QuizViewModel)Parent).Children.Cast<QuestionViewModel>().Where(f=>f.IsEnabled).FirstOrDefault(i=>i.Index>Index)!=null;
             }
         }
 
@@ -117,7 +117,7 @@ namespace Xamarin.Ecclesia.ViewModels
             {
                 if (Parent == null)
                     return null;
-                return ((QuizViewModel)Parent).Children[Index + 1] as QuestionViewModel;
+				return ((QuizViewModel)Parent).Children.Cast<QuestionViewModel>().Where(f=>f.IsEnabled).FirstOrDefault(i=>i.Index>Index);
             }
         }
 
