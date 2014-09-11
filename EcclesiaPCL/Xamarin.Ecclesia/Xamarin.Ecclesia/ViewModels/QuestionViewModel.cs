@@ -73,7 +73,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             get
             {
-                return "My score is " +AppSettings.CurrentAccount.GetQuizScore(QuizName);
+				return "My score is " +AppSettings.CurrentAccount.GetQuizScore(QuizName).ToString();
             }
         }
 

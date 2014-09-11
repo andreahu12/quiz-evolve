@@ -1,9 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Ad-Hoc|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuestionViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizzesPage.xaml">
     <Files>
-      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/DataObjects/Progress.cs" Line="1" Column="1" />
-      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuestionViewModel.cs" Line="12" Column="12" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/DataObjects/Progress.cs" Line="24" Column="24" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuestionViewModel.cs" Line="88" Column="88" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizPage.xaml.cs" Line="5" Column="5" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuestionPage.xaml.cs" Line="10" Column="10" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuizViewModel.cs" Line="20" Column="20" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizPage.xaml" Line="67" Column="67" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizzesPage.xaml" Line="16" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

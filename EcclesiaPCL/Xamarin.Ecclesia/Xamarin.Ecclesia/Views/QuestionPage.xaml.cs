@@ -30,20 +30,21 @@ namespace Xamarin.Ecclesia.Views
         public override void DetachNavigationEvents()
         {
             BindingContext = null;
-            //CommonActions.ActiveQuestion.StopTimer();
+            CommonActions.ActiveQuestion.StopTimer();
         }
         #endregion
 
         #region Controls Handlers
 
-        async public void ItemTapped(object sender, ItemTappedEventArgs args)
+        public void ItemTapped(object sender, ItemTappedEventArgs args)
         {
             ((AnswerViewModel)args.Item).CheckAnswer();
             if (CommonActions.ActiveQuestion.HasNextQuestion)
             {
                 CommonActions.ActiveQuestion = CommonActions.ActiveQuestion.NextQuestion;
-                await Navigation.PopAsync();
-                await Navigation.PushAsync(new QuestionPage());
+				CommonActions.ActiveQuestion.StopTimer();
+				BindingContext = CommonActions.ActiveQuestion;
+				CommonActions.ActiveQuestion.StartTimer();
             }
         }
         #endregion

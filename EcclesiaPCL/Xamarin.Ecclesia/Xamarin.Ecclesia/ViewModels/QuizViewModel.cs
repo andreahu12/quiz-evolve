@@ -53,6 +53,14 @@ namespace Xamarin.Ecclesia.ViewModels
         public string Name { get; private set; }
         public string Description { get; private set; }
 
+		public string Score
+		{
+			get
+			{ 
+				return AppSettings.CurrentAccount.GetQuizScore(Name).ToString ();
+			}
+		}
+
         #endregion
 
         #region Methods
