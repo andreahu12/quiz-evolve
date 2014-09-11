@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Ad-Hoc|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Ecclesia/Xamarin.Ecclesia/DataObjects/Progress.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuestionViewModel.cs">
     <Files>
-      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/DataObjects/Progress.cs" Line="40" Column="40" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/DataObjects/Progress.cs" Line="1" Column="1" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuestionViewModel.cs" Line="12" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
