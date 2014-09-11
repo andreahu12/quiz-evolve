@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.DataObjects
 {
@@ -19,6 +20,10 @@ namespace Xamarin.Ecclesia.DataObjects
             QuestionID = question.ID;
             QuizName = question.QuizName;
         }
+
+        public QuestionProgress()
+        {
+        }
         #endregion
 
         #region Properties
@@ -31,10 +36,15 @@ namespace Xamarin.Ecclesia.DataObjects
         public int TimeRemaining
         {
             get
-            { return MaxTime - TimeElapsed; }
+            {
+                var rv = MaxTime - TimeElapsed;
+                if (rv < 0)
+                    return 0;
+                return rv;
+            }
         }
 
-        public bool IsAnswered { get; private set; } 
+        public bool IsAnswered { get; set; } 
 
 		public int Score
 		{
@@ -53,6 +63,8 @@ namespace Xamarin.Ecclesia.DataObjects
             IsAnswered = isAnswered;
             Answers++;
             AnswerOn = TimeElapsed;
+
+            ParseHelper.ParseData.SaveProgress(this);
         }
         #endregion
     }

@@ -69,7 +69,7 @@ namespace Xamarin.Ecclesia.ViewModels
             }
         }
 
-        public string Score
+        public string TotalScore
         {
             get
             {
@@ -77,13 +77,27 @@ namespace Xamarin.Ecclesia.ViewModels
             }
         }
 
+        public string Score
+        {
+            get
+            {
+                return _progress.Score.ToString();
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get
+            {
+                return !_progress.IsAnswered;
+            }
+        }
+        
         public int Index
         {
             get
             {
-                if (Parent == null)
-                    return 0;
-                return ((QuizViewModel)Parent).Children.IndexOf(this);
+                return _question.Number;
             }
         }
 

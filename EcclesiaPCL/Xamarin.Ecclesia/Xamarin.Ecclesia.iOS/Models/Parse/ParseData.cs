@@ -141,9 +141,57 @@ namespace Xamarin.Ecclesia.Parse
             question.CorrectAnswerID = Convert.ToInt32(parseObject["SolutionNum"]);
             question.AnswerA = parseObject["A"].ToString();
             question.AnswerB = parseObject["B"].ToString();
-            question.AnswerC = parseObject["C"].ToString();
-            question.AnswerD = parseObject["D"].ToString();
+            try
+            {
+                question.AnswerC = parseObject["C"].ToString();
+                question.AnswerD = parseObject["D"].ToString();
+            }
+            catch { }
+            question.Number = Convert.ToInt32(parseObject["Number"]);
             return question;
+        }
+        #endregion
+
+        #region Progresses
+        public async Task<List<QuestionProgress>> GetProgressesAsync()
+        {
+            var query = ParseObject.GetQuery("QuestionProgress").WhereEqualTo("user_id", AppSettings.CurrentAccount.ID);
+            var objects = await query.FindAsync();
+
+            var rv = new List<QuestionProgress>();
+            foreach (var t in objects)
+            {
+                rv.Add(ProgressFromParseObject(t));
+            }
+
+            return rv;
+        }
+
+        public void SaveProgress(QuestionProgress progress)
+        {
+            var parseQuestion = new ParseObject("QuestionProgress");
+            parseQuestion.ObjectId=progress.ID;
+            parseQuestion["user_id"] = AppSettings.CurrentAccount.ID;
+            parseQuestion["quiz_name"] = progress.QuizName;
+            parseQuestion["question_id"] = progress.QuestionID;
+            parseQuestion["answer_on"] = progress.AnswerOn;
+            parseQuestion["answers"] = progress.Answers;
+            parseQuestion["is_answered"] = progress.IsAnswered;
+            parseQuestion["time_elapsed"] = progress.TimeElapsed;
+            parseQuestion.SaveAsync();
+        }
+
+        QuestionProgress ProgressFromParseObject(ParseObject parseObject)
+        {
+            var progress = new QuestionProgress();
+            progress.ID = parseObject.ObjectId;
+            progress.QuestionID = parseObject["question_id"].ToString();
+            progress.QuizName = parseObject["quiz_name"].ToString();
+            progress.AnswerOn = Convert.ToInt32(parseObject["answer_on"]);
+            progress.Answers = Convert.ToInt32(parseObject["answers"]);
+            progress.IsAnswered = Convert.ToBoolean(parseObject["is_answered"]);
+            progress.TimeElapsed = Convert.ToInt32(parseObject["time_elapsed"]);
+            return progress;
         }
         #endregion
     }

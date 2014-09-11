@@ -12,7 +12,7 @@
             <Label Text="{Binding TimeRemaining}" 
                VerticalOptions="Start" 
                HorizontalOptions="Start" />
-            <Label Text="{Binding Score}" 
+            <Label Text="{Binding TotalScore}" 
                VerticalOptions="Start" 
                HorizontalOptions="Start" />
             <Label Text="{Binding Text}" 

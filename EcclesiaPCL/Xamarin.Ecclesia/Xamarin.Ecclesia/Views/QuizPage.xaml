@@ -21,11 +21,15 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <StackLayout>
+                            <StackLayout
+                                Orientation="Horizontal">
                                     <Label Text="{Binding Name}"
                                         HeightRequest="100"
                                         HorizontalOptions="FillAndExpand" />
-                                </StackLayout>
+                                <Label Text="{Binding Score}"
+                                        HeightRequest="100"
+                                        HorizontalOptions="End" />
+                            </StackLayout>
                             
                         </ViewCell.View>
                     </ViewCell>

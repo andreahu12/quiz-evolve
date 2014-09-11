@@ -17,6 +17,8 @@ namespace Xamarin.Ecclesia.Settings
         static ISettingsContainer _localSettings;
 
         public static Color PageBackgroundColor = Color.Transparent;
+
+        static UserAccount _currentAccount;
         #endregion
 
         #region Properties
@@ -88,7 +90,22 @@ namespace Xamarin.Ecclesia.Settings
         //    }
         //}
 
-        public static UserAccount CurrentAccount { get; set; }
+        public static UserAccount CurrentAccount 
+        {
+            get
+            {
+                return _currentAccount;
+            }
+            set
+            {
+                if (_currentAccount != value)
+                {
+                    _currentAccount = value;
+                    if (_currentAccount != null)
+                        _currentAccount.UpdateProgress();
+                }
+            }
+        }
         #endregion
 
         #region Methods

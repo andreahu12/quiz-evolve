@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.DataObjects
 {
@@ -10,6 +11,9 @@ namespace Xamarin.Ecclesia.DataObjects
     {
         #region Fields
         List<QuestionProgress> _progresses { get; set; }
+
+        object _lockObj = new object();
+
         #endregion
 
         #region Properties
@@ -46,6 +50,22 @@ namespace Xamarin.Ecclesia.DataObjects
             if (_progresses == null)
                 return 0;
             return _progresses.Where(f => f.QuizName == quizName).Sum(s => s.Score);
+        }
+
+        public async void UpdateProgress()
+        {
+            var rv = await ParseHelper.ParseData.GetProgressesAsync();
+            if (_progresses == null)
+                _progresses = rv;
+            else
+            {
+                foreach (var progress in rv)
+                {
+                    var oldValue = _progresses.FirstOrDefault(f => f.QuestionID == progress.QuestionID);
+                    if (oldValue == null)
+                        _progresses.Add(progress);
+                }
+            }
         }
         #endregion
     }
