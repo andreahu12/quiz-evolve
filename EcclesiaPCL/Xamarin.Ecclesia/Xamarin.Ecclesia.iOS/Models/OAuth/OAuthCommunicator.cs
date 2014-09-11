@@ -90,7 +90,7 @@ namespace Xamarin.Ecclesia.Auth
             }
             catch (Exception ex)
             {
-                //LogManager.Log(ClassName, new Exception("Was not able to get facebook name", ex));
+                ParseHelper.ParseData.LogException(ex);
             }
             AppSettings.CurrentAccount = user;
             return user != null;
@@ -172,7 +172,7 @@ namespace Xamarin.Ecclesia.Auth
             }
             catch (Exception ex)
             {
-                //System.Console.WriteLine(ex.ToString());
+                ParseHelper.ParseData.LogException(ex);
             }
             AppSettings.CurrentAccount = user;
             return user!=null;

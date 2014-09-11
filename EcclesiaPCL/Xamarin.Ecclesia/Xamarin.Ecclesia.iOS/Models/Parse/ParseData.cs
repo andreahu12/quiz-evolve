@@ -6,7 +6,7 @@ using Xamarin.Ecclesia.DataObjects;
 using Parse;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.Settings;
-using Xamarin.Ecclesia.DataObjects;
+using System.Runtime.CompilerServices;
 
 namespace Xamarin.Ecclesia.Parse
 {
@@ -33,7 +33,7 @@ namespace Xamarin.Ecclesia.Parse
             }
             catch (Exception ex)
             {
-                var t = ex.Message;
+                ParseHelper.ParseData.LogException(ex);
                 SaveLocal("");
                 return null;
             }
@@ -59,14 +59,14 @@ namespace Xamarin.Ecclesia.Parse
             }
             catch (ParseException p)
             {
-                //TODO: Log it
+                ParseHelper.ParseData.LogException(p);
                 var t = p.Message;
 
                 isRegistered = true;
             }
             catch (Exception a)
             {
-                //TODO: Log it
+                ParseHelper.ParseData.LogException(a);
 				var t = a.Message;
             }
             
@@ -192,6 +192,26 @@ namespace Xamarin.Ecclesia.Parse
             progress.IsAnswered = Convert.ToBoolean(parseObject["is_answered"]);
             progress.TimeElapsed = Convert.ToInt32(parseObject["time_elapsed"]);
             return progress;
+        }
+        #endregion
+
+        #region Logs
+        public void LogException(Exception ex)
+        {
+            var parseEx = new ParseObject("ExceptionLog");
+            parseEx["message"] = ex.Message;
+            parseEx["trace"] = ex.StackTrace;
+            parseEx["user"] = string.IsNullOrEmpty(AppSettings.AccountEmail) ? "uncknown" : AppSettings.AccountEmail;
+            parseEx.SaveAsync();
+        }
+
+        public void LogMessage(string message, [CallerMemberName] string from=null)
+        {
+            var parseEx = new ParseObject("MessageLog");
+            parseEx["message"] = message;
+            parseEx["from"] = from;
+            parseEx["user"] = string.IsNullOrEmpty(AppSettings.AccountEmail) ? "uncknown" : AppSettings.AccountEmail;
+            parseEx.SaveAsync();
         }
         #endregion
     }

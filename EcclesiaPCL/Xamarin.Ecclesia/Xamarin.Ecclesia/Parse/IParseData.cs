@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.DataObjects;
@@ -23,6 +24,11 @@ namespace Xamarin.Ecclesia.Parse
         #region Progress
         Task<List<QuestionProgress>> GetProgressesAsync();
         void SaveProgress(QuestionProgress progress);
+        #endregion
+
+        #region Logs
+        void LogException(Exception ex);
+        void LogMessage(string message, [CallerMemberName] string from = null);
         #endregion
     }
 }
