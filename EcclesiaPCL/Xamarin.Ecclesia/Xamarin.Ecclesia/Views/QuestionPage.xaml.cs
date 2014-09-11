@@ -42,6 +42,7 @@ namespace Xamarin.Ecclesia.Views
             if (CommonActions.ActiveQuestion.HasNextQuestion)
             {
                 CommonActions.ActiveQuestion = CommonActions.ActiveQuestion.NextQuestion;
+                await Navigation.PopAsync();
                 await Navigation.PushAsync(new QuestionPage());
             }
         }

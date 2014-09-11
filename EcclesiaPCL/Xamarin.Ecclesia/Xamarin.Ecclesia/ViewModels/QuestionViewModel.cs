@@ -165,8 +165,10 @@ namespace Xamarin.Ecclesia.ViewModels
 
             AddChildRandomly(new AnswerViewModel(1,question.AnswerA));
             AddChildRandomly(new AnswerViewModel(2, question.AnswerB));
-            AddChildRandomly(new AnswerViewModel(3, question.AnswerC));
-            AddChildRandomly(new AnswerViewModel(4, question.AnswerD));
+            if (!string.IsNullOrEmpty(question.AnswerC))
+                AddChildRandomly(new AnswerViewModel(3, question.AnswerC));
+            if (!string.IsNullOrEmpty(question.AnswerD))
+                AddChildRandomly(new AnswerViewModel(4, question.AnswerD));
         }
 
         public override void ClearChildren()
