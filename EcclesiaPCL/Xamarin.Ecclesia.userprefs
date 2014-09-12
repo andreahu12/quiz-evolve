@@ -8,7 +8,7 @@
       <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuestionPage.xaml.cs" Line="10" Column="10" />
       <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/ViewModels/QuizViewModel.cs" Line="20" Column="20" />
       <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizPage.xaml" Line="67" Column="67" />
-      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizzesPage.xaml" Line="16" Column="16" />
+      <File FileName="Xamarin.Ecclesia/Xamarin.Ecclesia/Views/QuizzesPage.xaml" Line="5" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
