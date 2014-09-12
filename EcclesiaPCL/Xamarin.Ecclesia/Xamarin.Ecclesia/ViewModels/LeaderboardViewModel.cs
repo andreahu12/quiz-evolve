@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.Ecclesia.ViewModels
 {
-    public class QuizViewModel:ParentViewModel
+    public class LeaderboardViewModel:ParentViewModel
     {
         #region Constructor
         
@@ -22,19 +22,17 @@ namespace Xamarin.Ecclesia.ViewModels
         /// Quiz from parse data
         /// </summary>
         /// <param name="data"></param>
-        public QuizViewModel(Quiz quiz)
+        public LeaderboardViewModel(Quiz quiz)
             : base()
         {
             Title = "Quiz";
             BackgroundColor = AppSettings.PageBackgroundColor;
             _quiz = quiz;
-            _leaderboard = AppSettings.CurrentAccount.GetLeaderboardForQuiz(quiz.Name);
         }
         #endregion
 
         #region Fields
         Quiz _quiz;
-        LeaderboardEntry _leaderboard;
         #endregion
 
         #region Properties
@@ -61,31 +59,18 @@ namespace Xamarin.Ecclesia.ViewModels
 
         #region Methods
         
-        public async void LoadQuestionsFromParse()
+        public async void LoadLeaderboardsFromParse()
         {
             if (Children != null && Children.Any())
                 ClearChildren();
-            var quizData = await ParseHelper.ParseData.GetQuestionsAsync(Name);
+            var leaderboardsData = await ParseHelper.ParseData.GetQuizLeaderboardsAsync(Name);
 
-            foreach (var question in quizData)
+            foreach (var leaderboard in leaderboardsData)
             {
-                AddChild(new QuestionViewModel(question));
+                AddChild(new LeaderboardItemViewModel(leaderboard));
             }
         }
 
-        public override void ClearChildren()
-        {
-            foreach (QuestionViewModel vm in Children)
-                vm.ClearChildren();
-            base.ClearChildren();
-        }
-
-        public void SaveLeaderboard()
-        {
-            //this recalculates score
-            var t =Score;
-            ParseHelper.ParseData.SaveLeaderboard(_leaderboard);
-        }
         #endregion
     }
 }

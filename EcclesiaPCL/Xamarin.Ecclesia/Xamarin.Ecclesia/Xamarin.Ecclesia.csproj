@@ -36,6 +36,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Auth\AuthHelper.cs" />
     <Compile Include="Auth\IOAuthCommunicator.cs" />
+    <Compile Include="DataObjects\LeaderboardEntry.cs" />
     <Compile Include="DataObjects\QuizQuestion.cs" />
     <Compile Include="DataObjects\Quiz.cs" />
     <Compile Include="Parse\IParseData.cs" />
@@ -47,6 +48,9 @@
     <Compile Include="Utils\CommonActions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\AnswerViewModel.cs" />
+    <Compile Include="ViewModels\LeaderboardItemViewModel.cs" />
+    <Compile Include="ViewModels\LeaderboardViewModel.cs" />
+    <Compile Include="ViewModels\LeaderboardsViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\QuizViewModel.cs" />
     <Compile Include="ViewModels\ParentViewModel.cs" />
@@ -57,6 +61,12 @@
     <Compile Include="ViewModels\EcclesiaViewModel.cs" />
     <Compile Include="ViewModels\ViewModelProvider.cs" />
     <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\LeaderboardPage.xaml.cs">
+      <DependentUpon>LeaderboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LeaderboardsPage.xaml.cs">
+      <DependentUpon>LeaderboardsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
@@ -151,5 +161,16 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LeaderboardsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\LeaderboardPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

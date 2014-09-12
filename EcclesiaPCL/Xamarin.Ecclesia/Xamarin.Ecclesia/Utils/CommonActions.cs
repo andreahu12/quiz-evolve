@@ -22,6 +22,7 @@ namespace Xamarin.Ecclesia.Utils
         #region Fields
         static QuizViewModel _activeQuiz;
         static QuestionViewModel _activeQuestion;
+        static LeaderboardViewModel _activeLeaderboard;
         #endregion
 
         #region Properties
@@ -59,6 +60,21 @@ namespace Xamarin.Ecclesia.Utils
                         _activeQuestion.ClearChildren();
                     }
                     _activeQuestion = value;
+                }
+            }
+        }
+
+        public static LeaderboardViewModel ActiveLeaderboard
+        {
+            get
+            {
+                return _activeLeaderboard;
+            }
+            set
+            {
+                if (_activeLeaderboard != value)
+                {
+                    _activeLeaderboard = value;
                 }
             }
         }

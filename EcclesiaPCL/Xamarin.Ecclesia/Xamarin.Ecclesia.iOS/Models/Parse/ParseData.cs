@@ -152,7 +152,7 @@ namespace Xamarin.Ecclesia.Parse
         }
         #endregion
 
-        #region Progresses
+        #region Scoring
         public async Task<List<QuestionProgress>> GetProgressesAsync()
         {
             var query = ParseObject.GetQuery("QuestionProgress").WhereEqualTo("user_id", AppSettings.CurrentAccount.ID);
@@ -167,8 +167,15 @@ namespace Xamarin.Ecclesia.Parse
             return rv;
         }
 
-        public void SaveProgress(QuestionProgress progress)
+        public async void SaveProgress(QuestionProgress progress)
         {
+            if (string.IsNullOrEmpty(progress.ID))
+            {
+                var query = ParseObject.GetQuery("QuestionProgress").WhereEqualTo("question_id", progress.QuestionID).WhereEqualTo("user_id", AppSettings.CurrentAccount.ID);
+                var oldProgress = await query.FirstOrDefaultAsync();
+                if (oldProgress != null)
+                    progress.ID = oldProgress.ObjectId;
+            }
             var parseQuestion = new ParseObject("QuestionProgress");
             parseQuestion.ObjectId=progress.ID;
             parseQuestion["user_id"] = AppSettings.CurrentAccount.ID;
@@ -178,7 +185,7 @@ namespace Xamarin.Ecclesia.Parse
             parseQuestion["answers"] = progress.Answers;
             parseQuestion["is_answered"] = progress.IsAnswered;
             parseQuestion["time_elapsed"] = progress.TimeElapsed;
-            parseQuestion.SaveAsync();
+            await parseQuestion.SaveAsync();
         }
 
         QuestionProgress ProgressFromParseObject(ParseObject parseObject)
@@ -193,6 +200,64 @@ namespace Xamarin.Ecclesia.Parse
             progress.TimeElapsed = Convert.ToInt32(parseObject["time_elapsed"]);
             return progress;
         }
+
+        public async Task<List<LeaderboardEntry>> GetMyLeaderboardsAsync()
+        {
+            var query = ParseObject.GetQuery("Leaderboards").WhereEqualTo("user_id", AppSettings.CurrentAccount.ID);
+            var objects = await query.FindAsync();
+
+            var rv = new List<LeaderboardEntry>();
+            foreach (var t in objects)
+            {
+                rv.Add(LeaderboardFromParseObject(t));
+            }
+
+            return rv;
+        }
+
+        public async Task<List<LeaderboardEntry>> GetQuizLeaderboardsAsync(string quizName)
+        {
+            var query = ParseObject.GetQuery("Leaderboards").WhereEqualTo("quiz_name", quizName).OrderBy("Score"); ;
+            var objects = await query.FindAsync();
+
+            var rv = new List<LeaderboardEntry>();
+            foreach (var t in objects)
+            {
+                rv.Add(LeaderboardFromParseObject(t));
+            }
+
+            return rv;
+        }
+
+        public async void SaveLeaderboard(LeaderboardEntry leaderboard)
+        {
+            if (string.IsNullOrEmpty(leaderboard.ID) )
+            {
+                var query = ParseObject.GetQuery("Leaderboards").WhereEqualTo("quiz_name", leaderboard.QuizName).WhereEqualTo("user_id", AppSettings.CurrentAccount.ID);
+                var oldLeaderboard = await query.FirstOrDefaultAsync();
+                if (oldLeaderboard != null)
+                    leaderboard.ID = oldLeaderboard.ObjectId;
+            }
+            var parseLeaderboard = new ParseObject("Leaderboards");
+            parseLeaderboard.ObjectId = leaderboard.ID;
+            parseLeaderboard["user_id"] = AppSettings.CurrentAccount.ID;
+            parseLeaderboard["quiz_name"] = leaderboard.QuizName;
+            parseLeaderboard["score"] = leaderboard.Score;
+            parseLeaderboard["user_name"] = AppSettings.CurrentAccount.FullName;
+            
+            await parseLeaderboard.SaveAsync();
+        }
+
+        LeaderboardEntry LeaderboardFromParseObject(ParseObject parseObject)
+        {
+            var leaderboard = new LeaderboardEntry();
+            leaderboard.ID = parseObject.ObjectId;
+            leaderboard.QuizName = parseObject["quiz_name"].ToString();
+            leaderboard.UserName = parseObject["user_name"].ToString();
+            leaderboard.Score = Convert.ToInt32(parseObject["score"]);
+            return leaderboard;
+        }
+
         #endregion
 
         #region Logs

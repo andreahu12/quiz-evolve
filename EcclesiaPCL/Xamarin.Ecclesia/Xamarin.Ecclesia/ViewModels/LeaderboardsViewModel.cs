@@ -12,12 +12,13 @@ using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.ViewModels
 {
-    public class QuizGroupViewModel:ParentViewModel
+    public class LeaderboardsViewModel:ParentViewModel
     {
         #region Constructor
-        public QuizGroupViewModel():base()
+        public LeaderboardsViewModel()
+            : base()
         {
-            Title = "Quizzes";
+            Title = "Leaderboards";
             BackgroundColor = AppSettings.PageBackgroundColor;
             LoadQuizzesFromParse();
         }
@@ -40,7 +41,7 @@ namespace Xamarin.Ecclesia.ViewModels
             var quizzes = await ParseHelper.ParseData.GetQuizzesAsync();
             foreach (var quiz in quizzes)
             {
-                AddChild(new QuizViewModel(quiz));
+                AddChild(new LeaderboardViewModel(quiz));
             }
         }
         #endregion

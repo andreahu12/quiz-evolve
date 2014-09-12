@@ -102,7 +102,10 @@ namespace Xamarin.Ecclesia.Settings
                 {
                     _currentAccount = value;
                     if (_currentAccount != null)
+                    {
+                        _currentAccount.UpdateLeaderboards();
                         _currentAccount.UpdateProgress();
+                    }
                 }
             }
         }

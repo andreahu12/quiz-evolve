@@ -20,7 +20,7 @@
         <Button Text="Leaderboards"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-             />
+            Clicked="OnLeaderboardsClicked"/>
         <Button Text="My Info"
             HorizontalOptions="Center"
             VerticalOptions="Center"

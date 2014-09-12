@@ -157,6 +157,7 @@ namespace Xamarin.Ecclesia.ViewModels
             var isAnswered= CorrectAnswerID == answerId;
             _stopTimer = true;
             _progress.SetAnswer(isAnswered);
+            ((QuizViewModel)Parent).SaveLeaderboard();
             return isAnswered;
         }
 

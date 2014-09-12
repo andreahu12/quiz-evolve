@@ -21,9 +21,13 @@ namespace Xamarin.Ecclesia.Parse
         Task<List<QuizQuestion>> GetQuestionsAsync(string quizName);
         #endregion
 
-        #region Progress
+        #region Scoring
         Task<List<QuestionProgress>> GetProgressesAsync();
         void SaveProgress(QuestionProgress progress);
+
+        Task<List<LeaderboardEntry>> GetMyLeaderboardsAsync();
+        Task<List<LeaderboardEntry>> GetQuizLeaderboardsAsync(string quizName);
+        void SaveLeaderboard(LeaderboardEntry leaderboard);
         #endregion
 
         #region Logs

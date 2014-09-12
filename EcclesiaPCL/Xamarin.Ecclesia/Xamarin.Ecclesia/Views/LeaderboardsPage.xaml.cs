@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Ecclesia.Utils;
 using Xamarin.Ecclesia.ViewModels;
 using Xamarin.Forms;
 
 namespace Xamarin.Ecclesia.Views
 {
-    public partial class MainMenuPage:BaseView
+    public partial class LeaderboardsPage : BaseView
     {
-        public MainMenuPage()
+        public LeaderboardsPage()
         {
             //Initialize UI
             InitializeComponent();
             //Set viewmodel
-            BindingContext = ViewModelProvider.GetViewModel<MainMenuViewModel>();
-
+            BindingContext = ViewModelProvider.GetViewModel<LeaderboardsViewModel>();
         }
 
         #region Navigation
@@ -33,17 +33,12 @@ namespace Xamarin.Ecclesia.Views
         #endregion
 
         #region Controls Handlers
-        async void OnQuizzesClicked(object sender, EventArgs args)
+                
+        async public void ItemTapped(object sender, ItemTappedEventArgs args)
         {
-            await Navigation.PushAsync(new QuizzesPage());
-        }
-        async void OnHelpClicked(object sender, EventArgs args)
-        {
-            await Navigation.PushAsync(new InstructionsPage());
-        }
-        async void OnLeaderboardsClicked(object sender, EventArgs args)
-        {
-            await Navigation.PushAsync(new LeaderboardsPage());
+            var leaderboard = args.Item as LeaderboardViewModel;
+            CommonActions.ActiveLeaderboard = leaderboard;
+            await Navigation.PushAsync(new LeaderboardPage());
         }
         #endregion
     }
