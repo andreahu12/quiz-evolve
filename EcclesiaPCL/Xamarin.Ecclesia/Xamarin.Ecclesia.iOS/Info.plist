@@ -24,7 +24,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>by.sanet.testapp</string>
 	<key>CFBundleVersion</key>
-	<string>7.0</string>
+	<string>8.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>NSMainNibFile</key>
