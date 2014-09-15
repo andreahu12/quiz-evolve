@@ -24,7 +24,7 @@
         <Button Text="My Info"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-             />
+            Clicked="OnMyInfoClicked"/>
         <Button Text="Help"
             HorizontalOptions="Center"
             VerticalOptions="Center"

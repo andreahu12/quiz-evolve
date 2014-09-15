@@ -19,6 +19,8 @@ namespace Xamarin.Ecclesia.Settings
         public static Color PageBackgroundColor = Color.Transparent;
 
         static UserAccount _currentAccount;
+
+        public static Random Rnd = new Random();
         #endregion
 
         #region Properties

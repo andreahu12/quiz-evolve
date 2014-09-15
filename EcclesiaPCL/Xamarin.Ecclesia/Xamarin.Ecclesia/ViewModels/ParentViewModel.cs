@@ -77,7 +77,7 @@ namespace Xamarin.Ecclesia.ViewModels
         {
             if (!_children.Contains(child))
             {
-                if (Rnd.Next(3) > 3)
+                if (AppSettings.Rnd.Next(3) > 1)
                     _children.Add(child);
                 else
                     _children.Insert(0,child);

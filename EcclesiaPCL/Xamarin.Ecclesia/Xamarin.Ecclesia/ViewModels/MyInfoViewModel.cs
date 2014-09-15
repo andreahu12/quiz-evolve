@@ -12,12 +12,13 @@ using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.ViewModels
 {
-    public class QuizGroupViewModel :QuizDataBaseViewModel
+    public class MyInfoViewModel : QuizDataBaseViewModel
     {
         #region Constructor
-        public QuizGroupViewModel():base()
+        public MyInfoViewModel()
+            : base()
         {
-            Title = "Quizzes";
+            Title = "MyInfo";
             BackgroundColor = AppSettings.PageBackgroundColor;
         }
         #endregion
@@ -27,6 +28,23 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Properties
+
+        public string Name
+        {
+            get
+            {
+                return AppSettings.CurrentAccount.FullName;
+            }
+        }
+
+        public ImageSource Avatar
+        {
+            get
+            {
+                return ImageSource.FromUri(new Uri(AppSettings.CurrentAccount.ImageUrl));
+            }
+        }
+
         #endregion
 
         #region Methods

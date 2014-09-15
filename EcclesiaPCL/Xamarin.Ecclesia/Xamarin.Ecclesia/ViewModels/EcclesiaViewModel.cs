@@ -14,7 +14,6 @@ namespace Xamarin.Ecclesia.ViewModels
         #region Fields
         string _title;
 
-        protected Random Rnd = new Random(); 
         Color _backgroundColor;
         #endregion
 

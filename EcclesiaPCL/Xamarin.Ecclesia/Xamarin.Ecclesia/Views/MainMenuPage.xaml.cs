@@ -45,6 +45,10 @@ namespace Xamarin.Ecclesia.Views
         {
             await Navigation.PushAsync(new LeaderboardsPage());
         }
+        async void OnMyInfoClicked(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new MyInfoPage());
+        }
         #endregion
     }
 }
