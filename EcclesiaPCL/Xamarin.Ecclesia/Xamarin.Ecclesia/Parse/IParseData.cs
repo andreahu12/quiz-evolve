@@ -12,7 +12,7 @@ namespace Xamarin.Ecclesia.Parse
     {
         #region Users
         UserAccount GetCurrentAccount();
-        Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName);
+        Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName, string imageUrl);
         Task<UserAccount> SigInAccountAsync(string email);
         #endregion
 

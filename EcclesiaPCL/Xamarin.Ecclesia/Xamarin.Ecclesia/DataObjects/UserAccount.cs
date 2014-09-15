@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.DataObjects
 {
+    [DataContract]
     public class UserAccount
     {
         #region Fields
@@ -17,7 +21,9 @@ namespace Xamarin.Ecclesia.DataObjects
         #endregion
 
         #region Properties
+        [DataMember(Name = "first_name")]
         public string FirstName { get; set; }
+        [DataMember(Name = "last_name")]
         public string LastName { get; set; }
         public string FullName
         {
@@ -26,7 +32,11 @@ namespace Xamarin.Ecclesia.DataObjects
                 return string.Format("{0} {1}", FirstName, LastName);
             }
         }
+        [DataMember(Name = "id")]
         public string ID { get; set; }
+        [DataMember(Name = "image_url")]
+        public string ImageUrl { get; set; }
+
         #endregion
 
         #region Methods
@@ -122,6 +132,24 @@ namespace Xamarin.Ecclesia.DataObjects
                         oldValue.Score = leaderboard.Score;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(UserAccount));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                js.WriteObject(ms, this);
+                ms.Position = 0;
+                StreamReader sr = new StreamReader(ms);
+                return sr.ReadToEnd();
+            }
+        }
+
+        public void Save()
+        {
+            var data = ToString();
+            var d = data;
         }
         #endregion
     }

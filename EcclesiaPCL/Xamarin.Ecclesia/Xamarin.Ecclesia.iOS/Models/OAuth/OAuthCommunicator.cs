@@ -82,11 +82,12 @@ namespace Xamarin.Ecclesia.Auth
                 str = response.GetResponseText();
 #endif
                 var obj = JsonValue.Parse(str);
-
+                var id = obj["id"];
 				var email = obj["email"];
                 var firstName = obj["first_name"];
                 var lastName = obj["last_name"];
-                user = await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
+                var imageUrl = string.Format("http://graph.facebook.com/{0}/picture?type=square", id).Replace("\"","");
+                user = await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName,imageUrl);
             }
             catch (Exception ex)
             {
@@ -163,10 +164,11 @@ namespace Xamarin.Ecclesia.Auth
                             System.Console.Out.WriteLine(content);
                         }
                         var obj = JsonValue.Parse(content);
-                        var email = obj["email"];
+                        var email = obj["emailAddress"];
                         var firstName = obj["firstName"];
                         var lastName = obj["lastName"];
-                        user =await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName);
+                        var imageUrl = obj["pictureUrl"];
+                        user =await ParseHelper.ParseData.RegisterAccountAsync(email, firstName, lastName,imageUrl);
                     }
                 }
             }

@@ -39,7 +39,7 @@ namespace Xamarin.Ecclesia.Parse
             }
         }
         
-        public async Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName)
+        public async Task<UserAccount> RegisterAccountAsync(string email, string firstName, string lastName, string imageUrl)
         {
             bool isRegistered = false;
 
@@ -52,6 +52,7 @@ namespace Xamarin.Ecclesia.Parse
 
             user["first_name"] = firstName;
             user["last_name"] = lastName;
+            user["image_url"] = imageUrl;
             SaveLocal(email);
             try
             {
@@ -69,11 +70,21 @@ namespace Xamarin.Ecclesia.Parse
                 ParseHelper.ParseData.LogException(a);
 				var t = a.Message;
             }
-            
+            UserAccount rv;
             if (isRegistered)
-                return await SigInAccountAsync(email);
+            {
+                rv = await SigInAccountAsync(email);
+                if (!string.IsNullOrEmpty(imageUrl) && rv.ImageUrl != imageUrl)
+                    rv.ImageUrl = imageUrl;
+                if (!string.IsNullOrEmpty(firstName) && rv.FirstName != firstName)
+                    rv.FirstName = firstName;
+                if (!string.IsNullOrEmpty(lastName) && rv.LastName != lastName)
+                    rv.LastName = lastName;
+            }
             else
-                return AccountFromParseUser(user);
+                rv = AccountFromParseUser(user);
+
+            return rv;
         }
 
         UserAccount AccountFromParseUser(ParseUser parseUser)
@@ -81,6 +92,7 @@ namespace Xamarin.Ecclesia.Parse
             var account = new UserAccount();
             account.FirstName = parseUser["first_name"].ToString();
             account.LastName = parseUser["last_name"].ToString();
+            account.ImageUrl = parseUser["image_url"].ToString();
             account.ID = parseUser.ObjectId;
             return account;
         }

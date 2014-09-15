@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Ecclesia.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Ecclesia.WinPhone", "Xamarin.Ecclesia\Xamarin.Ecclesia.WinPhone\Xamarin.Ecclesia.WinPhone.csproj", "{579151C9-273F-4BC0-B0F3-D2756B99B1C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{E6CC9905-373F-4246-857A-717CEC243FBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseQuestionsUpdater", "ParseQuestionsUpdater\ParseQuestionsUpdater.csproj", "{0F76FF5A-D606-4977-B030-FCF7422F0B8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -201,9 +205,44 @@ Global
 		{579151C9-273F-4BC0-B0F3-D2756B99B1C0}.Release|x86.ActiveCfg = Release|x86
 		{579151C9-273F-4BC0-B0F3-D2756B99B1C0}.Release|x86.Build.0 = Release|x86
 		{579151C9-273F-4BC0-B0F3-D2756B99B1C0}.Release|x86.Deploy.0 = Release|x86
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F76FF5A-D606-4977-B030-FCF7422F0B8C} = {E6CC9905-373F-4246-857A-717CEC243FBF}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Xamarin.Ecclesia\Xamarin.Ecclesia.iOS\Xamarin.Ecclesia.iOS.csproj
