@@ -34,7 +34,7 @@ namespace Xamarin.Ecclesia.ViewModels
         /// <summary>
         /// Loads quizzes data from parse.com database
         /// </summary>
-        async void LoadQuizzesFromParse()
+        protected async virtual void LoadQuizzesFromParse()
         {
             var quizzes = await ParseHelper.ParseData.GetQuizzesAsync();
             foreach (var quiz in quizzes)

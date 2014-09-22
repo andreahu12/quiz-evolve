@@ -31,7 +31,15 @@ namespace Xamarin.Ecclesia.ViewModels
         #endregion
 
         #region Methods
-                
+        async override void LoadQuizzesFromParse()
+        {
+            var quizzes = await ParseHelper.ParseData.GetQuizzesAsync();
+            foreach (var quiz in quizzes)
+            {
+                AddChild(new LeaderboardViewModel(quiz));
+            }
+            NotifyPropertyChanged("Children");
+        } 
         #endregion
     }
 }
