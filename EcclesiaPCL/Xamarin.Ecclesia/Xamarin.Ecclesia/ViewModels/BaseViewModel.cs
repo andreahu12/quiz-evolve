@@ -32,7 +32,7 @@ namespace Xamarin.Ecclesia.ViewModels
 
         #region Properties
 
-        public bool IsBusy
+        public virtual bool IsBusy
         {
             get { return _isBusy; }
             set

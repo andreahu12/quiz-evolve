@@ -6,8 +6,13 @@
     BackgroundColor="{Binding BackgroundColor}"
     Title="{Binding Title}">
 
+    <StackLayout
+    >
 
-    <StackLayout>
+    <StackLayout
+       	VerticalOptions="Start" 
+        HorizontalOptions="Center" 
+        IsVisible="{Binding IsMenuVisible}">
         <Label Text="{Binding Title}" 
            VerticalOptions="StartAndExpand" 
            HorizontalOptions="Center" />
@@ -30,6 +35,14 @@
             VerticalOptions="Center"
             Clicked="OnHelpClicked"/>
         </StackLayout>
+		
     </StackLayout>
+    <ActivityIndicator
+		Color="Red" 
+		HorizontalOptions="Center"
+        VerticalOptions="Center"
+		IsRunning="{Binding IsBusy}"
+		IsVisible="{Binding IsBusy}"/>
+</StackLayout>
 
 </BaseView>

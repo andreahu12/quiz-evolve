@@ -12,8 +12,10 @@ namespace Xamarin.Ecclesia
     {
         public static Page GetMainPage()
         {
-            return new NavigationPage( new LoadingPage());
+			RootPage = new NavigationPage( new MainMenuPage());
+			return RootPage;
         }
-               
+           
+		public static Page RootPage{get;private set;}
     }
 }

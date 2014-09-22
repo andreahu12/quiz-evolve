@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Ecclesia.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Ecclesia.Settings;
+using Xamarin.Ecclesia.Parse;
 
 namespace Xamarin.Ecclesia.Views
 {
@@ -23,7 +25,11 @@ namespace Xamarin.Ecclesia.Views
         //Any event handlers attach here before we navigate to thispage
         public override void AttachNavigationEvents()
         {
-            
+			if (AppSettings.CurrentAccount == null) {
+				var vm = GetViewModel<MainMenuViewModel> ();
+				vm.LoadApp ();
+			} else
+				IsBusy = false;
         }
 
         //detach event handlers, on navigating out of the page
@@ -49,6 +55,9 @@ namespace Xamarin.Ecclesia.Views
         {
             await Navigation.PushAsync(new MyInfoPage());
         }
+
+
+
         #endregion
     }
 }

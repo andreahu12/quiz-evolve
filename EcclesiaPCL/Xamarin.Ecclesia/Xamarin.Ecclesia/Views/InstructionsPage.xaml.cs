@@ -35,7 +35,7 @@ namespace Xamarin.Ecclesia.Views
         #region Controls Handlers
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new MainMenuPage());
+			await Navigation.PopToRootAsync();
         }
         #endregion
     }

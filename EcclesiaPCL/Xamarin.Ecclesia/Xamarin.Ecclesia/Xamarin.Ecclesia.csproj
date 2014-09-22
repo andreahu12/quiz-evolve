@@ -72,9 +72,6 @@
     <Compile Include="Views\LeaderboardsPage.xaml.cs">
       <DependentUpon>LeaderboardsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoadingPage.xaml.cs">
-      <DependentUpon>LoadingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\QuestionPage.xaml.cs">
       <DependentUpon>QuestionPage.xaml</DependentUpon>
     </Compile>
@@ -159,12 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\LoadingPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\LeaderboardsPage.xaml">
