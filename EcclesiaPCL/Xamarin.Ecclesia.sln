@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Ecclesia", "Xamarin.Ecclesia\Xamarin.Ecclesia\Xamarin.Ecclesia.csproj", "{5B93EF5A-CB9C-4A1A-AD87-FE01FC4896C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Ecclesia.iOS", "Xamarin.Ecclesia\Xamarin.Ecclesia.iOS\Xamarin.Ecclesia.iOS.csproj", "{D7F8B656-FC57-4C4E-976F-8FC782FB2327}"
